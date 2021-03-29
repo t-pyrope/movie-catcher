@@ -8,13 +8,23 @@ const GlobalStyles = createGlobalStyle`
 }
 
 body {
-    font-family: sans-serif;
-    color: #1C1C1C;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #353535;
+    color: white;
 }
 
 a {
     text-decoration: none;
-    color: #1C1C1C
+    color: white;
+}
+
+h1 {
+    font-family: 'Comfortaa', cursive;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
 }
 
 `

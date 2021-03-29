@@ -12,7 +12,7 @@ const Movie = ({title, poster_path, rating, id}) => {
 
 
     return(
-        <Link to={`./movie/${id}`}>
+        <Link to={`/movie/${id}`}>
         <Card>
             <img src={getPosterHandler()} alt="poster" />
             <div className="desc">

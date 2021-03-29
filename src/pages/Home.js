@@ -8,6 +8,7 @@ import {CarouselProvider, Slider, Slide, ButtonBack, ButtonNext} from 'pure-reac
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+// import {Wrapper} from '../styles';
 
 import Movie from '../components/Movie';
 
@@ -26,19 +27,21 @@ const Home = () => {
 
     const setElementNumberHandler = () => {
         const width = window.window.innerWidth;
-        if (width > 1000){
+        if (width > 1200){
             return 5
-        } else if (width > 768) {
+        } else if (width > 1000) {
+            return 4
+        } else if (width > 900) {
             return 3
-        } else  if (width > 600) {
-            return 2
+        // } else  if (width > 600) {
+        //     return 2
         } else {
-            return 1
+            return 2
         }
     }
     
     return(
-        <div>
+        // <Wrapper>
             <MovieList>
                 <div className="title">
                     <h2>Trending</h2>
@@ -52,15 +55,17 @@ const Home = () => {
                         naturalSlideHeight={100}
                         totalSlides={10}
                         visibleSlides={setElementNumberHandler()}
-                        step={setElementNumberHandler()}>
+                        step={1}
+                        interval={5000}
+                        isPlaying={true}>
                             <Slider>
-                            <Movies>
+                            <CarouselMovies>
                     {trending.slice(0,10).map((movie, index) => 
                         <Slide index={index} key={movie.id}>
                             <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
                         </Slide>
                     )}
-                    </Movies>
+                    </CarouselMovies>
                     </Slider>
                     <div className="controls">
                         <ButtonBack className="button-back"><FontAwesomeIcon icon={faAngleLeft} size="2x" /></ButtonBack>
@@ -68,12 +73,11 @@ const Home = () => {
                     </div>
                     </CarouselProvider>
             </MovieList>
-        </div>
+        // </Wrapper>
     )
 }
 
 const MovieList = styled.div`
-    margin: 1rem 3rem;
     .title {
         padding: 1.5rem 0rem;
         display: flex;
@@ -115,11 +119,11 @@ const MovieList = styled.div`
             width: 40%;
             border: none;
             padding: 0.5rem 2rem;
-            background-color: none;
+            background-color: transparent;
             transition: all 0.4s ease;
 
             &:hover {
-                background-color: #e2e1e1;
+                background-color: #3b3b3b;
             }
 
             &:focus {
@@ -127,26 +131,35 @@ const MovieList = styled.div`
             }
 
             &:active {
-                background-color: #d3d3d3;
+                /* background-color: #424242; */
             }
 
             &:disabled:hover {
-                background-color: white;
+                background-color: #353535;
             }
         }
     }
 `
 
-const Movies = styled.div`
+const CarouselMovies = styled.div`
     min-height: 60vh;
     display: flex;
+    margin: auto;
+    
+    @media (max-width: 900px){
+        width: 65%;
+    }
 
-    @media (max-width: 1300px){
-        width: 90%;
+    @media (max-width: 790px){
+        width: 70%;
+    }
+
+    @media (max-width: 745px){
+        width: 80%;
     }
 
     @media (max-width: 600px){
-        width: 65%;
+        width: 100%;
     }
 
 `
