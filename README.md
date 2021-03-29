@@ -2,6 +2,8 @@
 
 A simple website of movies.
 
+Check how it looks like here: [movie-catcher.netlify.app](https://movie-catcher.netlify.app/)
+
 I'm using a free API-key from [TMDB](https://www.themoviedb.org/)
 
 ### Usage
