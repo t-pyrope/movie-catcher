@@ -11,6 +11,12 @@ body {
     font-family: sans-serif;
     color: #1C1C1C;
 }
+
+a {
+    text-decoration: none;
+    color: #1C1C1C
+}
+
 `
 
 export default GlobalStyles

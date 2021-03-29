@@ -1,5 +1,4 @@
-import {trending} from './api';
-
+import Nav from './components/Nav';
 import Home from './pages/Home';
 import MovieDetail from './components/MovieDetail';
 
@@ -12,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <GlobalStyles />
+      <Nav />
       <Switch location={location} key={location.pathname}>
         <Route path="/" exact>
           <Home />

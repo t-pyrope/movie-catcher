@@ -30,13 +30,15 @@ const Movie = ({title, poster_path, rating, id}) => {
 const Card = styled.div`
     overflow: hidden;
     border-radius: 0.5rem;
-    /* height: 80%; */
     position: relative;
+    margin-right: 1rem;
+    width: auto;
     img {
         width: 100%;
         height: 100%;
         object-position: center;
         object-fit: cover;
+        display: block;
     }
 
     .desc {
@@ -44,17 +46,17 @@ const Card = styled.div`
         bottom: 0;
         background-color: rgba(34,34,34,0.6);
         width: 100%;
-        height: 25%;
+        height: 30%;
         color: white;
-        padding: 1.5rem 1rem;
+        padding: 1rem 1rem;
 
         h4 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 0.5rem;
         }
         .rating {
             display: flex;
-            font-size: 1.2rem;
+            font-size: 0.8rem;
             img {
                 width: 1rem;
                 height: 1rem;
