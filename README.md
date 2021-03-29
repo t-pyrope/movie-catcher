@@ -1,7 +1,8 @@
 # Movie Catcher
 
 A simple website of movies.
-I'm using a free API from [https://www.themoviedb.org/](TMDB)
+
+I'm using a free API from [TMDB](https://www.themoviedb.org/)
 
 ### Usage
 ```
