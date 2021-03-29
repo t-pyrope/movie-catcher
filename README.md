@@ -2,7 +2,7 @@
 
 A simple website of movies.
 
-I'm using a free API from [TMDB](https://www.themoviedb.org/)
+I'm using a free API-key from [TMDB](https://www.themoviedb.org/)
 
 ### Usage
 ```
