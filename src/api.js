@@ -15,10 +15,11 @@ export const searchMovieURL = (movie_name) => `${base_url}search/movie?api_key=$
 export const kidMovieURL = (sort_type) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&with_genres=10751&sort_by=${sort_type}&vote_count.gte=500`;
 
 // /discover/movie/?certification_country=US&certification=R&sort_by=vote_average.desc
-export const adultMovieURL = () => `${base_url}`;
+// /discover/movie/?certification_country=US&certification=R
+export const adultMovieURL = (sort_type) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&certification_country=US&certification=R&sort_by=${sort_type}&vote_count.gte=500`;
 
 export const genresListURL = () => `${base_url}genre/movie/list?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`
 
 // for genres
 // /discover/movie?with_genres=18&sort_by=vote_average.desc&vote_count.gte=10
-export const genreMoviesURL = (genre_id) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&with_genres=${genre_id}&sort_by=popularity.desc&vote_count.gte=1000`
+export const genreMoviesURL = (genre_id) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&with_genres=${genre_id}&sort_by=popularity.desc&vote_count.gte=500`

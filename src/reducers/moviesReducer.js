@@ -3,6 +3,7 @@ const initState = {
     kids: [],
     searched: [],
     genreMovies: [],
+    adults: [],
     isLoading: true,
 }
 
@@ -13,6 +14,7 @@ const moviesReducer = (state=initState, action) => {
                 ...state,
                 trending: action.payload.trending,
                 kids: action.payload.kids,
+                adults: action.payload.adults,
             }
         case "FETCH_SEARCHED":
             return {

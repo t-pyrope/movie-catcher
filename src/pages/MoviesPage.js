@@ -15,13 +15,16 @@ const MoviesPage = () => {
     useEffect(() => {
         dispatch(loadMovies("all", trendPeriod, sortType));
     }, [dispatch, trendPeriod, sortType]);
-    const {trending, kids} = useSelector(state => state.movies);
+    const {trending, kids, adults} = useSelector(state => state.movies);
     const titleHandler = () => {
         if (pathName === "trending"){
             return "Trending"
         };
         if (pathName === "kids"){
             return "Popular Kids Movies"
+        };
+        if (pathName === "adults"){
+            return "R-rated Popular Movies"
         }
     }
 
@@ -32,6 +35,9 @@ const MoviesPage = () => {
         };
         if (pathName === "kids"){
             return kids;
+        }
+        if(pathName === "adults"){
+            return adults;
         }
     }
 

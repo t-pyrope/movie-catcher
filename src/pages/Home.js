@@ -13,7 +13,7 @@ const Home = () => {
     useEffect(() => {
         dispatch(loadMovies("all", trendPeriod, "popularity.desc"))
     }, [dispatch, trendPeriod])
-    const {trending, kids} = useSelector(state => state.movies);
+    const {trending, kids, adults} = useSelector(state => state.movies);
     
     // handlers
     const setTrendPeriodHandler = (e) => {
@@ -34,6 +34,10 @@ const Home = () => {
             <h2>Popular for kids</h2>
             </div>
             <Carousel movies={kids} title={"kids"}/>
+            <div className="title">
+            <h2>R-rated popular movies</h2>
+            </div>
+            <Carousel movies={adults} title={"adults"}/>
         <ScrollTop />
         </MovieList>
         
