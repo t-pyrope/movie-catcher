@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import MovieDetail from './components/MovieDetail';
 import Footer from './components/Footer';
 import SearchPage from './pages/SearchPage';
+import MoviesPage from './pages/MoviesPage';
 import {Wrapper} from './styles';
 import GlobalStyles from './components/GlobalStyles';
 
@@ -24,6 +25,9 @@ function App() {
         </Route>
         <Route path="/search/:id">
           <SearchPage />
+        </Route>
+        <Route path="/:id">
+          <MoviesPage />
         </Route>
       </Switch>
       </Wrapper>

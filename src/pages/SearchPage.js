@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {searchMovie} from '../actions/moviesAction';
 import styled from 'styled-components';
+import {Movies} from '../styles';
 import Movie from '../components/Movie';
 const SearchPage = () => {
     const history = useHistory();
@@ -29,14 +30,5 @@ const SearchPage = () => {
         </div>
     )
 }
-
-const Movies = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-column-gap: 2rem;
-    grid-row-gap: 3rem;
-    /* width: 90%; */
-    margin: auto;
-`
 
 export default SearchPage;
