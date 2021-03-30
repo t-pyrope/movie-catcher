@@ -5,7 +5,6 @@ const base_url = "https://api.themoviedb.org/3/";
 // TIME_WINDOW: day, week
 export const trendingURL = (media_type, time_window, sort_type) => `${base_url}trending/${media_type}/${time_window}?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&sort_by=${sort_type}`;
 
-// console.log(process.env.REACT_APP_MOVIE_API_KEY);
 export const movieDetailURL = (movie_id) => `${base_url}movie/${movie_id}?api_key=${process.env.REACT_APP_MOVIE_API_KEY}`;
 
 
@@ -15,12 +14,10 @@ export const searchMovieURL = (movie_name) => `${base_url}search/movie?api_key=$
 export const kidMovieURL = (sort_type) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&certification_country=US&certification.lte=G&sort_by=${sort_type}&vote_count.gte=1000`;
 
 // /discover/movie/?certification_country=US&certification=R&sort_by=vote_average.desc
-export const adultMovieURL = () => `${base_url}`
+export const adultMovieURL = () => `${base_url}`;
 
-// ?sort_by=popularity.desc
+export const genresListURL = () => `${base_url}genre/movie/list?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`
 
-// &sort_by=vote_average.desc
-
-// &sort_by=release_date.desc
-
-//
+// for genres
+// /discover/movie?with_genres=18&sort_by=vote_average.desc&vote_count.gte=10
+export const genreMoviesURL = (genre_id) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&with_genres=${genre_id}&sort_by=popularity.desc&vote_count.gte=1000`

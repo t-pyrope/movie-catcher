@@ -5,42 +5,39 @@ import {Movies} from '../styles';
 import Movie from '../components/Movie';
 import {loadMovies} from '../actions/moviesAction';
 import styled from 'styled-components';
+import ScrollTop from '../components/ScrollTop';
 
 const MoviesPage = () => {
     const history = useHistory();
+    const pathName = history.location.pathname.split("/")[1];
     const [trendPeriod, setTrendPeriod] = useState("day");
     const [sortType, setSortType] = useState("popularity.desc");
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(loadMovies("all", trendPeriod, sortType));
-        console.log("Hello")
     }, [dispatch, trendPeriod, sortType]);
     const {trending, kids} = useSelector(state => state.movies);
-
     const titleHandler = () => {
-        const pageName = history.location.pathname.split("/")[1];
-        if (pageName === "trending"){
+        if (pathName === "trending"){
             return "Trending"
         };
-        if (pageName === "kids"){
+        if (pathName === "kids"){
             return "Popular Kids Movies"
         }
     }
 
 
     const arrHandler = () => {
-        const pageName = history.location.pathname.split("/")[1];
-        if(pageName === "trending"){
+        if(pathName === "trending"){
             return trending
         };
-        if (pageName === "kids"){
+        if (pathName === "kids"){
             return kids;
-        } 
+        }
     }
 
     const setSortTypeHandler = (e) => {
         setSortType(e.target.value);
-        console.log(sortType);
     }
 
     return(
@@ -62,6 +59,7 @@ const MoviesPage = () => {
                 )}
             </Movies>
         )}
+        <ScrollTop />
     </div>
     )
 }

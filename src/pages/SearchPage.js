@@ -2,9 +2,11 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {searchMovie} from '../actions/moviesAction';
-import styled from 'styled-components';
 import {Movies} from '../styles';
+import ScrollTop from '../components/ScrollTop';
 import Movie from '../components/Movie';
+
+
 const SearchPage = () => {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const SearchPage = () => {
                     )}
                 </Movies>
             )}
+            <ScrollTop />
         </div>
     )
 }

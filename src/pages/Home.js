@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
 import { loadMovies } from '../actions/moviesAction';
+import ScrollTop from '../components/ScrollTop';
 
 import styled from 'styled-components';
 import Carousel from '../components/Carousel';
@@ -33,6 +34,7 @@ const Home = () => {
             <h2>Popular for kids</h2>
             </div>
             <Carousel movies={kids} title={"kids"}/>
+        <ScrollTop />
         </MovieList>
         
     )

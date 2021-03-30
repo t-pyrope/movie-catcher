@@ -35,6 +35,7 @@ select {
 
 button {
     font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
 }
 
 select {

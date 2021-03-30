@@ -4,6 +4,7 @@ import MovieDetail from './components/MovieDetail';
 import Footer from './components/Footer';
 import SearchPage from './pages/SearchPage';
 import MoviesPage from './pages/MoviesPage';
+import GenresPage from './pages/GenresPage';
 import {Wrapper} from './styles';
 import GlobalStyles from './components/GlobalStyles';
 
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/search/:id">
           <SearchPage />
+        </Route>
+        <Route path="/genres/:id">
+          <GenresPage />
         </Route>
         <Route path="/:id">
           <MoviesPage />

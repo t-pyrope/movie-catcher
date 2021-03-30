@@ -1,10 +1,9 @@
 import axios from 'axios';
-import {trendingURL, searchMovieURL, kidMovieURL} from '../api';
+import {trendingURL, searchMovieURL, kidMovieURL, genreMoviesURL} from '../api';
 
 export const loadMovies = (media_type, time_window, sort_type) => async(dispatch) => {
-    const trendingData = await axios.get(trendingURL(media_type, time_window, sort_type));
-    console.log(trendingURL(media_type, time_window, sort_type));
     
+    const trendingData = await axios.get(trendingURL(media_type, time_window, sort_type));
     const kidData = await axios.get(kidMovieURL(sort_type));
     dispatch({
         type: "FETCH_MOVIES",
@@ -22,5 +21,17 @@ export const searchMovie = (movie_name) => async (dispatch) => {
         payload: {
             searched: searchData.data.results,
         }
+    })
+}
+
+export const loadGenreMovies = (genre_id) => async (dispatch) => {
+    dispatch({type: "LOADING_DETAIL"});
+
+    const genreMoviesData = await axios.get(genreMoviesURL(genre_id));
+    dispatch({
+        type: "LOAD_GENRE_MOVIES",
+        payload: {
+            genreMovies: genreMoviesData.data.results
+        },
     })
 }

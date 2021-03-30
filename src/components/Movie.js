@@ -6,19 +6,16 @@ import noPoster from '../img/no-poster.png';
 import star from '../img/star.png';
 
 const Movie = ({title, poster_path, rating, id}) => {
-    
-    const getPosterHandler = () => {
-        // if(`https://image.tmdb.org/t/p/w500${poster_path}` === null) {
-        //     return noPoster;
-        // }
-        return `https://image.tmdb.org/t/p/w500${poster_path}`;
+
+    const addDefaultSrcHandler = (e) => {
+        e.target.src = noPoster
     }
 
 
     return(
         <Link to={`/movie/${id}`}>
         <Card>
-            <img src={getPosterHandler()} alt="poster" className="poster" />
+            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
             <div className="desc">
                 <h4>{title}</h4>
                 <div className="rating">

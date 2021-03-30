@@ -70,7 +70,7 @@ const CarouselStyled = styled.div`
         justify-content: center;;
 
         button {
-            width: 40%;
+            width: 20%;
             border: none;
             padding: 0.5rem 2rem;
             background-color: transparent;
@@ -98,6 +98,8 @@ const CarouselStyled = styled.div`
             font-weight: bold;
             width: 100%;
             height: 100%;
+            flex: 1;
+            padding: 1rem 3rem;
         }
 
         @media (max-width: 768px){
