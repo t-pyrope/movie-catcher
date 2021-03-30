@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Movies} from '../styles';
+import {Movies, MovieHeader} from '../styles';
 import Movie from '../components/Movie';
 import {loadGenreMovies} from '../actions/moviesAction';
-import styled from 'styled-components';
 import ScrollTop from '../components/ScrollTop';
 import loadGenres from '../actions/genresAction';
 
@@ -52,12 +51,5 @@ const GenresPage = () => {
     </>
     )
 };
-
-const MovieHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    align-items: flex-start;
-`;
 
 export default GenresPage;

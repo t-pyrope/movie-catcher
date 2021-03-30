@@ -12,3 +12,10 @@ export const Movies = styled.div`
     grid-row-gap: 3rem;
     margin: auto;
 `;
+
+export const MovieHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+`;

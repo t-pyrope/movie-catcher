@@ -37,6 +37,10 @@ const Nav = () => {
             e.target.style.opacity = 0;
             e.target.style.pointerEvents = "none";
         }
+        if(e.target.classList.contains("genres")){
+            e.target.children[0].style.opacity = 0;
+            e.target.children[0].pointerEvents = "none";
+        }
     }
 
     const genreSelectHandler = (e) => {
@@ -50,9 +54,9 @@ const Nav = () => {
         <NavStyled>
             <h1><Link to="/">Movie catcher</Link></h1>
                 <ul>
-                    <li className="genres" onClick={openGenreListHandler}>Genres
+                    <li className="genres" onClick={openGenreListHandler} onMouseLeave={closeGenreListHandler}>Genres
                     {!isLoading && (
-                        <GenreList onMouseLeave={closeGenreListHandler} className="genre-list">
+                        <GenreList className="genre-list">
                             {genres.map((genre) => (
                                 <p key={genre.id} id={genre.id} onClick={genreSelectHandler}>{genre.name}</p>
                             ))}
@@ -113,6 +117,7 @@ const NavStyled = styled.nav`
     li {
         margin-right: 1rem;
         padding: 0.5rem 1rem 0rem 1rem;
+        cursor: pointer;
         &:hover {
             background-color: #252525;
         }
@@ -148,6 +153,7 @@ const GenreList = styled.div`
     p {
         padding: 0.5rem;
         transition: all 0.4s ease;
+        cursor: pointer;
         &:hover {
             background-color: #252525;
         }

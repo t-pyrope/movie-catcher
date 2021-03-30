@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import {useLocation} from 'react-router-dom';
+import {useLocation, Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadDetail} from '../actions/detailAction';
 import styled from 'styled-components';
 import star from '../img/star.png';
+import noPoster from '../img/no-poster.png';
 
 
 const MovieDetail = () => {
     const location = useLocation();
+    const history = useHistory();
     const arr = location.pathname.split("/");
     const id = arr[arr.length - 1];
 
@@ -19,14 +21,19 @@ const MovieDetail = () => {
     const {detail, isLoading} = useSelector(state => state.detail);
 
     const getPosterHandler = () => {
-        return `https://image.tmdb.org/t/p/w300${detail.poster_path}`;
+        return `https://image.tmdb.org/t/p/w780${detail.poster_path}`;
     }
+
+    const addDefaultSrcHandler = (e) => {
+        e.target.src = noPoster
+    }
+
     return(
         <>
         {!isLoading &&
         <Detail>
+            <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
             <Info>
-                
                 <div className="info-desc">
                     <div className="basic-info">
                         <h2>{detail.title}</h2>
@@ -34,7 +41,9 @@ const MovieDetail = () => {
                         <span key={country.name}>{country.name}</span>
                             ))}</p>
                         <p>{detail.genres.map(genre => 
-                            <span key={genre.id} className="genre">{genre.name}</span>
+                            <Link to={`/genres/${genre.id}`} key={genre.id}>
+                                <span className="genre">{genre.name}</span>
+                            </Link>
                             )}</p>
                         <p><img src={star} alt="rating" /> {detail.vote_average}</p>
                     </div>
@@ -43,7 +52,7 @@ const MovieDetail = () => {
                         <p>{detail.overview}</p>
                     </div>
                 </div>
-                <img src={getPosterHandler()} className="poster" alt={detail.title} />
+                <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={detail.title} />
             </Info>
         </Detail>
 }
@@ -54,7 +63,9 @@ const MovieDetail = () => {
 const Detail = styled.div`
     width: 70%;
     margin: 2rem auto;
-
+    @media (max-width: 1024px){
+        width: 90%;
+    }
 `;
 
 const Info = styled.div`
@@ -63,7 +74,7 @@ const Info = styled.div`
     flex-direction: row-reverse;
 
     .info-desc {
-        margin: 2rem 0rem;
+        margin-bottom: 2rem;
         img {
             width: 1rem;
             height: 1rem;
@@ -76,8 +87,8 @@ const Info = styled.div`
     .poster {
         margin-right: 3rem;
         border-radius: 0.5rem;
-        width: 100%;
-        height: 100%;
+        height: 70vh;
+        flex: 1;
     }
 
     h2, h3 {
@@ -107,10 +118,31 @@ const Info = styled.div`
         height: 100%;
         line-height: 1.5rem;
     }
+
+    @media (max-width: 1024px){
+        display: block;
+
+        .poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+    }
 `
 
-const Desc = styled.div`
-    margin: 1rem;
+const ButtonLikeLink = styled.button`
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-decoration: underline;
+
+    &:focus {
+        outline: none;
+        color: #dddddd;
+    }
 `
 
 export default MovieDetail;

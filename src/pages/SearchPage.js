@@ -2,7 +2,7 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {searchMovie} from '../actions/moviesAction';
-import {Movies} from '../styles';
+import {Movies, MovieHeader} from '../styles';
 import ScrollTop from '../components/ScrollTop';
 import Movie from '../components/Movie';
 
@@ -21,7 +21,9 @@ const SearchPage = () => {
     }
     return(
         <div>
-            <h2>Results for {getSearchNameHandler()}</h2>
+            <MovieHeader>
+                <h2>Results for {getSearchNameHandler()}</h2>
+            </MovieHeader>
             {searched.length && (
                 <Movies>
                     {searched.slice(0,10).map((movie) => 
