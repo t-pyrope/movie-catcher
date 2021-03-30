@@ -10,7 +10,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const [trendPeriod, setTrendPeriod] = useState("day");
     useEffect(() => {
-        dispatch(loadMovies("all", trendPeriod))
+        dispatch(loadMovies("all", trendPeriod, "popularity.desc"))
     }, [dispatch, trendPeriod])
     const {trending, kids} = useSelector(state => state.movies);
     

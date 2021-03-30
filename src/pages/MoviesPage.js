@@ -4,23 +4,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Movies} from '../styles';
 import Movie from '../components/Movie';
 import {loadMovies} from '../actions/moviesAction';
+import styled from 'styled-components';
 
 const MoviesPage = () => {
     const history = useHistory();
     const [trendPeriod, setTrendPeriod] = useState("day");
+    const [sortType, setSortType] = useState("popularity.desc");
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(loadMovies("all", trendPeriod))
-    }, [dispatch, trendPeriod]);
+        dispatch(loadMovies("all", trendPeriod, sortType));
+        console.log("Hello")
+    }, [dispatch, trendPeriod, sortType]);
     const {trending, kids} = useSelector(state => state.movies);
-    // switch(history.location.pathname.split("/")[1]){
-    //     case "trending":
-            // setArr(trending);
-            // setTitle("Trending");
-    //         break;
-    //     default:
-    //         return null;
-    // }
+
     const titleHandler = () => {
         const pageName = history.location.pathname.split("/")[1];
         if (pageName === "trending"){
@@ -30,6 +26,8 @@ const MoviesPage = () => {
             return "Popular Kids Movies"
         }
     }
+
+
     const arrHandler = () => {
         const pageName = history.location.pathname.split("/")[1];
         if(pageName === "trending"){
@@ -40,9 +38,23 @@ const MoviesPage = () => {
         } 
     }
 
+    const setSortTypeHandler = (e) => {
+        setSortType(e.target.value);
+        console.log(sortType);
+    }
+
     return(
         <div>
-        <h2>{titleHandler()}</h2>
+            <MovieHeader>
+                <h2>{titleHandler()}</h2>
+                {history.location.pathname.split("/")[1] !== "trending" &&
+                    <select onChange={setSortTypeHandler} value={sortType}>
+                        <option value="popularity.desc">Most Popular</option>
+                        <option value="vote_average.desc">High Rated</option>
+                        <option value="release_date.desc">Newest</option>
+                    </select>
+                }
+            </MovieHeader>
         {trending.length && (
             <Movies>
                 {arrHandler().slice(0,10).map((movie) => 
@@ -53,5 +65,12 @@ const MoviesPage = () => {
     </div>
     )
 }
+
+const MovieHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+`
 
 export default MoviesPage;

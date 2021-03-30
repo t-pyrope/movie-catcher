@@ -80,7 +80,7 @@ const Info = styled.div`
         height: 100%;
     }
 
-    h2 {
+    h2, h3 {
         margin-bottom: 0.5rem;
     }
 
@@ -89,8 +89,12 @@ const Info = styled.div`
     }
 
     .country {
-        color: #4e4e4e;
+        color: #636262;
         font-size: 0.9rem;
+        
+        span {
+            margin-right: 1rem;
+        }
     }
 
     .genre {

@@ -1,9 +1,11 @@
 import axios from 'axios';
 import {trendingURL, searchMovieURL, kidMovieURL} from '../api';
 
-export const loadMovies = (media_type, time_window) => async(dispatch) => {
-    const trendingData = await axios.get(trendingURL(media_type, time_window));
-    const kidData = await axios.get(kidMovieURL());
+export const loadMovies = (media_type, time_window, sort_type) => async(dispatch) => {
+    const trendingData = await axios.get(trendingURL(media_type, time_window, sort_type));
+    console.log(trendingURL(media_type, time_window, sort_type));
+    
+    const kidData = await axios.get(kidMovieURL(sort_type));
     dispatch({
         type: "FETCH_MOVIES",
         payload: {

@@ -1,12 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import noPoster from '../img/no-poster.png';
 
 import star from '../img/star.png';
 
 const Movie = ({title, poster_path, rating, id}) => {
     
     const getPosterHandler = () => {
+        // if(`https://image.tmdb.org/t/p/w500${poster_path}` === null) {
+        //     return noPoster;
+        // }
         return `https://image.tmdb.org/t/p/w500${poster_path}`;
     }
 
@@ -14,7 +18,7 @@ const Movie = ({title, poster_path, rating, id}) => {
     return(
         <Link to={`/movie/${id}`}>
         <Card>
-            <img src={getPosterHandler()} alt="poster" />
+            <img src={getPosterHandler()} alt="poster" className="poster" />
             <div className="desc">
                 <h4>{title}</h4>
                 <div className="rating">
@@ -34,11 +38,15 @@ const Card = styled.div`
     margin-right: 1rem;
     width: auto;
     img {
-        width: 100%;
-        height: 100%;
         object-position: center;
         object-fit: cover;
         display: block;
+    }
+
+    .poster {
+        width: 100%;
+        height: 100%;
+        background-color: grey;
     }
 
     .desc {
