@@ -28,5 +28,9 @@ export const genreMoviesURL = (genre_id) => `${base_url}discover/movie?api_key=$
 // https://api.themoviedb.org/3/person/popular?api_key={}&language=en-US
 export const peopleURL = () => `${base_url}person/popular?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`;
 
-// /discover/movie?primary_release_year=2010&sort_by=vote_average.desc
 export const yearMoviesURL = (year) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&primary_release_year=${year}&sort_by=vote_average.desc&vote_count.gte=6000`;
+
+export const personDetailURL = (person_id) => `${base_url}person/${person_id}?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`
+export const personMoviesURL = (person_id) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&with_cast=${person_id}&sort_by=vote_average.desc&language=en-US`
+
+// /discover/movie?with_genres=878&with_cast=500&sort_by=vote_average.desc

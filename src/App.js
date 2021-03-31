@@ -1,6 +1,7 @@
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
+import ActorDetail from './pages/ActorDetail';
 import Footer from './components/Footer';
 import SearchPage from './pages/SearchPage';
 import MoviesPage from './pages/MoviesPage';
@@ -35,8 +36,11 @@ function App() {
         <Route path="/year/:id">
           <YearPage />
         </Route>
-        <Route path="/people">
+        <Route path="/people" exact>
           <PeoplePage />
+        </Route>
+        <Route path="/people/:id">
+          <ActorDetail />
         </Route>
         <Route path="/:id">
           <MoviesPage />

@@ -5,6 +5,7 @@ import genresReducer from './genresReducer';
 import peopleReducer from './peopleReducer';
 import searchReducer from './searchReducer';
 import yearReducer from './yearReducer';
+import personReducer from './personReducer';
 
 const rootReducer = combineReducers({
     movies: moviesReducer,
@@ -13,5 +14,6 @@ const rootReducer = combineReducers({
     people: peopleReducer,
     searched: searchReducer,
     year: yearReducer,
+    person: personReducer,
 })
 export default rootReducer
