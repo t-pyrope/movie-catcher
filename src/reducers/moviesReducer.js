@@ -4,6 +4,7 @@ const initState = {
     genreMovies: [],
     adults: [],
     isLoading: true,
+    genrePages: 0,
 }
 
 const moviesReducer = (state=initState, action) => {
@@ -19,6 +20,7 @@ const moviesReducer = (state=initState, action) => {
             return {
                 ...state,
                 genreMovies: action.payload.genreMovies,
+                genrePages: action.payload.genrePages,      
                 isLoading: false,
             }
         case "LOADING_DETAIL":

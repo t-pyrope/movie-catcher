@@ -1,4 +1,4 @@
-const initialState = {people: []};
+const initialState = {people: [], peoplePages: 0};
 
 const peopleReducer = (state=initialState, action) => {
     switch(action.type){
@@ -6,6 +6,7 @@ const peopleReducer = (state=initialState, action) => {
             return {
                 ...state,
                 people: action.payload.people,
+                peoplePages: action.payload.peoplePages,
             }
         default:
             return {...state}

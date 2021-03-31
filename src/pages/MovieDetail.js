@@ -5,6 +5,7 @@ import {loadDetail} from '../actions/detailAction';
 import styled from 'styled-components';
 import star from '../img/star.png';
 import noPoster from '../img/no-poster.png';
+import {ButtonLikeLink} from '../styles';
 
 
 const MovieDetail = () => {
@@ -128,20 +129,6 @@ const Info = styled.div`
             object-fit: cover;
             border-radius: 0;
         }
-    }
-`
-
-const ButtonLikeLink = styled.button`
-    background-color: transparent;
-    color: white;
-    border: none;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    text-decoration: underline;
-
-    &:focus {
-        outline: none;
-        color: #dddddd;
     }
 `
 

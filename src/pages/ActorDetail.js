@@ -5,6 +5,7 @@ import {loadPersonDetail} from '../actions/personDetailAction';
 import star from '../img/star.png';
 import noPoster from '../img/no-poster.png';
 import styled from 'styled-components';
+import {ButtonLikeLink} from '../styles';
 
 
 const ActorDetail = () => {
@@ -160,20 +161,6 @@ const Info = styled.div`
         .info-desc {
             width: 100%;
         }
-    }
-`
-
-const ButtonLikeLink = styled.button`
-    background-color: transparent;
-    color: white;
-    border: none;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    text-decoration: underline;
-
-    &:focus {
-        outline: none;
-        color: #dddddd;
     }
 `
 

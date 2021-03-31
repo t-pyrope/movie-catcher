@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import loadGenres from '../actions/genresAction';
-import {fetchSearch} from '../actions/searchAction';
 
 const Nav = () => {
     const [textInput, setTextInput] = useState("");
@@ -17,7 +16,7 @@ const Nav = () => {
     useEffect(() => {
         dispatch(loadGenres())        
     }, [dispatch, location]);
-    const {genres, isLoading} = useSelector((state) => state.genres)
+    const {genres} = useSelector((state) => state.genres)
     const inputHandler = (e) => {
         setTextInput(e.target.value);
     };
@@ -29,11 +28,17 @@ const Nav = () => {
     }
 
     const openGenreListHandler = (e) => {
+        if(e.target.children[0] === undefined){
+            return null;
+        }
         e.target.children[0].style.opacity = 1;
         e.target.children[0].style.pointerEvents = "all";
     }
 
     const closeGenreListHandler = (e) => {
+        if(e.target === undefined || e.target.children[0] === undefined){
+            return null;
+        }
         if(e.target.classList.contains("genre-list")){
             e.target.style.opacity = 0;
             e.target.style.pointerEvents = "none";
@@ -77,7 +82,7 @@ const Nav = () => {
             <h1><Link to="/">Movie catcher</Link></h1>
                 <ul>
                     <li className="genres" onClick={openGenreListHandler} onMouseLeave={closeGenreListHandler}>Genres
-                    {!isLoading && (
+                    {genres.length && (
                         <GenreList className="genre-list">
                             {genres.map((genre) => (
                                 <p key={genre.id} id={genre.id} onClick={genreSelectHandler}>{genre.name}</p>

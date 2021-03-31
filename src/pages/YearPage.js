@@ -12,7 +12,7 @@ const YearPage = () => {
     const [sortType, setSortType] = useState("popularity.desc");
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchYearMovies(pathName))
+        dispatch(fetchYearMovies(pathName, "1"))
     }, [dispatch, pathName]);
     const {yearMovies} = useSelector(state => state.year);
     const titleHandler = () => {
@@ -27,7 +27,7 @@ const YearPage = () => {
                 <h2>{titleHandler()}</h2>
             </MovieHeader>
             <Movies>
-                {yearMovies.slice(0,10).map((movie) => 
+                {yearMovies.map((movie) => 
                     <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
                 )}
             </Movies>
