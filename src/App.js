@@ -1,10 +1,12 @@
 import Nav from './components/Nav';
 import Home from './pages/Home';
-import MovieDetail from './components/MovieDetail';
+import MovieDetail from './pages/MovieDetail';
 import Footer from './components/Footer';
 import SearchPage from './pages/SearchPage';
 import MoviesPage from './pages/MoviesPage';
 import GenresPage from './pages/GenresPage';
+import PeoplePage from './pages/PeoplePage';
+import YearPage from './pages/YearPage';
 import {Wrapper} from './styles';
 import GlobalStyles from './components/GlobalStyles';
 
@@ -29,6 +31,12 @@ function App() {
         </Route>
         <Route path="/genres/:id">
           <GenresPage />
+        </Route>
+        <Route path="/year/:id">
+          <YearPage />
+        </Route>
+        <Route path="/people">
+          <PeoplePage />
         </Route>
         <Route path="/:id">
           <MoviesPage />

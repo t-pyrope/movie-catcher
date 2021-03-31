@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {trendingURL, searchMovieURL, kidMovieURL, genreMoviesURL, adultMovieURL} from '../api';
+import {trendingURL, kidMovieURL, genreMoviesURL, adultMovieURL} from '../api';
 
 export const loadMovies = (media_type, time_window, sort_type) => async(dispatch) => {
     
@@ -12,16 +12,6 @@ export const loadMovies = (media_type, time_window, sort_type) => async(dispatch
             trending: trendingData.data.results,
             kids: kidData.data.results,
             adults: adultData.data.results,
-        }
-    })
-}
-
-export const searchMovie = (movie_name) => async (dispatch) => {
-    const searchData = await axios.get(searchMovieURL(movie_name));
-    dispatch({
-        type: "FETCH_SEARCHED",
-        payload: {
-            searched: searchData.data.results,
         }
     })
 }

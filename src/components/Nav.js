@@ -5,13 +5,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import loadGenres from '../actions/genresAction';
-import {searchMovie} from '../actions/moviesAction';
+import {fetchSearch} from '../actions/searchAction';
 
 const Nav = () => {
     const [textInput, setTextInput] = useState("");
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
+    const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+
     useEffect(() => {
         dispatch(loadGenres())        
     }, [dispatch, location]);
@@ -22,7 +24,6 @@ const Nav = () => {
 
     const searchMovieHandler = (e) => {
         e.preventDefault();
-        dispatch(searchMovie(textInput));
         history.push(`/search/${textInput}`);
         setTextInput("");
     }
@@ -48,6 +49,27 @@ const Nav = () => {
         const genreId = e.target.id;
         history.push(`/genres/${genreId}`);
     }
+    const openPopularInHandler = (e) => {
+        e.target.children[0].style.opacity = 1;
+        e.target.children[0].style.pointerEvents = "all";
+    };
+    
+    const closePopularInHandler = (e) => {
+        if(e.target.classList.contains("popular-list")){
+            e.target.style.opacity = 0;
+            e.target.style.pointerEvents = "none";
+        }
+        if(e.target.classList.contains("popular")){
+            e.target.children[0].style.opacity = 0;
+            e.target.children[0].pointerEvents = "none";
+        }
+    };
+
+    const yearSelectHandler = (e) => {
+        e.stopPropagation();
+        const genreId = e.target.id;
+        history.push(`/year/${genreId}`);
+    }
 
     return(
         <>
@@ -63,8 +85,17 @@ const Nav = () => {
                         </GenreList>
                         )}
                     </li>
-                    <li>People</li>
-                    <li>Popular in...</li>
+                    <li>
+                        <Link to="/people">People</Link>
+                    </li>
+                    <li className="popular" onClick={openPopularInHandler} onMouseLeave={closePopularInHandler}>
+                        Popular in...
+                        <GenreList className="popular-list">
+                            {years.map((year) => (
+                                <p onClick={yearSelectHandler} key={year} id={year}>{year}</p>
+                            ))}
+                        </GenreList>
+                    </li>
                     <li className="form">
                     <form onSubmit={searchMovieHandler}>
                     <input type="text" value={textInput} onChange={inputHandler}/>
@@ -132,7 +163,7 @@ const NavStyled = styled.nav`
         overflow: hidden;
     }
 
-    .genres {
+    .genres, .popular {
         position: relative;
     }
 `

@@ -11,13 +11,43 @@ const Movie = ({title, poster_path, rating, id}) => {
         e.target.src = noPoster
     }
 
+    const titleHandler = () => {
+        const titleArr = title.split(" ");
+        let newTitleArr;
+        if (titleArr.length > 4){
+            newTitleArr = titleArr.slice(0,4)
+            newTitleArr.push("...")
+        } else {
+            newTitleArr = [...titleArr];
+        }
+        const newTitle = newTitleArr.join(" ");
+        let secondCheckTitleArr;
+        let secondCheckTitle;
+        if (newTitle.length > 20) {
+            secondCheckTitleArr = newTitle.split(" ").slice(0,3);
+            secondCheckTitleArr.push("...");
+            secondCheckTitle = secondCheckTitleArr.join(" ")
+        }
+
+        let thirdCheckTitleArr;
+        let thirdCheckTitle;
+        if (secondCheckTitleArr && secondCheckTitle.length > 20){
+            thirdCheckTitleArr = secondCheckTitle.split(" ").slice(0,2);
+            thirdCheckTitleArr.push("...");
+            thirdCheckTitle = thirdCheckTitleArr.join(" ");
+        }
+
+        return thirdCheckTitle || secondCheckTitle || newTitle;
+        
+    }
+
 
     return(
         <Link to={`/movie/${id}`}>
         <Card>
             <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
             <div className="desc">
-                <h4>{title}</h4>
+                <h4>{titleHandler()}</h4>
                 <div className="rating">
                 <img src={star} alt="rating" /><p>{rating}</p>
                 </div>
@@ -54,6 +84,8 @@ const Card = styled.div`
         height: 37%;
         color: white;
         padding: 1rem 1rem;
+        opacity: 0;
+        transition: all 0.5s ease;
 
         h4 {
             font-size: 1rem;
@@ -67,6 +99,12 @@ const Card = styled.div`
                 height: 1rem;
                 margin-right: 0.3rem;
             }
+        }
+    }
+
+    &:hover {
+        .desc {
+            opacity: 1;
         }
     }
 `
