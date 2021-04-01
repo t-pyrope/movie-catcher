@@ -20,8 +20,6 @@ export const loadGenreMovies = (genre_id, page) => async (dispatch) => {
     dispatch({type: "LOADING_DETAIL"});
 
     const genreMoviesData = await axios.get(genreMoviesURL(genre_id, page));
-    console.log(genreMoviesURL(genre_id, page));
-    console.log(genreMoviesData);
     dispatch({
         type: "LOAD_GENRE_MOVIES",
         payload: {

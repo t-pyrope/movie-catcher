@@ -58,6 +58,10 @@ select {
     }
 }
 
+ul {
+    list-style: none;
+}
+
 `
 
 export default GlobalStyles

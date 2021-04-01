@@ -1,14 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import noPoster from '../img/no-poster.png';
-
-import star from '../img/star.png';
+import noPhoto from '../img/no-photo.png';
 
 const Actor = ({actorName, poster_path, id}) => {
 
     const addDefaultSrcHandler = (e) => {
-        e.target.src = noPoster
+        e.target.src = noPhoto
     }
 
 

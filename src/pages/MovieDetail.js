@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {useLocation, Link, useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadDetail} from '../actions/detailAction';
 import styled from 'styled-components';
@@ -9,9 +9,8 @@ import {ButtonLikeLink} from '../styles';
 
 
 const MovieDetail = () => {
-    const location = useLocation();
     const history = useHistory();
-    const arr = location.pathname.split("/");
+    const arr = history.location.pathname.split("/");
     const id = arr[arr.length - 1];
 
     const dispatch = useDispatch();
@@ -56,7 +55,7 @@ const MovieDetail = () => {
                 <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={detail.title} />
             </Info>
         </Detail>
-}
+        }
         </>
     )
 }
@@ -110,7 +109,7 @@ const Info = styled.div`
     }
 
     .genre {
-        background-color: #eebd61;
+        background-color: #e9ad3e;
         color: white;
         padding: 0.2rem 0.3rem;
         border-radius: 0.2rem;

@@ -43,7 +43,7 @@ const Movie = ({title, poster_path, rating, id}) => {
 
 
     return(
-        <Link to={`/movie/${id}`}>
+        <Link to={`/movies/${id}`}>
         <Card>
             <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
             <div className="desc">

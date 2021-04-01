@@ -5,6 +5,8 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
+import {motion} from 'framer-motion';
+import {pageAnimation} from '../animation';
 
 import Movie from './Movie';
 
@@ -32,7 +34,7 @@ const Carousel = ({movies, title}) => {
     }
 
     return(
-        <CarouselStyled>
+        <CarouselStyled variants={pageAnimation} initial="hidden" animate="show" exit="exit">
         <CarouselProvider
             naturalSlideWidth={100}
             naturalSlideHeight={100}
@@ -62,7 +64,7 @@ const Carousel = ({movies, title}) => {
     )
 }
 
-const CarouselStyled = styled.div`
+const CarouselStyled = styled(motion.div)`
     .controls {
         width: 60%;
         margin: auto;
@@ -108,7 +110,7 @@ const CarouselStyled = styled.div`
     }
 `
 
-const CarouselMovies = styled.div`
+const CarouselMovies = styled(motion.div)`
     min-height: 50vh;
     display: flex;
     

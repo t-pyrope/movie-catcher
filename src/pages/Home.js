@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-
 import {useDispatch, useSelector} from 'react-redux';
 import { loadMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 
 import styled from 'styled-components';
 import Carousel from '../components/Carousel';
+import {titleAnim} from '../animation';
+import {motion} from 'framer-motion';
+
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -21,14 +23,15 @@ const Home = () => {
     }
     
     return(
+
         <MovieList>
-            <div className="title">
-                <h2>Trending</h2>
+            <motion.div className="title" variants={titleAnim} initial="hidden" animate="show">
+                <motion.h2>Trending</motion.h2>
                 <select value={trendPeriod} onChange={setTrendPeriodHandler}>
                     <option value="day">This day</option>
                     <option value="week">This week</option>
                 </select>
-            </div>
+            </motion.div>
             <Carousel movies={trending} title={"trending"}/>
             <div className="title">
             <h2>Popular for kids</h2>
@@ -44,7 +47,7 @@ const Home = () => {
     )
 }
 
-const MovieList = styled.div`
+const MovieList = styled(motion.div)`
     position: relative;
     .title {
         padding: 1.5rem 0rem;

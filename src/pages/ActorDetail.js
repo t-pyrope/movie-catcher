@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadPersonDetail} from '../actions/personDetailAction';
-import star from '../img/star.png';
-import noPoster from '../img/no-poster.png';
+import noPhoto from '../img/no-photo.png';
 import styled from 'styled-components';
 import {ButtonLikeLink} from '../styles';
+import {motion} from 'framer-motion';
 
 
 const ActorDetail = () => {
     const history = useHistory();
     const personId = history.location.pathname.split("/")[2];
-    const [isActive, setIsActive] = useState(false);
 
     const dispatch = useDispatch();
     useEffect(()=> {
@@ -25,13 +24,21 @@ const ActorDetail = () => {
     }
 
     const addDefaultSrcHandler = (e) => {
-        e.target.src = noPoster
+        e.target.src = noPhoto
     }
 
     const openHandler = (e) => {
         if(e.target.classList.contains("biography")){
             e.target.classList.toggle("active");
         }
+    }
+
+    const getPersonMoviesHandler = () => {
+        return(personMovies.map(movie => (
+            <Link to={`/movie/${movie.id}`} key={movie.id}>
+                <li>{movie.title}</li>
+            </Link>
+        )));
     }
 
     return(
@@ -46,25 +53,27 @@ const ActorDetail = () => {
                         <p className="country">From {person.place_of_birth}</p>
                     </div>
                     <div className="biography" onClick={(e) => openHandler(e)}>
-                        <h3>Biography</h3>
-                        <p>{person.biography}</p>
+                        <Toggle title={"Biography"} el={person.biography} />
                     </div>
-                    <div className="">
-                        <h3>Filmography</h3>
                         <ul>
-                        {personMovies.map(movie => (
-                            <Link to={`/movie/${movie.id}`} key={movie.id}>
-                                <li>{movie.title}</li>
-                            </Link>
-                        ))}
+                            <Toggle title={"Filmography"} el={ getPersonMoviesHandler()} />
                         </ul>
-                    </div>
                 </div>
                 <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={person.name} />
             </Info>
         </Detail>
 }
         </>
+    )
+}
+
+const Toggle = ({title, el}) => {
+    const [toggle, setToggle] = useState(false);
+    return(
+        <div onClick={() => setToggle(!toggle)}>
+            <h3>{title}</h3>
+            {toggle ? <motion.p transition={{duration: 0.5}} initial={{height: 0}} animate={{height: "auto"}}>{el}</motion.p> : ""}
+        </div>
     )
 }
 
@@ -102,12 +111,19 @@ const Info = styled.div`
         object-fit: cover;
     }
 
-    h2, h3 {
+    h2 {
         margin-bottom: 0.5rem;
     }
 
+    h3 {
+        cursor: pointer;
+        border-bottom: 5px solid #333333;
+        padding: 0.5rem 0rem 0.5rem 0.5rem;
+    }
+
     p {
-        margin-bottom: 0.5rem;
+        margin: 0.5rem;
+        margin-bottom: 2rem;
     }
 
     .country {
@@ -120,17 +136,14 @@ const Info = styled.div`
     }
 
     .biography {
-        max-height: 30vh;
         overflow: hidden;
         transition: all 0.5s ease;
-        margin-bottom: 2rem;
-
-        h3 {
-            pointer-events: none;
-        }
+        margin-bottom: 0.5rem;
 
         p {
             pointer-events: none;
+            line-height: 1.2rem;
+            text-indent: 1rem;
         }
     }
 
@@ -147,6 +160,10 @@ const Info = styled.div`
         width: 100%;
         height: 100%;
         line-height: 1.5rem;
+    }
+
+    li {
+        padding: 0.5rem 0.5rem;
     }
 
     @media (max-width: 1024px){

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import {motion} from 'framer-motion'
 
 export const Wrapper = styled.div`
     width: 80%;
     margin: 1rem auto;
 `;
 
-export const Movies = styled.div`
+export const Movies = styled(motion.div)`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-column-gap: 0.5rem;

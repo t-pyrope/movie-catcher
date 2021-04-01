@@ -11,12 +11,18 @@ const YearPage = () => {
     const pathName = history.location.pathname.split("/")[2];
     const [sortType, setSortType] = useState("popularity.desc");
     const dispatch = useDispatch();
+    
     useEffect(() => {
-        dispatch(fetchYearMovies(pathName, "1"))
-    }, [dispatch, pathName]);
+        dispatch(fetchYearMovies(pathName, "1", sortType))
+    }, [dispatch, pathName, sortType]);
+
     const {yearMovies} = useSelector(state => state.year);
     const titleHandler = () => {
         return `Popular in: ${pathName}`;
+    }
+
+    const setSortTypeHandler = (e) => {
+        setSortType(e.target.value);
     }
 
     return(
@@ -25,6 +31,11 @@ const YearPage = () => {
             <div>
             <MovieHeader>
                 <h2>{titleHandler()}</h2>
+                <select onChange={setSortTypeHandler} value={sortType}>
+                    <option value="popularity.desc">Most Popular</option>
+                    <option value="vote_average.desc">High Rated</option>
+                    <option value="release_date.desc">Latest</option>
+                </select>
             </MovieHeader>
             <Movies>
                 {yearMovies.map((movie) => 

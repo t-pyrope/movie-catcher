@@ -12,6 +12,7 @@ import {Wrapper} from './styles';
 import GlobalStyles from './components/GlobalStyles';
 
 import {Switch, Route, useLocation} from 'react-router-dom';
+import {AnimatePresence} from 'framer-motion';
 
 function App() {
   const location = useLocation();
@@ -20,11 +21,12 @@ function App() {
       <GlobalStyles />
       <Nav />
       <Wrapper>
+      <AnimatePresence exitBeforeEnter>
       <Switch location={location} key={location.pathname}>
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/movie/:id">
+        <Route path="/movies/:id">
           <MovieDetail />
         </Route>
         <Route path="/search/:id">
@@ -46,6 +48,7 @@ function App() {
           <MoviesPage />
         </Route>
       </Switch>
+      </AnimatePresence>
       </Wrapper>
       <Footer />
     </div>
