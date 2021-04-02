@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import star from '../img/star.png';
 import noPoster from '../img/no-poster.png';
 import {ButtonLikeLink} from '../styles';
+import ScrollTop from '../components/ScrollTop';
 
 
 const MovieDetail = () => {
@@ -40,7 +41,7 @@ const MovieDetail = () => {
                         <p className="country">{detail.production_countries.map((country) => (
                         <span key={country.name}>{country.name}</span>
                             ))}</p>
-                        <p>{detail.genres.map(genre => 
+                        <p className="genres">{detail.genres.map(genre => 
                             <Link to={`/genres/${genre.id}`} key={genre.id}>
                                 <span className="genre">{genre.name}</span>
                             </Link>
@@ -54,6 +55,7 @@ const MovieDetail = () => {
                 </div>
                 <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={detail.title} />
             </Info>
+            <ScrollTop />
         </Detail>
         }
         </>
@@ -106,6 +108,9 @@ const Info = styled.div`
         span {
             margin-right: 1rem;
         }
+    }
+    .genres {
+        line-height: 2rem;
     }
 
     .genre {

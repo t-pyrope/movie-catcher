@@ -10,7 +10,7 @@ import PeoplePage from './pages/PeoplePage';
 import YearPage from './pages/YearPage';
 import {Wrapper} from './styles';
 import GlobalStyles from './components/GlobalStyles';
-
+import styled from 'styled-components';
 import {Switch, Route, useLocation} from 'react-router-dom';
 import {AnimatePresence} from 'framer-motion';
 
@@ -18,6 +18,7 @@ function App() {
   const location = useLocation();
   return (
     <div className="App">
+      <NoScrollX>
       <GlobalStyles />
       <Nav />
       <Wrapper>
@@ -50,9 +51,14 @@ function App() {
       </Switch>
       </AnimatePresence>
       </Wrapper>
+      </NoScrollX>
       <Footer />
     </div>
   );
 }
+
+const NoScrollX = styled.div`
+  overflow-x: hidden;
+`
 
 export default App;

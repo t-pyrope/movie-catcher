@@ -6,6 +6,7 @@ import noPhoto from '../img/no-photo.png';
 import styled from 'styled-components';
 import {ButtonLikeLink} from '../styles';
 import {motion} from 'framer-motion';
+import ScrollTop from '../components/ScrollTop';
 
 
 const ActorDetail = () => {
@@ -61,6 +62,7 @@ const ActorDetail = () => {
                 </div>
                 <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={person.name} />
             </Info>
+            <ScrollTop />
         </Detail>
 }
         </>

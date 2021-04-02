@@ -53,6 +53,9 @@ const Nav = () => {
         e.stopPropagation();
         const genreId = e.target.id;
         history.push(`/genres/${genreId}`);
+        const div = e.target.parentElement;
+        div.style.opacity = 0;
+        div.style.pointerEvents = "none";
     }
     const openPopularInHandler = (e) => {
         e.target.children[0].style.opacity = 1;
@@ -103,9 +106,9 @@ const Nav = () => {
                     </li>
                     <li className="form">
                     <form onSubmit={searchMovieHandler}>
-                    <input type="text" value={textInput} onChange={inputHandler}/>
-                    <button type="submit"><FontAwesomeIcon icon={faSearch}/></button>
-                </form>
+                        <input type="text" value={textInput} onChange={inputHandler} />
+                        <button type="submit"><FontAwesomeIcon icon={faSearch}/></button>
+                    </form>
                     </li>
                 </ul>
         </NavStyled>
@@ -148,6 +151,14 @@ const NavStyled = styled.nav`
         justify-content: flex-start;
         width: 100%;
         padding: 0rem 10%;
+        flex-wrap: wrap;
+        @media (max-width: 768px){
+            justify-content: space-between;
+        }
+
+        @media (max-width: 480px){
+            justify-content: space-evenly;
+        }
     }
 
     li {
@@ -166,6 +177,15 @@ const NavStyled = styled.nav`
         margin-left: auto;
         position: relative;
         overflow: hidden;
+        min-width: 10rem;
+
+        @media (max-width: 768px){
+            margin: auto;
+        }
+
+        @media (max-width: 480px){
+            margin: 0;
+        }
     }
 
     .genres, .popular {

@@ -62,6 +62,10 @@ ul {
     list-style: none;
 }
 
+input[type="text"] {
+    
+}
+
 `
 
 export default GlobalStyles
