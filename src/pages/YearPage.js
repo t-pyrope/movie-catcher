@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Movies, MovieHeader} from '../styles';
+import {Movies, MovieHeader, Loading} from '../styles';
 import Movie from '../components/Movie';
 import {fetchYearMovies} from '../actions/yearAction';
 import ScrollTop from '../components/ScrollTop';
+import SortComponent from '../components/Sort';
 
 const YearPage = () => {
     const history = useHistory();
@@ -21,21 +22,13 @@ const YearPage = () => {
         return `Popular in: ${pathName}`;
     }
 
-    const setSortTypeHandler = (e) => {
-        setSortType(e.target.value);
-    }
-
     return(
         <>
-        {yearMovies.length && (
+        {yearMovies.length ? (
             <div>
             <MovieHeader>
                 <h2>{titleHandler()}</h2>
-                <select onChange={setSortTypeHandler} value={sortType}>
-                    <option value="popularity.desc">Most Popular</option>
-                    <option value="vote_average.desc">High Rated</option>
-                    <option value="release_date.desc">Latest</option>
-                </select>
+                <SortComponent sortType={sortType} setSortType={setSortType} />
             </MovieHeader>
             <Movies>
                 {yearMovies.map((movie) => 
@@ -44,7 +37,7 @@ const YearPage = () => {
             </Movies>
             <ScrollTop />
             </div>
-        )}
+        ) : <Loading />}
     </>
     )
 }

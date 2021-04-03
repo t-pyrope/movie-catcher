@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Movies, MovieHeader, ButtonGroup, Button} from '../styles';
+import {Movies, MovieHeader, Loading} from '../styles';
 import Movie from '../components/Movie';
 import {loadGenreMovies} from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import loadGenres from '../actions/genresAction';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
+import SortComponent from '../components/Sort';
 
 const GenresPage = () => {
     const history = useHistory();
@@ -14,9 +16,9 @@ const GenresPage = () => {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1)
     useEffect(() => {
-        dispatch(loadGenreMovies(pathName, page))
+        dispatch(loadGenreMovies(pathName, page, sortType))
         dispatch(loadGenres);
-    }, [dispatch, pathName, page]);
+    }, [dispatch, pathName, page, sortType]);
     const {genreMovies, genrePages} = useSelector(state => state.movies);
     const {genres} = useSelector(state => state.genres);
     const titleHandler = () => {
@@ -24,47 +26,24 @@ const GenresPage = () => {
         return `Genre: ${title}`;
     }
 
-
-    const setSortTypeHandler = (e) => {
-        setSortType(e.target.value);
-    }
-
-    const previousPageHandler = () => {
-        if (page > 1){setPage(page - 1)}
-    }
-
-    const downloadMoreHandler = () => {
-        if(page < genrePages){setPage(page + 1)}
-    }
-
     return(
         <>
-        {genreMovies.length && (
+        {genreMovies.length ? (
             <div>
             <MovieHeader>
                 <h2>{titleHandler()}</h2>
-                <select onChange={setSortTypeHandler} value={sortType}>
-                    <option value="popularity.desc">Most Popular</option>
-                    <option value="vote_average.desc">High Rated</option>
-                    <option value="release_date.desc">Newest</option>
-                </select>
+                <SortComponent sortType={sortType} setSortType={setSortType} />
             </MovieHeader>
-            <ButtonGroup>
-                <Button onClick={previousPageHandler} className={page < 2 ? "disabled" : ""}>Previous</Button>
-                <Button onClick={downloadMoreHandler}className={page === genrePages ? "disabled" : ""}>More</Button>
-            </ButtonGroup>
+            <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
             <Movies>
                 {genreMovies.map((movie) => 
                     <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
                 )}
             </Movies>
-            <ButtonGroup>
-                <Button onClick={previousPageHandler} className={page < 2 ? "disabled" : ""}>Previous</Button>
-                <Button onClick={downloadMoreHandler}className={page > 4 ? "disabled" : ""}>More</Button>
-            </ButtonGroup>
+            <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
             <ScrollTop />
             </div>
-        )}
+        ) : <Loading />}
     </>
     )
 };

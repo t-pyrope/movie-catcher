@@ -16,10 +16,10 @@ export const loadMovies = (media_type, time_window, sort_type, page) => async(di
     })
 }
 
-export const loadGenreMovies = (genre_id, page) => async (dispatch) => {
+export const loadGenreMovies = (genre_id, page, sort_type) => async (dispatch) => {
     dispatch({type: "LOADING_DETAIL"});
 
-    const genreMoviesData = await axios.get(genreMoviesURL(genre_id, page));
+    const genreMoviesData = await axios.get(genreMoviesURL(genre_id, page, sort_type));
     dispatch({
         type: "LOAD_GENRE_MOVIES",
         payload: {

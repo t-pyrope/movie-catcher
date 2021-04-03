@@ -111,8 +111,13 @@ const CarouselStyled = styled(motion.div)`
 `
 
 const CarouselMovies = styled(motion.div)`
-    min-height: 60vh;
+    min-height: 55vh;
     display: flex;
+
+    @media (max-width: 1024px){
+        width: 65%;
+        min-height: 20vh;
+    }
     
     @media (max-width: 900px){
         width: 65%;
@@ -120,6 +125,7 @@ const CarouselMovies = styled(motion.div)`
 
     @media (max-width: 790px){
         width: 70%;
+        min-height: 33vh;
     }
 
     @media (max-width: 745px){
@@ -129,7 +135,6 @@ const CarouselMovies = styled(motion.div)`
     @media (max-width: 600px){
         width: 100%;
     }
-
     @media (max-width: 480px){
         min-height: 30vh;
     }

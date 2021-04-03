@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import {motion} from 'framer-motion'
 
 export const Wrapper = styled.div`
@@ -17,8 +17,10 @@ export const Movies = styled(motion.div)`
 export const MovieHeader = styled.div`
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    align-items: flex-start;
+    padding: 1.5rem 0rem;
+    h2 {
+        margin-right: 1rem;
+    }
 `;
 
 export const ButtonLikeLink = styled.button`
@@ -36,35 +38,63 @@ export const ButtonLikeLink = styled.button`
 `;
 
 export const ButtonGroup = styled.div`
-    margin: auto;
+    margin: 0.5rem auto;
     display: flex;
-    justify-content: center;
+    justify-content:center;
     align-items: center;
     width: 60%;
 
     .disabled {
         color: #2b2b2b;
+        background-color: #353535;
+        &:hover {
+            background-color: #353535;
+        }
+    }
+
+    @media (max-width: 500px){
+        width: 80%;
     }
 `
 
 export const Button = styled.button`
     border: none;
-    background-color: transparent;
+    background-color: #303030;
     transition: all 0.4s ease;
     text-transform: uppercase;
     font-weight: bold;
-    padding: 1rem 3rem;
+    width: 15rem;
+    height: 3rem;
     margin-bottom: 0.5rem;
+    color: #cacaca;
+    /* border-radius: 0.5rem; */
+    margin-right: 1rem;
 
     &:hover {
-        background-color: #3b3b3b;
+        background-color: #2c2c2c;
+    }
+
+    &:last-child {
+        margin-right: 0rem;
     }
 
     &:focus {
         outline: none;
     }
+`
 
-    &:disabled:hover {
-        background-color: #353535;
-    }
+const spin = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+export const Loading = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.2rem solid #d3d3d3;
+  border-top-color: #979797;
+  border-radius: 50%;
+  margin: auto;
+  animation: ${spin} 1s linear infinite;
 `

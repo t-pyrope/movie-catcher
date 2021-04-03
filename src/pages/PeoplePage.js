@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {loadPeople} from '../actions/peopleAction';
 import Actor from '../components/Actor';
-import {Movies, MovieHeader, ButtonGroup, Button} from '../styles';
+import {Movies, MovieHeader} from '../styles';
 import ScrollTop from '../components/ScrollTop';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
 
 const PeoplePage = () => {
     const dispatch = useDispatch();
@@ -12,15 +13,7 @@ const PeoplePage = () => {
     useEffect(() => {
         dispatch(loadPeople(page))
     }, [dispatch, page])
-    const {people, peoplePages} = useSelector(state => state.people)
-    
-    const previousPageHandler = () => {
-        if (page > 1){setPage(page - 1)}
-    }
-
-    const downloadMoreHandler = () => {
-        if(page < peoplePages){setPage(page + 1)}
-    }
+    const {people, peoplePages} = useSelector(state => state.people);
 
     return (
         <>
@@ -29,15 +22,13 @@ const PeoplePage = () => {
             <MovieHeader>
                 <h2>People</h2>
             </MovieHeader>
-            <ButtonGroup>
-                <Button onClick={previousPageHandler} className={page < 2 ? "disabled" : ""}>Previous</Button>
-                <Button onClick={downloadMoreHandler}className={page === peoplePages ? "disabled" : ""}>More</Button>
-            </ButtonGroup>
+            <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
             <Movies>
                 {people.map((famous) => 
                     <Actor actorName={famous.name} poster_path={famous.profile_path} key={famous.id} id={famous.id} />
                 )}
             </Movies>
+            <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
             <ScrollTop />
             </div>
         }    

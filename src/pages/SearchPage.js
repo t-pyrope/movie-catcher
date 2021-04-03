@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchSearch} from '../actions/searchAction';
-import {Movies, MovieHeader, ButtonGroup, Button} from '../styles';
+import {Movies, MovieHeader, ButtonLikeLink, Loading} from '../styles';
 import ScrollTop from '../components/ScrollTop';
 import Movie from '../components/Movie';
 import Actor from '../components/Actor';
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
+
 
 const SearchPage = () => {
     const history = useHistory();
@@ -24,55 +26,43 @@ const SearchPage = () => {
         return searchName
     }
 
-    const previousPageHandler = () => {
-        if (page > 1){setPage(page - 1)}
-    }
-
-    const downloadMoreHandler = () => {
-        if(page < 5){setPage(page + 1)}
-    }
-
     const toggleSearchHandler = () => {
         setPage(1);
         setToggle(!toggle);
     }
     return(
         <div>
+            <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
             <SearchMovieHeader>
                 <h2>Results for {getSearchNameHandler()}</h2>
                 <motion.p onClick={toggleSearchHandler} initial={{backgroundColor: "#353535"}} animate={{backgroundColor: toggle ? "#353535" : "#252525" }} transition={{duration: 0.4}} >in movies</motion.p>
                 <motion.p onClick={toggleSearchHandler} initial={{backgroundColor: "#353535"}} animate={{backgroundColor: toggle ? "#252525" : "#353535" }} transition={{duration: 0.4}}>in people</motion.p>
             </SearchMovieHeader>
-            <ButtonGroup>
-                <Button onClick={previousPageHandler} className={page < 2 ? "disabled" : ""}>Previous</Button>
-                <Button onClick={downloadMoreHandler} className={page > 4 ? "disabled" : ""}>More</Button>
-            </ButtonGroup>
+            <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
+            
             {!toggle && (
             <div>
-                {searchedMovie.length && (
+                {searchedMovie.length ? (
                     <Movies>
                         {searchedMovie.map((movie) => 
                             <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
                         )}
                     </Movies>
-                )}
+                ) : <Loading />}
             </div>
             )}
             {toggle && (
                 <div>
-                    {searchedPerson.length && (
+                    {searchedPerson.length ? (
                 <Movies>
                     {searchedPerson.map((person) => 
                         <Actor actorName={person.name} poster_path={person.profile_path} key={person.id} id={person.id} />
                     )}
                 </Movies>
-            )}
+            ) : <Loading />}
                 </div>
             )}
-            <ButtonGroup>
-                <Button onClick={previousPageHandler} className={page < 2 ? "disabled" : ""}>Previous</Button>
-                <Button onClick={downloadMoreHandler} className={page > 4 ? "disabled" : ""}>More</Button>
-            </ButtonGroup>
+            <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
             <ScrollTop />
         </div>
     )

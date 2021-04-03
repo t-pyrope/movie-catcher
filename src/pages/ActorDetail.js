@@ -36,7 +36,7 @@ const ActorDetail = () => {
 
     const getPersonMoviesHandler = () => {
         return(personMovies.map(movie => (
-            <Link to={`/movie/${movie.id}`} key={movie.id}>
+            <Link to={`/movies/${movie.id}`} key={movie.id}>
                 <li>{movie.title}</li>
             </Link>
         )));

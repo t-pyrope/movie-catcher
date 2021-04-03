@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Movies, MovieHeader, ButtonGroup, Button} from '../styles';
+import {Movies, MovieHeader} from '../styles';
 import Movie from '../components/Movie';
 import {loadMovies} from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import {motion, AnimatePresence} from 'framer-motion';
-import {pageAnimation, titleAnim} from '../animation';
+import {titleAnim} from '../animation';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
+import SortComponent from '../components/Sort';
 
 
 const MoviesPage = () => {
@@ -46,18 +48,6 @@ const MoviesPage = () => {
         }
     }
 
-    const setSortTypeHandler = (e) => {
-        setSortType(e.target.value);
-    }
-
-    const previousPageHandler = () => {
-        if (page > 1){setPage(page - 1)}
-    }
-
-    const downloadMoreHandler = () => {
-        if(page < 5){setPage(page + 1)}
-    }
-
     const setTrendPeriodHandler = (e) => {
         setTrendPeriod(e.target.value);
     }
@@ -65,7 +55,7 @@ const MoviesPage = () => {
     return(
         <motion.div>
             <MovieHeader>
-                <motion.h2>{titleHandler()}</motion.h2>
+                <motion.h2 variants={titleAnim} initial="hidden" animate="show">{titleHandler()}</motion.h2>
                 {pathName === "trending" && (
                 <select value={trendPeriod} onChange={setTrendPeriodHandler}>
                     <option value="day">Trending this day</option>
@@ -73,17 +63,10 @@ const MoviesPage = () => {
                 </select>
                 )}
                 {pathName !== "trending" &&
-                    <select onChange={setSortTypeHandler} value={sortType}>
-                        <option value="popularity.desc">Most Popular</option>
-                        <option value="vote_average.desc">High Rated</option>
-                        <option value="release_date.desc">Newest</option>
-                    </select>
+                    <SortComponent sortType={sortType} setSortType={setSortType} />
                 }
             </MovieHeader>
-            <ButtonGroup>
-                <Button onClick={previousPageHandler} className={page < 2 ? "disabled" : ""}>Previous</Button>
-                <Button onClick={downloadMoreHandler} className={page > 4 ? "disabled" : ""}>More</Button>
-            </ButtonGroup>
+            <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
         {trending.length && (
                     <AnimatePresence>
             <Movies>
@@ -93,10 +76,7 @@ const MoviesPage = () => {
             </Movies>
                 </AnimatePresence>
         )}
-            <ButtonGroup>
-                <Button onClick={previousPageHandler} className={page < 2 ? "disabled" : ""}>Previous</Button>
-                <Button onClick={downloadMoreHandler} className={page > 4 ? "disabled" : ""}>More</Button>
-            </ButtonGroup>
+        <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
         <ScrollTop />
     </motion.div>
     )

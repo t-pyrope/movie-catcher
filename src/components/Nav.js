@@ -36,9 +36,9 @@ const Nav = () => {
     }
 
     const closeGenreListHandler = (e) => {
-        if(e.target === undefined || e.target.children[0] === undefined){
-            return null;
-        }
+        // if(e.target === undefined || e.target.children[0] === undefined){
+        //     return null;
+        // }
         if(e.target.classList.contains("genre-list")){
             e.target.style.opacity = 0;
             e.target.style.pointerEvents = "none";
@@ -77,6 +77,9 @@ const Nav = () => {
         e.stopPropagation();
         const genreId = e.target.id;
         history.push(`/year/${genreId}`);
+        const div = e.target.parentElement;
+        div.style.opacity = 0;
+        div.style.pointerEvents = "none";
     }
 
     return(
@@ -213,6 +216,10 @@ const GenreList = styled.div`
         &:hover {
             background-color: #252525;
         }
+    }
+
+    @media (max-width: 500px){
+        width: 20rem;
     }
 `
 

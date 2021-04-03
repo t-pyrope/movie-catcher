@@ -9,7 +9,7 @@ export const adultMovieURL = (sort_type, page) => `${base_url}discover/movie?api
 
 
 // OTHER MOVIES AND PEOPLE PAGES
-export const genreMoviesURL = (genre_id, page) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&with_genres=${genre_id}&sort_by=popularity.desc&vote_count.gte=500&page=${page}`;
+export const genreMoviesURL = (genre_id, page, sort_type) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&with_genres=${genre_id}&sort_by=${sort_type}&vote_count.gte=500&page=${page}`;
 export const yearMoviesURL = (year, page, sort_type) => `${base_url}discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&primary_release_year=${year}&sort_by=${sort_type}&vote_count.gte=6000&page=${page}`;
 export const peopleURL = (page) => `${base_url}person/popular?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US&page=${page}`;
 

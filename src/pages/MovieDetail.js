@@ -5,7 +5,7 @@ import {loadDetail} from '../actions/detailAction';
 import styled from 'styled-components';
 import star from '../img/star.png';
 import noPoster from '../img/no-poster.png';
-import {ButtonLikeLink} from '../styles';
+import {ButtonLikeLink, Loading} from '../styles';
 import ScrollTop from '../components/ScrollTop';
 
 
@@ -31,7 +31,7 @@ const MovieDetail = () => {
 
     return(
         <>
-        {!isLoading &&
+        {!isLoading ? 
         <Detail>
             <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
             <Info>
@@ -57,7 +57,7 @@ const MovieDetail = () => {
             </Info>
             <ScrollTop />
         </Detail>
-        }
+        : <Loading />}
         </>
     )
 }
