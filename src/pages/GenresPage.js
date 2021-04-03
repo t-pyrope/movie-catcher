@@ -28,23 +28,23 @@ const GenresPage = () => {
 
     return(
         <>
-        {genreMovies.length ? (
-            <div>
-            <MovieHeader>
-                <h2>{titleHandler()}</h2>
-                <SortComponent sortType={sortType} setSortType={setSortType} />
-            </MovieHeader>
-            <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
-            <Movies>
-                {genreMovies.map((movie) => 
-                    <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
-                )}
-            </Movies>
-            <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
-            <ScrollTop />
-            </div>
-        ) : <Loading />}
-    </>
+            {genreMovies.length ? (
+                <div>
+                    <MovieHeader>
+                        <h2>{titleHandler()}</h2>
+                        <SortComponent sortType={sortType} setSortType={setSortType} />
+                    </MovieHeader>
+                    <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
+                    <Movies>
+                        {genreMovies.map((movie) => 
+                            <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
+                        )}
+                    </Movies>
+                    <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
+                    <ScrollTop />
+                </div>
+            ) : <Loading />}
+        </>
     )
 };
 

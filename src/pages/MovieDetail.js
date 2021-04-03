@@ -31,33 +31,33 @@ const MovieDetail = () => {
 
     return(
         <>
-        {!isLoading ? 
-        <Detail>
-            <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
-            <Info>
-                <div className="info-desc">
-                    <div className="basic-info">
-                        <h2>{detail.title}</h2>
-                        <p className="country">{detail.production_countries.map((country) => (
-                        <span key={country.name}>{country.name}</span>
-                            ))}</p>
-                        <p className="genres">{detail.genres.map(genre => 
-                            <Link to={`/genres/${genre.id}`} key={genre.id}>
-                                <span className="genre">{genre.name}</span>
-                            </Link>
-                            )}</p>
-                        <p><img src={star} alt="rating" /> {detail.vote_average}</p>
-                    </div>
-                    <div>
-                        <h3>Description</h3>
-                        <p>{detail.overview}</p>
-                    </div>
-                </div>
-                <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={detail.title} />
-            </Info>
-            <ScrollTop />
-        </Detail>
-        : <Loading />}
+            {!isLoading ? 
+                <Detail>
+                    <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
+                    <Info>
+                        <div className="info-desc">
+                            <div className="basic-info">
+                                <h2>{detail.title}</h2>
+                                <p className="country">{detail.production_countries.map((country) => (
+                                <span key={country.name}>{country.name}</span>
+                                    ))}</p>
+                                <p className="genres">{detail.genres.map(genre => 
+                                    <Link to={`/genres/${genre.id}`} key={genre.id}>
+                                        <span className="genre">{genre.name}</span>
+                                    </Link>
+                                    )}</p>
+                                <p><img src={star} alt="rating" /> {detail.vote_average}</p>
+                            </div>
+                            <div>
+                                <h3>Description</h3>
+                                <p>{detail.overview}</p>
+                            </div>
+                        </div>
+                        <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={detail.title} />
+                    </Info>
+                    <ScrollTop />
+                </Detail>
+            : <Loading />}
         </>
     )
 }
@@ -109,6 +109,7 @@ const Info = styled.div`
             margin-right: 1rem;
         }
     }
+    
     .genres {
         line-height: 2rem;
     }

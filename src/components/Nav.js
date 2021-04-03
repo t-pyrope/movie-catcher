@@ -36,9 +36,6 @@ const Nav = () => {
     }
 
     const closeGenreListHandler = (e) => {
-        // if(e.target === undefined || e.target.children[0] === undefined){
-        //     return null;
-        // }
         if(e.target.classList.contains("genre-list")){
             e.target.style.opacity = 0;
             e.target.style.pointerEvents = "none";
@@ -86,34 +83,34 @@ const Nav = () => {
         <>
         <NavStyled>
             <h1><Link to="/">Movie catcher</Link></h1>
-                <ul>
-                    <li className="genres" onClick={openGenreListHandler} onMouseLeave={closeGenreListHandler}>Genres
-                    {genres.length && (
-                        <GenreList className="genre-list">
-                            {genres.map((genre) => (
-                                <p key={genre.id} id={genre.id} onClick={genreSelectHandler}>{genre.name}</p>
-                            ))}
-                        </GenreList>
-                        )}
-                    </li>
-                    <li>
-                        <Link to="/people">People</Link>
-                    </li>
-                    <li className="popular" onClick={openPopularInHandler} onMouseLeave={closePopularInHandler}>
-                        Popular in...
-                        <GenreList className="popular-list">
-                            {years.map((year) => (
-                                <p onClick={yearSelectHandler} key={year} id={year}>{year}</p>
-                            ))}
-                        </GenreList>
-                    </li>
-                    <li className="form">
-                    <form onSubmit={searchMovieHandler}>
-                        <input type="text" value={textInput} onChange={inputHandler} />
-                        <button type="submit"><FontAwesomeIcon icon={faSearch}/></button>
-                    </form>
-                    </li>
-                </ul>
+            <ul>
+                <li className="genres" onClick={openGenreListHandler} onMouseLeave={closeGenreListHandler}>Genres
+                {genres.length && (
+                    <GenreList className="genre-list">
+                        {genres.map((genre) => (
+                            <p key={genre.id} id={genre.id} onClick={genreSelectHandler}>{genre.name}</p>
+                        ))}
+                    </GenreList>
+                    )}
+                </li>
+                <li>
+                    <Link to="/people">People</Link>
+                </li>
+                <li className="popular" onClick={openPopularInHandler} onMouseLeave={closePopularInHandler}>
+                    Popular in...
+                    <GenreList className="popular-list">
+                        {years.map((year) => (
+                            <p onClick={yearSelectHandler} key={year} id={year}>{year}</p>
+                        ))}
+                    </GenreList>
+                </li>
+                <li className="form">
+                <form onSubmit={searchMovieHandler}>
+                    <input type="text" value={textInput} onChange={inputHandler} />
+                    <button type="submit"><FontAwesomeIcon icon={faSearch}/></button>
+                </form>
+                </li>
+            </ul>
         </NavStyled>
         </>
     )

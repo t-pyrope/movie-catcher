@@ -17,21 +17,21 @@ const PeoplePage = () => {
 
     return (
         <>
-        {people.length &&
-            <div>
-            <MovieHeader>
-                <h2>People</h2>
-            </MovieHeader>
-            <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
-            <Movies>
-                {people.map((famous) => 
-                    <Actor actorName={famous.name} poster_path={famous.profile_path} key={famous.id} id={famous.id} />
-                )}
-            </Movies>
-            <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
-            <ScrollTop />
-            </div>
-        }    
+            {people.length &&
+                <div>
+                    <MovieHeader>
+                        <h2>People</h2>
+                    </MovieHeader>
+                    <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
+                    <Movies>
+                        {people.map((famous) => 
+                            <Actor actorName={famous.name} poster_path={famous.profile_path} key={famous.id} id={famous.id} />
+                        )}
+                    </Movies>
+                    <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
+                    <ScrollTop />
+                </div>
+            }
         </>
     )   
 }

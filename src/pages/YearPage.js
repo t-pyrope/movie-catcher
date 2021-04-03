@@ -24,21 +24,21 @@ const YearPage = () => {
 
     return(
         <>
-        {yearMovies.length ? (
-            <div>
-            <MovieHeader>
-                <h2>{titleHandler()}</h2>
-                <SortComponent sortType={sortType} setSortType={setSortType} />
-            </MovieHeader>
-            <Movies>
-                {yearMovies.map((movie) => 
-                    <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
-                )}
-            </Movies>
-            <ScrollTop />
-            </div>
-        ) : <Loading />}
-    </>
+            {yearMovies.length ? (
+                <div>
+                <MovieHeader>
+                    <h2>{titleHandler()}</h2>
+                    <SortComponent sortType={sortType} setSortType={setSortType} />
+                </MovieHeader>
+                <Movies>
+                    {yearMovies.map((movie) => 
+                        <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
+                    )}
+                </Movies>
+                <ScrollTop />
+                </div>
+            ) : <Loading />}
+        </>
     )
 }
 

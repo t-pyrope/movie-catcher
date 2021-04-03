@@ -53,7 +53,7 @@ const MoviesPage = () => {
     }
 
     return(
-        <motion.div>
+        <div>
             <MovieHeader>
                 <motion.h2 variants={titleAnim} initial="hidden" animate="show">{titleHandler()}</motion.h2>
                 {pathName === "trending" && (
@@ -67,18 +67,16 @@ const MoviesPage = () => {
                 }
             </MovieHeader>
             <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
-        {trending.length && (
-                    <AnimatePresence>
-            <Movies>
-                {arrHandler().map((movie) => 
-                    <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
+                {trending.length && (
+                    <Movies>
+                        {arrHandler().map((movie) => 
+                            <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
+                        )}
+                    </Movies>
                 )}
-            </Movies>
-                </AnimatePresence>
-        )}
-        <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
-        <ScrollTop />
-    </motion.div>
+            <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
+            <ScrollTop />
+        </div>
     )
 }
 

@@ -4,23 +4,20 @@ import styled from 'styled-components';
 import noPhoto from '../img/no-photo.png';
 
 const Actor = ({actorName, poster_path, id}) => {
-
     const addDefaultSrcHandler = (e) => {
         e.target.src = noPhoto
     }
 
-
     return(
         <Link to={`/people/${id}`}>
-        <Card>
-            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
-            <div className="desc">
-                <h4>{actorName}</h4>
-            </div>
-        </Card>
+            <Card>
+                <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
+                <div className="desc">
+                    <h4>{actorName}</h4>
+                </div>
+            </Card>
         </Link>
     )
-
 }
 
 const Card = styled.div`

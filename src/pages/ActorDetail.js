@@ -44,27 +44,27 @@ const ActorDetail = () => {
 
     return(
         <>
-        {!isLoading &&
-        <Detail>
-            <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
-            <Info>
-                <div className="info-desc">
-                    <div className="basic-info">
-                        <h2>{person.name}</h2>
-                        <p className="country">From {person.place_of_birth}</p>
-                    </div>
-                    <div className="biography" onClick={(e) => openHandler(e)}>
-                        <Toggle title={"Biography"} el={person.biography} />
-                    </div>
-                        <ul>
-                            <Toggle title={"Filmography"} el={ getPersonMoviesHandler()} />
-                        </ul>
-                </div>
-                <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={person.name} />
-            </Info>
-            <ScrollTop />
-        </Detail>
-}
+            {!isLoading &&
+                <Detail>
+                    <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
+                    <Info>
+                        <div className="info-desc">
+                            <div className="basic-info">
+                                <h2>{person.name}</h2>
+                                <p className="country">From {person.place_of_birth}</p>
+                            </div>
+                            <div className="biography" onClick={(e) => openHandler(e)}>
+                                <Toggle title={"Biography"} el={person.biography} />
+                            </div>
+                            <ul>
+                                <Toggle title={"Filmography"} el={ getPersonMoviesHandler()} />
+                            </ul>
+                        </div>
+                        <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={person.name} />
+                    </Info>
+                    <ScrollTop />
+                </Detail>
+            }
         </>
     )
 }

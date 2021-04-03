@@ -3,7 +3,6 @@ import {ButtonGroup, Button} from '../styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
-
 const PrevNextBtnGroup = ({maxPages, setPage, page}) => {
     const previousPageHandler = () => {
         if (page > 1){setPage(page - 1)}

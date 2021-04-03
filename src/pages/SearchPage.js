@@ -41,25 +41,25 @@ const SearchPage = () => {
             <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
             
             {!toggle && (
-            <div>
-                {searchedMovie.length ? (
-                    <Movies>
-                        {searchedMovie.map((movie) => 
-                            <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
-                        )}
-                    </Movies>
-                ) : <Loading />}
-            </div>
+                <div>
+                    {searchedMovie.length ? (
+                        <Movies>
+                            {searchedMovie.map((movie) => 
+                                <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
+                            )}
+                        </Movies>
+                    ) : <Loading />}
+                </div>
             )}
             {toggle && (
                 <div>
                     {searchedPerson.length ? (
-                <Movies>
-                    {searchedPerson.map((person) => 
-                        <Actor actorName={person.name} poster_path={person.profile_path} key={person.id} id={person.id} />
-                    )}
-                </Movies>
-            ) : <Loading />}
+                        <Movies>
+                            {searchedPerson.map((person) => 
+                                <Actor actorName={person.name} poster_path={person.profile_path} key={person.id} id={person.id} />
+                            )}
+                        </Movies>
+                    ) : <Loading />}
                 </div>
             )}
             <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />

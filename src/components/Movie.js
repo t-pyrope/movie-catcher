@@ -6,7 +6,6 @@ import noPoster from '../img/no-poster.png';
 import star from '../img/star.png';
 
 const Movie = ({title, poster_path, rating, id}) => {
-
     const addDefaultSrcHandler = (e) => {
         e.target.src = noPoster
     }
@@ -44,18 +43,17 @@ const Movie = ({title, poster_path, rating, id}) => {
 
     return(
         <Link to={`/movies/${id}`}>
-        <Card>
-            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
-            <div className="desc">
-                <h4>{titleHandler()}</h4>
-                <div className="rating">
-                <img src={star} alt="rating" /><p>{rating}</p>
+            <Card>
+                <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
+                <div className="desc">
+                    <h4>{titleHandler()}</h4>
+                    <div className="rating">
+                    <img src={star} alt="rating" /><p>{rating}</p>
+                    </div>
                 </div>
-            </div>
-        </Card>
+            </Card>
         </Link>
     )
-
 }
 
 const Card = styled.div`

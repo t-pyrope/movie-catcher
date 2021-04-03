@@ -35,31 +35,31 @@ const Carousel = ({movies, title}) => {
 
     return(
         <CarouselStyled variants={pageAnimation} initial="hidden" animate="show" exit="exit">
-        <CarouselProvider
-            naturalSlideWidth={100}
-            naturalSlideHeight={100}
-            totalSlides={10}
-            visibleSlides={setElementNumberHandler()}
-            step={setElementStepHandler()}
-            interval={5000}
-            isPlaying={true}>
+            <CarouselProvider
+                naturalSlideWidth={100}
+                naturalSlideHeight={100}
+                totalSlides={10}
+                visibleSlides={setElementNumberHandler()}
+                step={setElementStepHandler()}
+                interval={5000}
+                isPlaying={true}>
                 <Slider>
-                <CarouselMovies>
-                    {movies.slice(0,10).map((movie, index) => 
-                        <Slide index={index} key={movie.id}>
-                            <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
-                        </Slide>
-                    )}
-                </CarouselMovies>
-            </Slider>
-            <div className="controls">
-                <ButtonBack className="button-back"><FontAwesomeIcon icon={faAngleLeft} size="2x" /></ButtonBack>
-                <Link to={`/${title}`}>
-                    <button type="submit" className="submit-btn">View All</button>
-                </Link>
-                <ButtonNext className="button-next"><FontAwesomeIcon icon={faAngleRight} size="2x" /></ButtonNext>
-            </div>
-        </CarouselProvider>
+                    <CarouselMovies>
+                        {movies.slice(0,10).map((movie, index) => 
+                            <Slide index={index} key={movie.id}>
+                                <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
+                            </Slide>
+                        )}
+                    </CarouselMovies>
+                </Slider>
+                <div className="controls">
+                    <ButtonBack className="button-back"><FontAwesomeIcon icon={faAngleLeft} size="2x" /></ButtonBack>
+                    <Link to={`/${title}`}>
+                        <button type="submit" className="submit-btn">View All</button>
+                    </Link>
+                    <ButtonNext className="button-next"><FontAwesomeIcon icon={faAngleRight} size="2x" /></ButtonNext>
+                </div>
+            </CarouselProvider>
         </CarouselStyled>
     )
 }
@@ -84,10 +84,6 @@ const CarouselStyled = styled(motion.div)`
 
             &:focus {
                 outline: none;
-            }
-
-            &:active {
-                /* background-color: #424242; */
             }
 
             &:disabled:hover {
@@ -138,7 +134,6 @@ const CarouselMovies = styled(motion.div)`
     @media (max-width: 480px){
         min-height: 30vh;
     }
-
 `
 
 export default Carousel;

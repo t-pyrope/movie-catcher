@@ -4,6 +4,7 @@ const SortComponent = ({sortType, setSortType}) => {
     const setSortTypeHandler = (e) => {
         setSortType(e.target.value);
     }
+    
     return(
         <select onChange={setSortTypeHandler} value={sortType}>
             <option value="popularity.desc">Most Popular</option>

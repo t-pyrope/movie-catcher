@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { loadMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
-
 import styled from 'styled-components';
 import Carousel from '../components/Carousel';
 import {titleAnim} from '../animation';
@@ -17,16 +16,14 @@ const Home = () => {
     }, [dispatch, trendPeriod])
     const {trending, kids, adults} = useSelector(state => state.movies);
     
-    // handlers
     const setTrendPeriodHandler = (e) => {
         setTrendPeriod(e.target.value);
     }
     
     return(
-
         <MovieList>
             <motion.div className="title" variants={titleAnim} initial="hidden" animate="show">
-                <motion.h2>Trending</motion.h2>
+                <h2>Trending</h2>
                 <select value={trendPeriod} onChange={setTrendPeriodHandler}>
                     <option value="day">This day</option>
                     <option value="week">This week</option>
@@ -34,16 +31,15 @@ const Home = () => {
             </motion.div>
             <Carousel movies={trending} title={"trending"}/>
             <div className="title">
-            <h2>Popular for kids</h2>
+                <h2>Popular for kids</h2>
             </div>
             <Carousel movies={kids} title={"kids"}/>
             <div className="title">
-            <h2>R-rated popular movies</h2>
+                <h2>R-rated popular movies</h2>
             </div>
             <Carousel movies={adults} title={"adults"}/>
-        <ScrollTop />
+            <ScrollTop />
         </MovieList>
-        
     )
 }
 
