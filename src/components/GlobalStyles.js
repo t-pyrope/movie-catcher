@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
     *{
@@ -37,6 +37,15 @@ const GlobalStyles = createGlobalStyle`
     button {
         font-family: 'Montserrat', sans-serif;
         cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+    }
+
+    div[role="button"]{
+        &:focus {
+            outline: none;
+        }
     }
 
     select {
@@ -62,6 +71,6 @@ const GlobalStyles = createGlobalStyle`
         list-style: none;
     }
 
-`
+`;
 
-export default GlobalStyles
+export default GlobalStyles;

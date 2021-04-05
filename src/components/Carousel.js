@@ -1,68 +1,81 @@
 import React from 'react';
 import styled from 'styled-components';
-import {CarouselProvider, Slider, Slide, ButtonBack, ButtonNext} from 'pure-react-carousel';
+import PropTypes from 'prop-types';
+import {
+  CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
+} from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import {Link} from 'react-router-dom';
-import {motion} from 'framer-motion';
-import {pageAnimation} from '../animation';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { pageAnimation } from '../animation';
 
 import Movie from './Movie';
 
-const Carousel = ({movies, title}) => {
-    const setElementNumberHandler = () => {
-        const width = window.window.innerWidth;
-        if (width > 1200){
-            return 5
-        } else if (width > 1000) {
-            return 4
-        } else if (width > 900) {
-            return 3
-        } else {
-            return 2
-        }
+const Carousel = ({ movies, title }) => {
+  const setElementNumberHandler = () => {
+    const width = window.window.innerWidth;
+    if (width > 1200) {
+      return 5;
+    } if (width > 1000) {
+      return 4;
+    } if (width > 900) {
+      return 3;
     }
+    return 2;
+  };
 
-    const setElementStepHandler = () => {
-        const width = window.window.innerWidth;
-        if (width > 1200){
-            return 2
-        } else {
-            return 1
-        }
+  const setElementStepHandler = () => {
+    const width = window.window.innerWidth;
+    if (width > 1200) {
+      return 2;
     }
+    return 1;
+  };
 
-    return(
-        <CarouselStyled variants={pageAnimation} initial="hidden" animate="show" exit="exit">
-            <CarouselProvider
-                naturalSlideWidth={100}
-                naturalSlideHeight={100}
-                totalSlides={10}
-                visibleSlides={setElementNumberHandler()}
-                step={setElementStepHandler()}
-                interval={5000}
-                isPlaying={true}>
-                <Slider>
-                    <CarouselMovies>
-                        {movies.slice(0,10).map((movie, index) => 
-                            <Slide index={index} key={movie.id}>
-                                <Movie title={movie.title ? movie.title : movie.name} poster_path={movie.poster_path} rating={movie.vote_average} key={movie.id} id={movie.id} />
-                            </Slide>
-                        )}
-                    </CarouselMovies>
-                </Slider>
-                <div className="controls">
-                    <ButtonBack className="button-back"><FontAwesomeIcon icon={faAngleLeft} size="2x" /></ButtonBack>
-                    <Link to={`/${title}`}>
-                        <button type="submit" className="submit-btn">View All</button>
-                    </Link>
-                    <ButtonNext className="button-next"><FontAwesomeIcon icon={faAngleRight} size="2x" /></ButtonNext>
-                </div>
-            </CarouselProvider>
-        </CarouselStyled>
-    )
-}
+  return (
+    <CarouselStyled variants={pageAnimation} initial="hidden" animate="show" exit="exit">
+      <CarouselProvider
+        naturalSlideWidth={100}
+        naturalSlideHeight={100}
+        totalSlides={19}
+        visibleSlides={setElementNumberHandler()}
+        step={setElementStepHandler()}
+        interval={5000}
+        isPlaying
+      >
+        <Slider>
+          <CarouselMovies>
+            {movies.map((movie, index) => (
+              <Slide index={index} key={movie.id}>
+                <Movie
+                  title={movie.title ? movie.title : movie.name}
+                  posterPath={movie.poster_path}
+                  rating={movie.vote_average}
+                  key={movie.id}
+                  id={movie.id}
+                />
+              </Slide>
+            ))}
+          </CarouselMovies>
+        </Slider>
+        <div className="controls">
+          <ButtonBack className="button-back"><FontAwesomeIcon icon={faAngleLeft} size="2x" /></ButtonBack>
+          <Link to={`/${title}`}>
+            <button type="submit" className="submit-btn">View All</button>
+          </Link>
+          <ButtonNext className="button-next"><FontAwesomeIcon icon={faAngleRight} size="2x" /></ButtonNext>
+        </div>
+      </CarouselProvider>
+    </CarouselStyled>
+  );
+};
+
+Carousel.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 const CarouselStyled = styled(motion.div)`
     .controls {
@@ -104,7 +117,7 @@ const CarouselStyled = styled(motion.div)`
             width: 90%;
         }
     }
-`
+`;
 
 const CarouselMovies = styled(motion.div)`
     min-height: 55vh;
@@ -134,6 +147,6 @@ const CarouselMovies = styled(motion.div)`
     @media (max-width: 480px){
         min-height: 30vh;
     }
-`
+`;
 
 export default Carousel;

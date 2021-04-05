@@ -1,120 +1,139 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useHistory, useLocation} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import loadGenres from '../actions/genresAction';
 
 const Nav = () => {
-    const [textInput, setTextInput] = useState("");
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const location = useLocation();
-    const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+  const [textInput, setTextInput] = useState('');
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020];
 
-    useEffect(() => {
-        dispatch(loadGenres())        
-    }, [dispatch, location]);
-    const {genres} = useSelector((state) => state.genres)
-    const inputHandler = (e) => {
-        setTextInput(e.target.value);
-    };
+  useEffect(() => {
+    dispatch(loadGenres());
+  }, [dispatch, location]);
+  const { genres } = useSelector((state) => state.genres);
+  const inputHandler = (e) => {
+    setTextInput(e.target.value);
+  };
 
-    const searchMovieHandler = (e) => {
-        e.preventDefault();
-        history.push(`/search/${textInput}`);
-        setTextInput("");
+  const searchMovieHandler = (e) => {
+    e.preventDefault();
+    history.push(`/search/${textInput}`);
+    setTextInput('');
+  };
+
+  const openGenreListHandler = (e) => {
+    // if (e.target.children[0] === undefined) {
+    //   return null;
+    // }
+    const parent = e.target.parentElement;
+    parent.children[1].style.opacity = 1;
+    parent.children[1].style.pointerEvents = 'all';
+    return null;
+  };
+
+  const closeGenreListHandler = (e) => {
+    if (e.target.classList.contains('genre-list')) {
+      e.target.style.opacity = 0;
+      e.target.style.pointerEvents = 'none';
     }
-
-    const openGenreListHandler = (e) => {
-        if(e.target.children[0] === undefined){
-            return null;
-        }
-        e.target.children[0].style.opacity = 1;
-        e.target.children[0].style.pointerEvents = "all";
+    if (e.target.classList.contains('genres')) {
+      e.target.children[0].style.opacity = 0;
+      e.target.children[0].pointerEvents = 'none';
     }
+  };
 
-    const closeGenreListHandler = (e) => {
-        if(e.target.classList.contains("genre-list")){
-            e.target.style.opacity = 0;
-            e.target.style.pointerEvents = "none";
-        }
-        if(e.target.classList.contains("genres")){
-            e.target.children[0].style.opacity = 0;
-            e.target.children[0].pointerEvents = "none";
-        }
+  const genreSelectHandler = (e) => {
+    e.stopPropagation();
+    const genreId = e.target.id;
+    history.push(`/genres/${genreId}`);
+    const div = e.target.parentElement.parentElement;
+    div.style.opacity = 0;
+    div.style.pointerEvents = 'none';
+  };
+  const openPopularInHandler = (e) => {
+    const parent = e.target.parentElement;
+    parent.children[1].style.opacity = 1;
+    parent.children[1].style.pointerEvents = 'all';
+  };
+
+  const closePopularInHandler = (e) => {
+    if (e.target.classList.contains('popular-list')) {
+      e.target.style.opacity = 0;
+      e.target.style.pointerEvents = 'none';
     }
-
-    const genreSelectHandler = (e) => {
-        e.stopPropagation();
-        const genreId = e.target.id;
-        history.push(`/genres/${genreId}`);
-        const div = e.target.parentElement;
-        div.style.opacity = 0;
-        div.style.pointerEvents = "none";
+    if (e.target.classList.contains('popular')) {
+      e.target.children[0].style.opacity = 0;
+      e.target.children[0].pointerEvents = 'none';
     }
-    const openPopularInHandler = (e) => {
-        e.target.children[0].style.opacity = 1;
-        e.target.children[0].style.pointerEvents = "all";
-    };
-    
-    const closePopularInHandler = (e) => {
-        if(e.target.classList.contains("popular-list")){
-            e.target.style.opacity = 0;
-            e.target.style.pointerEvents = "none";
-        }
-        if(e.target.classList.contains("popular")){
-            e.target.children[0].style.opacity = 0;
-            e.target.children[0].pointerEvents = "none";
-        }
-    };
+  };
 
-    const yearSelectHandler = (e) => {
-        e.stopPropagation();
-        const genreId = e.target.id;
-        history.push(`/year/${genreId}`);
-        const div = e.target.parentElement;
-        div.style.opacity = 0;
-        div.style.pointerEvents = "none";
-    }
+  const yearSelectHandler = (e) => {
+    e.stopPropagation();
+    const genreId = e.target.id;
+    history.push(`/year/${genreId}`);
+    const div = e.target.parentElement.parentElement;
+    div.style.opacity = 0;
+    div.style.pointerEvents = 'none';
+  };
 
-    return(
-        <>
-        <NavStyled>
-            <h1><Link to="/">Movie catcher</Link></h1>
-            <ul>
-                <li className="genres" onClick={openGenreListHandler} onMouseLeave={closeGenreListHandler}>Genres
-                {genres.length && (
-                    <GenreList className="genre-list">
-                        {genres.map((genre) => (
-                            <p key={genre.id} id={genre.id} onClick={genreSelectHandler}>{genre.name}</p>
-                        ))}
-                    </GenreList>
-                    )}
-                </li>
-                <li>
-                    <Link to="/people">People</Link>
-                </li>
-                <li className="popular" onClick={openPopularInHandler} onMouseLeave={closePopularInHandler}>
-                    Popular in...
-                    <GenreList className="popular-list">
-                        {years.map((year) => (
-                            <p onClick={yearSelectHandler} key={year} id={year}>{year}</p>
-                        ))}
-                    </GenreList>
-                </li>
-                <li className="form">
-                <form onSubmit={searchMovieHandler}>
-                    <input type="text" value={textInput} onChange={inputHandler} />
-                    <button type="submit"><FontAwesomeIcon icon={faSearch}/></button>
-                </form>
-                </li>
-            </ul>
-        </NavStyled>
-        </>
-    )
-}
+  const openPeopleHandler = () => {
+    history.push('/people');
+  };
+
+  return (
+    <>
+      <NavStyled>
+        <h1><Link to="/">Movie catcher</Link></h1>
+        <ul>
+          <li className="genres">
+            <button
+              className="nav-btn"
+              type="button"
+              onClick={openGenreListHandler}
+              onKeyDown={openGenreListHandler}
+            >
+              Genres
+            </button>
+            {genres.length && (
+            <GenreList className="genre-list" onMouseLeave={closeGenreListHandler}>
+              {genres.map((genre) => (
+                <p key={genre.id}>
+                  <button className="nav-btn" type="button" id={genre.id} onClick={genreSelectHandler}>{genre.name}</button>
+                </p>
+              ))}
+            </GenreList>
+            )}
+          </li>
+          <li>
+            <button type="button" onClick={openPeopleHandler} className="nav-btn">People</button>
+          </li>
+          <li className="popular">
+            <button type="button" onClick={openPopularInHandler} className="nav-btn">
+              Popular in...
+            </button>
+            <GenreList className="popular-list" onMouseLeave={closePopularInHandler}>
+              {years.map((year) => (
+                <p key={year}><button type="button" onClick={yearSelectHandler} id={year} className="nav-btn">{year}</button></p>
+              ))}
+            </GenreList>
+          </li>
+          <li className="form">
+            <form onSubmit={searchMovieHandler}>
+              <input type="text" value={textInput} onChange={inputHandler} />
+              <button type="submit" aria-label="start search"><FontAwesomeIcon icon={faSearch} /></button>
+            </form>
+          </li>
+        </ul>
+      </NavStyled>
+    </>
+  );
+};
 
 const NavStyled = styled.nav`
     display: flex;
@@ -163,7 +182,7 @@ const NavStyled = styled.nav`
 
     li {
         margin-right: 1rem;
-        padding: 0.5rem 1rem 0rem 1rem;
+        padding: 0.5rem 1rem;
         cursor: pointer;
         &:hover {
             background-color: #252525;
@@ -191,7 +210,16 @@ const NavStyled = styled.nav`
     .genres, .popular {
         position: relative;
     }
-`
+
+    .nav-btn {
+      color: white;
+      position: relative;
+      font-size: 1rem;
+      padding-top: 0;
+      width: 100%;
+      height: 100%;
+    }
+`;
 
 const GenreList = styled.div`
     position: absolute;
@@ -218,6 +246,6 @@ const GenreList = styled.div`
     @media (max-width: 500px){
         width: 20rem;
     }
-`
+`;
 
 export default Nav;

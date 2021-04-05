@@ -1,24 +1,33 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import noPhoto from '../img/no-photo.png';
 
-const Actor = ({actorName, poster_path, id}) => {
-    const addDefaultSrcHandler = (e) => {
-        e.target.src = noPhoto
-    }
+const Actor = ({ actorName, posterPath, id }) => {
+  const addDefaultSrcHandler = (e) => {
+    e.target.src = noPhoto;
+  };
 
-    return(
-        <Link to={`/people/${id}`}>
-            <Card>
-                <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} onError={(e) => {addDefaultSrcHandler(e)}} alt="poster" className="poster" />
-                <div className="desc">
-                    <h4>{actorName}</h4>
-                </div>
-            </Card>
-        </Link>
-    )
-}
+  return (
+    <Link to={`/people/${id}`}>
+      <Card>
+        <img src={`https://image.tmdb.org/t/p/w500${posterPath}`} onError={(e) => { addDefaultSrcHandler(e); }} alt="poster" className="poster" />
+        <div className="desc">
+          <h4>{actorName}</h4>
+        </div>
+      </Card>
+    </Link>
+  );
+};
+
+Actor.propTypes = {
+  actorName: PropTypes.string.isRequired,
+  posterPath: PropTypes.string,
+  id: PropTypes.number.isRequired,
+};
+
+Actor.defaultProps = { posterPath: null };
 
 const Card = styled.div`
     overflow: hidden;
@@ -60,6 +69,6 @@ const Card = styled.div`
             opacity: 1;
         }
     }
-`
+`;
 
 export default Actor;

@@ -1,66 +1,77 @@
 import React, { useEffect } from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {loadDetail} from '../actions/detailAction';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import loadDetail from '../actions/detailAction';
 import star from '../img/star.png';
 import noPoster from '../img/no-poster.png';
-import {ButtonLikeLink, Loading} from '../styles';
+import { ButtonLikeLink, Loading } from '../styles';
 import ScrollTop from '../components/ScrollTop';
 
-
 const MovieDetail = () => {
-    const history = useHistory();
-    const arr = history.location.pathname.split("/");
-    const id = arr[arr.length - 1];
+  const history = useHistory();
+  const arr = history.location.pathname.split('/');
+  const id = arr[arr.length - 1];
 
-    const dispatch = useDispatch();
-    useEffect(()=> {
-        dispatch(loadDetail(id))
-    }, [dispatch, id])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadDetail(id));
+  }, [dispatch, id]);
 
-    const {detail, isLoading} = useSelector(state => state.detail);
+  const { detail, isLoading } = useSelector((state) => state.detail);
 
-    const getPosterHandler = () => {
-        return `https://image.tmdb.org/t/p/w780${detail.poster_path}`;
-    }
+  const getPosterHandler = () => {
+    return `https://image.tmdb.org/t/p/w780${detail.poster_path}`;
+  };
 
-    const addDefaultSrcHandler = (e) => {
-        e.target.src = noPoster
-    }
+  const addDefaultSrcHandler = (e) => {
+    e.target.src = noPoster;
+  };
 
-    return(
-        <>
-            {!isLoading ? 
-                <Detail>
-                    <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
-                    <Info>
-                        <div className="info-desc">
-                            <div className="basic-info">
-                                <h2>{detail.title}</h2>
-                                <p className="country">{detail.production_countries.map((country) => (
-                                <span key={country.name}>{country.name}</span>
-                                    ))}</p>
-                                <p className="genres">{detail.genres.map(genre => 
-                                    <Link to={`/genres/${genre.id}`} key={genre.id}>
-                                        <span className="genre">{genre.name}</span>
-                                    </Link>
-                                    )}</p>
-                                <p><img src={star} alt="rating" /> {detail.vote_average}</p>
-                            </div>
-                            <div>
-                                <h3>Description</h3>
-                                <p>{detail.overview}</p>
-                            </div>
-                        </div>
-                        <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={detail.title} />
-                    </Info>
-                    <ScrollTop />
-                </Detail>
-            : <Loading />}
-        </>
-    )
-}
+  return (
+    <>
+      {!isLoading
+        ? (
+          <Detail>
+            <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
+            <Info>
+              <div className="info-desc">
+                <div className="basic-info">
+                  <h2>{detail.title}</h2>
+                  <p className="country">
+                    {detail.production_countries.map((country) => (
+                      <span key={country.name}>{country.name}</span>
+                    ))}
+
+                  </p>
+                  <p className="genres">
+                    {detail.genres.map((genre) => (
+                      <Link to={`/genres/${genre.id}`} key={genre.id}>
+                        <span className="genre">{genre.name}</span>
+                      </Link>
+                    ))}
+
+                  </p>
+                  <p>
+                    <img src={star} alt="rating" />
+                    {' '}
+                    {detail.vote_average}
+                  </p>
+                </div>
+                <div>
+                  <h3>Description</h3>
+                  <p>{detail.overview}</p>
+                </div>
+              </div>
+              <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="poster" alt={detail.title} />
+            </Info>
+            <ScrollTop />
+          </Detail>
+        )
+        : <Loading />}
+    </>
+  );
+};
 
 const Detail = styled.div`
     width: 70%;
@@ -135,6 +146,6 @@ const Info = styled.div`
             border-radius: 0;
         }
     }
-`
+`;
 
 export default MovieDetail;

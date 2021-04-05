@@ -1,3 +1,7 @@
+import React from 'react';
+import styled from 'styled-components';
+import { Switch, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
@@ -8,11 +12,8 @@ import MoviesPage from './pages/MoviesPage';
 import GenresPage from './pages/GenresPage';
 import PeoplePage from './pages/PeoplePage';
 import YearPage from './pages/YearPage';
-import {Wrapper} from './styles';
+import { Wrapper } from './styles';
 import GlobalStyles from './components/GlobalStyles';
-import styled from 'styled-components';
-import {Switch, Route, useLocation} from 'react-router-dom';
-import {AnimatePresence} from 'framer-motion';
 
 function App() {
   const location = useLocation();
@@ -59,6 +60,6 @@ function App() {
 
 const NoScrollX = styled.div`
   overflow-x: hidden;
-`
+`;
 
 export default App;

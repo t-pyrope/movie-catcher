@@ -1,83 +1,93 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {loadPersonDetail} from '../actions/personDetailAction';
-import noPhoto from '../img/no-photo.png';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {ButtonLikeLink} from '../styles';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
+import loadPersonDetail from '../actions/personDetailAction';
+import noPhoto from '../img/no-photo.png';
+import { ButtonLikeLink } from '../styles';
 import ScrollTop from '../components/ScrollTop';
 
-
 const ActorDetail = () => {
-    const history = useHistory();
-    const personId = history.location.pathname.split("/")[2];
+  const history = useHistory();
+  const personId = history.location.pathname.split('/')[2];
 
-    const dispatch = useDispatch();
-    useEffect(()=> {
-        dispatch(loadPersonDetail(personId))
-    }, [dispatch, personId])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadPersonDetail(personId));
+  }, [dispatch, personId]);
 
-    const {person, personMovies, isLoading} = useSelector(state => state.person);
+  const { person, personMovies, isLoading } = useSelector((state) => state.person);
 
-    const getPosterHandler = () => {
-        return `https://image.tmdb.org/t/p/w780${person.profile_path}`;
+  const getPosterHandler = () => {
+    return `https://image.tmdb.org/t/p/w780${person.profile_path}`;
+  };
+
+  const addDefaultSrcHandler = (e) => {
+    e.target.src = noPhoto;
+  };
+
+  const openHandler = (e) => {
+    if (e.target.classList.contains('biography')) {
+      e.target.classList.toggle('active');
     }
+  };
 
-    const addDefaultSrcHandler = (e) => {
-        e.target.src = noPhoto
-    }
+  const getPersonMoviesHandler = () => {
+    return (personMovies.map((movie) => (
+      <Link to={`/movies/${movie.id}`} key={movie.id}>
+        <li>{movie.title}</li>
+      </Link>
+    )));
+  };
 
-    const openHandler = (e) => {
-        if(e.target.classList.contains("biography")){
-            e.target.classList.toggle("active");
-        }
-    }
-
-    const getPersonMoviesHandler = () => {
-        return(personMovies.map(movie => (
-            <Link to={`/movies/${movie.id}`} key={movie.id}>
-                <li>{movie.title}</li>
-            </Link>
-        )));
-    }
-
-    return(
-        <>
-            {!isLoading &&
+  return (
+    <>
+      {!isLoading
+                && (
                 <Detail>
-                    <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
-                    <Info>
-                        <div className="info-desc">
-                            <div className="basic-info">
-                                <h2>{person.name}</h2>
-                                <p className="country">From {person.place_of_birth}</p>
-                            </div>
-                            <div className="biography" onClick={(e) => openHandler(e)}>
-                                <Toggle title={"Biography"} el={person.biography} />
-                            </div>
-                            <ul>
-                                <Toggle title={"Filmography"} el={ getPersonMoviesHandler()} />
-                            </ul>
-                        </div>
-                        <img src={getPosterHandler()} onError={(e)=>addDefaultSrcHandler(e)} className="poster" alt={person.name} />
-                    </Info>
-                    <ScrollTop />
+                  <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
+                  <Info>
+                    <div className="info-desc">
+                      <div className="basic-info">
+                        <h2>{person.name}</h2>
+                        <p className="country">
+                          From
+                          {' '}
+                          {person.place_of_birth}
+                        </p>
+                      </div>
+                      <div className="biography" onClick={(e) => openHandler(e)} onKeyDown={(e) => openHandler(e)} role="button" tabIndex="0">
+                        <Toggle title="Biography" el={person.biography} />
+                      </div>
+                      <ul>
+                        <Toggle title="Filmography" el={getPersonMoviesHandler()} />
+                      </ul>
+                    </div>
+                    <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="poster" alt={person.name} />
+                  </Info>
+                  <ScrollTop />
                 </Detail>
-            }
-        </>
-    )
-}
+                )}
+    </>
+  );
+};
 
-const Toggle = ({title, el}) => {
-    const [toggle, setToggle] = useState(false);
-    return(
-        <div onClick={() => setToggle(!toggle)}>
-            <h3>{title}</h3>
-            {toggle ? <motion.p transition={{duration: 0.5}} initial={{height: 0}} animate={{height: "auto"}}>{el}</motion.p> : ""}
-        </div>
-    )
-}
+const Toggle = ({ title, el }) => {
+  const [toggle, setToggle] = useState(false);
+  return (
+    <div onClick={() => setToggle(!toggle)} role="button" onKeyDown={() => setToggle(!toggle)} tabIndex="0">
+      <h3>{title}</h3>
+      {toggle ? <motion.p transition={{ duration: 0.5 }} initial={{ height: 0 }} animate={{ height: 'auto' }}>{el}</motion.p> : ''}
+    </div>
+  );
+};
+
+Toggle.propTypes = {
+  title: PropTypes.string.isRequired,
+  el: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+};
 
 const Detail = styled.div`
     width: 90%;
@@ -181,6 +191,6 @@ const Info = styled.div`
             width: 100%;
         }
     }
-`
+`;
 
 export default ActorDetail;

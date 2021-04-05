@@ -1,12 +1,14 @@
 import axios from 'axios';
-import {yearMoviesURL} from '../api';
+import { yearMoviesURL } from '../api';
 
-export const fetchYearMovies = (year, page, sort_type) => async (dispatch) => {
-    const yearData = await axios.get(yearMoviesURL(year, page, sort_type));
-    dispatch({
-        type: "FETCH_YEAR",
-        payload: {
-            yearMovies: yearData.data.results,
-        }
-    })
-}
+const fetchYearMovies = (year, page, sortType) => async (dispatch) => {
+  const yearData = await axios.get(yearMoviesURL(year, page, sortType));
+  dispatch({
+    type: 'FETCH_YEAR',
+    payload: {
+      yearMovies: yearData.data.results,
+    },
+  });
+};
+
+export default fetchYearMovies;

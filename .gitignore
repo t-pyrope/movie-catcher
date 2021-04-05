@@ -11,6 +11,10 @@
 # production
 /build
 
+# lints
+.eslintrc.json
+.prettierrc.json
+
 # misc
 .DS_Store
 .env

@@ -1,5 +1,5 @@
-import styled, {keyframes} from 'styled-components';
-import {motion} from 'framer-motion'
+import styled, { keyframes } from 'styled-components';
+import { motion } from 'framer-motion';
 
 export const Wrapper = styled.div`
     width: 80%;
@@ -32,7 +32,6 @@ export const ButtonLikeLink = styled.button`
     text-decoration: underline;
 
     &:focus {
-        outline: none;
         color: #dddddd;
     }
 `;
@@ -55,7 +54,7 @@ export const ButtonGroup = styled.div`
     @media (max-width: 500px){
         width: 80%;
     }
-`
+`;
 
 export const Button = styled.button`
     border: none;
@@ -76,17 +75,13 @@ export const Button = styled.button`
     &:last-child {
         margin-right: 0rem;
     }
-
-    &:focus {
-        outline: none;
-    }
-`
+`;
 
 const spin = keyframes`
   to {
     transform: rotate(360deg);
   }
-`
+`;
 
 export const Loading = styled.div`
   width: 1.5rem;
@@ -96,4 +91,4 @@ export const Loading = styled.div`
   border-radius: 50%;
   margin: auto;
   animation: ${spin} 1s linear infinite;
-`
+`;
