@@ -5,7 +5,7 @@ import {Movies, MovieHeader} from '../styles';
 import Movie from '../components/Movie';
 import {loadMovies} from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
-import {motion, AnimatePresence} from 'framer-motion';
+import {motion} from 'framer-motion';
 import {titleAnim} from '../animation';
 import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
 import SortComponent from '../components/Sort';
