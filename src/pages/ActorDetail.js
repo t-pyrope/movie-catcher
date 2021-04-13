@@ -45,31 +45,31 @@ const ActorDetail = () => {
   return (
     <>
       {!isLoading
-                && (
-                <Detail>
-                  <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
-                  <Info>
-                    <div className="info-desc">
-                      <div className="basic-info">
-                        <h2>{person.name}</h2>
-                        <p className="country">
-                          From
-                          {' '}
-                          {person.place_of_birth}
-                        </p>
-                      </div>
-                      <div className="biography" onClick={(e) => openHandler(e)} onKeyDown={(e) => openHandler(e)} role="button" tabIndex="0">
-                        <Toggle title="Biography" el={person.biography} />
-                      </div>
-                      <ul>
-                        <Toggle title="Filmography" el={getPersonMoviesHandler()} />
-                      </ul>
-                    </div>
-                    <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="poster" alt={person.name} />
-                  </Info>
-                  <ScrollTop />
-                </Detail>
-                )}
+      && (
+      <Detail>
+        <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
+        <Info>
+          <div className="info-desc">
+            <div className="basic-info">
+              <h2>{person.name}</h2>
+              <p className="country">
+                From
+                {' '}
+                {person.place_of_birth}
+              </p>
+            </div>
+            <div className="biography" onClick={(e) => openHandler(e)} onKeyDown={(e) => openHandler(e)} role="button" tabIndex="0">
+              <Toggle title="Biography" el={person.biography} />
+            </div>
+            <ul>
+              <Toggle title="Filmography" el={getPersonMoviesHandler()} />
+            </ul>
+          </div>
+          <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="poster" alt={person.name} />
+        </Info>
+        <ScrollTop />
+      </Detail>
+      )}
     </>
   );
 };
@@ -176,6 +176,10 @@ const Info = styled.div`
 
     li {
         padding: 0.5rem 0.5rem;
+        transition: all 0.5s ease;
+        &:hover {
+          color: #afafaf;
+        }
     }
 
     @media (max-width: 1024px){

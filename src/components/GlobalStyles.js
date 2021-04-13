@@ -67,6 +67,12 @@ const GlobalStyles = createGlobalStyle`
         }
     }
 
+    input {
+        &:focus {
+            outline: none;
+        }
+    }
+
     ul {
         list-style: none;
     }

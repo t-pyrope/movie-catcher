@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-console */
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import loadGenres from '../actions/genresAction';
+import search from '../utils';
 
 const Nav = () => {
   const [textInput, setTextInput] = useState('');
+  const [liveSearchMovies, setLiveSearchMovies] = useState([]);
+  const liveSearch = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -16,21 +20,35 @@ const Nav = () => {
   useEffect(() => {
     dispatch(loadGenres());
   }, [dispatch, location]);
+
   const { genres } = useSelector((state) => state.genres);
+
+  const searched = async (value) => {
+    if (value !== '') {
+      liveSearch.current.classList.remove('hidden');
+      const res = await search(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&query=${value}`);
+      const movies = await res.results.slice(0, 6);
+      console.log(movies);
+      setLiveSearchMovies(movies);
+    } else {
+      liveSearch.current.classList.add('hidden');
+    }
+    return null;
+  };
+
   const inputHandler = (e) => {
     setTextInput(e.target.value);
+    searched(e.target.value);
   };
 
   const searchMovieHandler = (e) => {
     e.preventDefault();
     history.push(`/search/${textInput}`);
     setTextInput('');
+    liveSearch.current.classList.add('hidden');
   };
 
   const openGenreListHandler = (e) => {
-    // if (e.target.children[0] === undefined) {
-    //   return null;
-    // }
     const parent = e.target.parentElement;
     parent.children[1].style.opacity = 1;
     parent.children[1].style.pointerEvents = 'all';
@@ -89,7 +107,12 @@ const Nav = () => {
   return (
     <>
       <NavStyled>
-        <h1><Link to="/">Movie catcher</Link></h1>
+        <div className="title">
+          <h1>
+            <Link to="/">Movie catcher</Link>
+          </h1>
+          <div className="colored" />
+        </div>
         <ul>
           <li className="genres">
             <button
@@ -128,6 +151,11 @@ const Nav = () => {
               <input type="text" value={textInput} onChange={inputHandler} />
               <button type="submit" aria-label="start search"><FontAwesomeIcon icon={faSearch} /></button>
             </form>
+            <div className="live-search hidden" ref={liveSearch}>
+              {liveSearchMovies.length && liveSearchMovies.map((movie) => (
+                <a href={`/movies/${movie.id}`} key={movie.id}>{movie.title}</a>
+              ))}
+            </div>
           </li>
         </ul>
       </NavStyled>
@@ -141,6 +169,27 @@ const NavStyled = styled.nav`
     align-items: center;
     flex-direction: column;
     min-height: 25vh;
+
+    .title {
+      overflow: hidden;
+      position: relative;
+      background-color: #353535;
+    }
+    .colored {
+      width: 100%;
+      height: 100%;
+      background-color: #ffb259;
+      top: 0;
+      left: 0;
+      position: absolute;
+      transition: all 0.5s ease;
+      pointer-events: none;
+      mix-blend-mode: darken;
+      transform: translateY(100%);
+    }
+    .title:hover .colored {
+      transform: translateY(0%);
+    }
 
     input[type="text"]{
         line-height: 1.3;
@@ -195,7 +244,7 @@ const NavStyled = styled.nav`
     .form {
         margin-left: auto;
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         min-width: 10rem;
 
         @media (max-width: 768px){
@@ -204,6 +253,32 @@ const NavStyled = styled.nav`
 
         @media (max-width: 480px){
             margin: 0;
+        }
+
+        .live-search {
+          position: absolute;
+          top: 80%;
+          left: 8%;
+          min-width: 90%;
+          width: auto;
+          height: 11rem;
+          background-color: white;
+          z-index: 5;
+          display: flex;
+          flex-direction: column;
+          overflow-x: hidden;
+
+          a {
+            padding: 0.3rem;
+            color: #353535;
+            white-space: nowrap;
+            &:hover {
+              background-color: #cfcfcf;
+            }
+          }
+        }
+        .hidden {
+          display: none;
         }
     }
 
