@@ -12,7 +12,6 @@
 /build
 
 # lints
-.eslintrc.json
 .prettierrc.json
 
 # misc
