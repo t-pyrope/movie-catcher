@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -28,7 +27,6 @@ const Nav = () => {
       liveSearch.current.classList.remove('hidden');
       const res = await search(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&query=${value}`);
       const movies = await res.results.slice(0, 6);
-      console.log(movies);
       setLiveSearchMovies(movies);
     } else {
       liveSearch.current.classList.add('hidden');
