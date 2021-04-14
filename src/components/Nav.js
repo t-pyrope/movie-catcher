@@ -107,12 +107,9 @@ const Nav = () => {
   return (
     <>
       <NavStyled>
-        <div className="title">
-          <h1>
-            <Link to="/">Movie catcher</Link>
-          </h1>
-          <div className="colored" />
-        </div>
+        <h1>
+          <Link to="/">Movie catcher</Link>
+        </h1>
         <ul>
           <li className="genres">
             <button
@@ -169,27 +166,6 @@ const NavStyled = styled.nav`
     align-items: center;
     flex-direction: column;
     min-height: 25vh;
-
-    .title {
-      overflow: hidden;
-      position: relative;
-      background-color: #353535;
-    }
-    .colored {
-      width: 100%;
-      height: 100%;
-      background-color: #ffb259;
-      top: 0;
-      left: 0;
-      position: absolute;
-      transition: all 0.5s ease;
-      pointer-events: none;
-      mix-blend-mode: darken;
-      transform: translateY(100%);
-    }
-    .title:hover .colored {
-      transform: translateY(0%);
-    }
 
     input[type="text"]{
         line-height: 1.3;
