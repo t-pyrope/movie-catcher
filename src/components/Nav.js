@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import loadGenres from '../actions/genresAction';
 import search from '../utils';
+import { liveSearchURL } from '../api';
 
 const Nav = () => {
   const [textInput, setTextInput] = useState('');
@@ -20,12 +21,18 @@ const Nav = () => {
     dispatch(loadGenres());
   }, [dispatch, location]);
 
+  useEffect(() => {
+    liveSearch.current.classList.add('hidden');
+    setLiveSearchMovies([]);
+    setTextInput('');
+  }, [location]);
+
   const { genres } = useSelector((state) => state.genres);
 
   const searched = async (value) => {
     if (value !== '') {
       liveSearch.current.classList.remove('hidden');
-      const res = await search(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&query=${value}`);
+      const res = await search(liveSearchURL(value));
       const movies = await res.results.slice(0, 6);
       setLiveSearchMovies(movies);
     } else {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -75,12 +76,11 @@ const ActorDetail = () => {
 };
 
 const Toggle = ({ title, el }) => {
-  const [toggle, setToggle] = useState(false);
   return (
-    <div onClick={() => setToggle(!toggle)} role="button" onKeyDown={() => setToggle(!toggle)} tabIndex="0">
-      <h3>{title}</h3>
-      {toggle ? <motion.p transition={{ duration: 0.5 }} initial={{ height: 0 }} animate={{ height: 'auto' }}>{el}</motion.p> : ''}
-    </div>
+    <Details>
+      <summary><h4>{title}</h4></summary>
+      <motion.p transition={{ duration: 0.5 }} initial={{ height: 0 }} animate={{ height: 'auto' }}>{el}</motion.p>
+    </Details>
   );
 };
 
@@ -195,6 +195,31 @@ const Info = styled.div`
             width: 100%;
         }
     }
+`;
+
+const Details = styled.details`
+  position: relative;
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: url("data:image/svg+xml,%3Csvg width='18' height='10' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L9 9L17 1' stroke='%23495057' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    pointer-events: none;
+    transition: transform 200ms ease-in-out;
+  }
+
+  &[open] summary::after {
+    transform: rotate(180deg);
+  }
 `;
 
 export default ActorDetail;

@@ -22,3 +22,5 @@ export const searchPersonURL = (personName, page) => `${baseUrl}search/person?ap
 
 // LIST OF GENRES
 export const genresListURL = () => `${baseUrl}genre/movie/list?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`;
+
+export const liveSearchURL = (value) => `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&query=${value}`;

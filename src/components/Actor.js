@@ -12,7 +12,7 @@ const Actor = ({ actorName, posterPath, id }) => {
   return (
     <Link to={`/people/${id}`}>
       <Card>
-        <img src={`https://image.tmdb.org/t/p/w500${posterPath}`} onError={(e) => { addDefaultSrcHandler(e); }} alt="poster" className="poster" />
+        <img src={`https://image.tmdb.org/t/p/w500${posterPath}`} onError={(e) => { addDefaultSrcHandler(e); }} alt={actorName ?? 'actor'} className="poster" />
         <div className="desc">
           <h4>{actorName}</h4>
         </div>
@@ -29,7 +29,7 @@ Actor.propTypes = {
 
 Actor.defaultProps = { posterPath: null };
 
-const Card = styled.div`
+const Card = styled.article`
     overflow: hidden;
     border-radius: 0.5rem;
     position: relative;
