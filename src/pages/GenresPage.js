@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Movies, MovieHeader, Loading } from '../styles';
-import Movie from '../components/Movie';
+import Loading from '../components/ui/Loading/Loading';
+import '../components/Container/container.scss';
+import Movie from '../components/Movie/Movie';
 import { loadGenreMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import loadGenres from '../actions/genresAction';
-import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
-import SortComponent from '../components/Sort';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
+import SortComponent from '../components/Sort/Sort';
+import PageHeader from '../components/PageHeader/PageHeader';
 
 const GenresPage = () => {
   const history = useHistory();
@@ -29,13 +31,18 @@ const GenresPage = () => {
   return (
     <>
       {genreMovies.length ? (
-        <div>
-          <MovieHeader>
-            <h2>{titleHandler()}</h2>
-            <SortComponent sortType={sortType} setSortType={setSortType} />
-          </MovieHeader>
+        <main>
+          <PageHeader
+            title={titleHandler()}
+            additionalComponent={(
+              <SortComponent
+                sortType={sortType}
+                setSortType={setSortType}
+              />
+            )}
+          />
           <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
-          <Movies>
+          <div className="container_movies">
             {genreMovies.map((movie) => (
               <Movie
                 title={movie.title ? movie.title : movie.name}
@@ -45,10 +52,10 @@ const GenresPage = () => {
                 id={movie.id}
               />
             ))}
-          </Movies>
+          </div>
           <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
           <ScrollTop />
-        </div>
+        </main>
       ) : <Loading />}
     </>
   );

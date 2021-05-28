@@ -1,0 +1,51 @@
+@import '../fonts/fonts.scss';
+@import './variables';
+@import './typography';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: $grey-1;
+    color: $white;
+}
+
+a {
+    text-decoration: none;
+    color: $white;
+    cursor: pointer;
+}
+
+select {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: $grey-2;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+}
+
+div[role="button"]{
+    &:focus {
+        outline: none;
+    }
+}
+
+input {
+    &:focus {
+        outline: none;
+    }
+}
+
+ul {
+    list-style: none;
+}

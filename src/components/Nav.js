@@ -113,7 +113,7 @@ const Nav = () => {
     <>
       <NavStyled>
         <h1>
-          <Link to="/">Movie catcher</Link>
+          <Link to="/" id="logo">Movie catcher</Link>
         </h1>
         <ul>
           <li className="genres">

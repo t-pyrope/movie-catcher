@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { loadMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
+import SortMain from '../components/Sort/SortMain';
 import Carousel from '../components/Carousel';
 import { titleAnim } from '../animation';
 
@@ -23,10 +24,7 @@ const Home = () => {
     <MovieList>
       <motion.div className="title" variants={titleAnim} initial="hidden" animate="show">
         <h2>Trending</h2>
-        <select value={trendPeriod} onChange={setTrendPeriodHandler}>
-          <option value="day">This day</option>
-          <option value="week">This week</option>
-        </select>
+        <SortMain val={trendPeriod} callback={setTrendPeriodHandler} />
       </motion.div>
       <Carousel movies={trending} title="trending" />
       <div className="title">

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import loadPeople from '../actions/peopleAction';
-import Actor from '../components/Actor';
-import { Movies, MovieHeader, Loading } from '../styles';
+import Actor from '../components/Actor/Actor';
+import '../components/Container/container.scss';
+import Loading from '../components/ui/Loading/Loading';
+import PageHeader from '../components/PageHeader/PageHeader';
 import ScrollTop from '../components/ScrollTop';
-import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
 
 const PeoplePage = () => {
   const dispatch = useDispatch();
@@ -16,12 +18,10 @@ const PeoplePage = () => {
   const { people, peoplePages } = useSelector((state) => state.people);
 
   return (
-    <div>
-      <MovieHeader>
-        <h2>People</h2>
-      </MovieHeader>
+    <section aria-label="famous actors" className="movies">
+      <PageHeader title="People" />
       <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
-      <Movies>
+      <div className="container_movies">
         {people.length
           ? people.map((famous) => (
             <Actor
@@ -32,10 +32,10 @@ const PeoplePage = () => {
             />
           ))
           : <Loading />}
-      </Movies>
+      </div>
       <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
       <ScrollTop />
-    </div>
+    </section>
   );
 };
 

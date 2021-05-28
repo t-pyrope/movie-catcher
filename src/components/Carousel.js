@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageAnimation } from '../animation';
 
-import Movie from './Movie';
+import Movie from './Movie/Movie';
 
 const Carousel = ({ movies, title }) => {
   const setElementNumberHandler = () => {

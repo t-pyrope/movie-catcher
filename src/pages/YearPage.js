@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Movies, MovieHeader, Loading } from '../styles';
-import Movie from '../components/Movie';
+import Movie from '../components/Movie/Movie';
 import fetchYearMovies from '../actions/yearAction';
 import ScrollTop from '../components/ScrollTop';
-import SortComponent from '../components/Sort';
+import SortComponent from '../components/Sort/Sort';
 
 const YearPage = () => {
   const history = useHistory();

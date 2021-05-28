@@ -1,11 +1,12 @@
 import React from 'react';
+import './assets/scss/main.scss';
 import styled from 'styled-components';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
-import ActorDetail from './pages/ActorDetail';
+import ActorDetail from './pages/ActorDetail/ActorDetail';
 import Footer from './components/Footer';
 import SearchPage from './pages/SearchPage';
 import MoviesPage from './pages/MoviesPage';
@@ -13,14 +14,13 @@ import GenresPage from './pages/GenresPage';
 import PeoplePage from './pages/PeoplePage';
 import YearPage from './pages/YearPage';
 import { Wrapper } from './styles';
-import GlobalStyles from './components/GlobalStyles';
+// import GlobalStyles from './components/GlobalStyles';
 
 function App() {
   const location = useLocation();
   return (
     <div className="App">
       <NoScrollX>
-        <GlobalStyles />
         <Nav />
         <Wrapper>
           <AnimatePresence exitBeforeEnter>

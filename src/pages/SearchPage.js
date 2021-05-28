@@ -8,9 +8,9 @@ import {
   Movies, MovieHeader, ButtonLikeLink, Loading,
 } from '../styles';
 import ScrollTop from '../components/ScrollTop';
-import Movie from '../components/Movie';
-import Actor from '../components/Actor';
-import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
+import Movie from '../components/Movie/Movie';
+import Actor from '../components/Actor/Actor';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
 
 const SearchPage = () => {
   const history = useHistory();

@@ -14,7 +14,7 @@ export const Movies = styled(motion.div)`
     margin: auto;
 `;
 
-export const MovieHeader = styled.div`
+export const MovieHeader = styled.header`
     display: flex;
     justify-content: space-between;
     padding: 1.5rem 0rem;
@@ -42,14 +42,6 @@ export const ButtonGroup = styled.div`
     justify-content:center;
     align-items: center;
     width: 60%;
-
-    .disabled {
-        color: #2b2b2b;
-        background-color: #353535;
-        &:hover {
-            background-color: #353535;
-        }
-    }
 
     @media (max-width: 500px){
         width: 80%;

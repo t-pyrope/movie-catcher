@@ -3,12 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { Movies, MovieHeader } from '../styles';
-import Movie from '../components/Movie';
+import Movie from '../components/Movie/Movie';
 import { loadMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import { titleAnim } from '../animation';
-import PrevNextBtnGroup from '../components/PrevNextBtnGroup';
-import SortComponent from '../components/Sort';
+import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
+import SortComponent from '../components/Sort/Sort';
 
 const MoviesPage = () => {
   const history = useHistory();

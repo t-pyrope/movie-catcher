@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './sort.scss';
 
 const SortComponent = ({ sortType, setSortType }) => {
   const setSortTypeHandler = (e) => {
@@ -7,7 +8,7 @@ const SortComponent = ({ sortType, setSortType }) => {
   };
 
   return (
-    <select onChange={setSortTypeHandler} value={sortType}>
+    <select onChange={setSortTypeHandler} value={sortType} className="sort">
       <option value="popularity.desc">Most Popular</option>
       <option value="vote_average.desc">High Rated</option>
       <option value="release_date.desc">Latest</option>
