@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -127,13 +126,13 @@ const Nav = () => {
               Genres
             </button>
             {genres.length && (
-            <GenreList className="genre-list" onMouseLeave={closeGenreListHandler}>
+            <div className="genre-list mainNav__dropdown" onMouseLeave={closeGenreListHandler}>
               {genres.map((genre) => (
                 <p key={genre.id}>
                   <button className="mainNav__button mainNav__button_navItem" type="button" id={genre.id} onClick={genreSelectHandler}>{genre.name}</button>
                 </p>
               ))}
-            </GenreList>
+            </div>
             )}
           </li>
           <li className="mainNav__link">
@@ -143,11 +142,11 @@ const Nav = () => {
             <button type="button" onClick={openPopularInHandler} className="mainNav__button mainNav__button_navItem">
               Popular in...
             </button>
-            <GenreList className="popular-list" onMouseLeave={closePopularInHandler}>
+            <div className="popular-list mainNav__dropdown" onMouseLeave={closePopularInHandler}>
               {years.map((year) => (
                 <p key={year}><button type="button" onClick={yearSelectHandler} id={year} className="mainNav__button mainNav__button_navItem">{year}</button></p>
               ))}
-            </GenreList>
+            </div>
           </li>
           <li className="mainNav__form mainNav__link">
             <form onSubmit={searchMovieHandler}>
@@ -165,32 +164,5 @@ const Nav = () => {
     </>
   );
 };
-
-const GenreList = styled.div`
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 2;
-    background-color: #353535;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    padding: 2rem 2rem 1rem 0rem;
-    width: 30rem;
-    transition: all 0.4s ease-in-out;
-    left: -10%;
-
-    p {
-        padding: 0.5rem;
-        transition: all 0.4s ease;
-        cursor: pointer;
-        &:hover {
-            background-color: #252525;
-        }
-    }
-
-    @media (max-width: 500px){
-        width: 20rem;
-    }
-`;
 
 export default Nav;
