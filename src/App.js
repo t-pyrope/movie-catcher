@@ -18,38 +18,40 @@ function App() {
   const location = useLocation();
   return (
     <div className="App">
-      <Nav />
-      <div className="container_main">
-        <AnimatePresence exitBeforeEnter>
-          <Switch location={location} key={location.pathname}>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/movies/:id">
-              <MovieDetail />
-            </Route>
-            <Route path="/search/:id">
-              <SearchPage />
-            </Route>
-            <Route path="/genres/:id">
-              <GenresPage />
-            </Route>
-            <Route path="/year/:id">
-              <YearPage />
-            </Route>
-            <Route path="/people" exact>
-              <PeoplePage />
-            </Route>
-            <Route path="/people/:id">
-              <ActorDetail />
-            </Route>
-            <Route path="/:id">
-              <MoviesPage />
-            </Route>
-          </Switch>
-        </AnimatePresence>
+      <div className="container_noScroll">
+        <Nav />
+        <div className="container_main">
+          <AnimatePresence exitBeforeEnter>
+            <Switch location={location} key={location.pathname}>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/movies/:id">
+                <MovieDetail />
+              </Route>
+              <Route path="/search/:id">
+                <SearchPage />
+              </Route>
+              <Route path="/genres/:id">
+                <GenresPage />
+              </Route>
+              <Route path="/year/:id">
+                <YearPage />
+              </Route>
+              <Route path="/people" exact>
+                <PeoplePage />
+              </Route>
+              <Route path="/people/:id">
+                <ActorDetail />
+              </Route>
+              <Route path="/:id">
+                <MoviesPage />
+              </Route>
+            </Switch>
+          </AnimatePresence>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }
