@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { loadMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import SortMain from '../components/Sort/SortMain';
-import Carousel from '../components/Carousel';
+import Carousel from '../components/Carousel/Carousel';
+import PageHeader from '../components/PageHeader/PageHeader';
 import { titleAnim } from '../animation';
 
 const Home = () => {
@@ -21,36 +21,36 @@ const Home = () => {
   };
 
   return (
-    <MovieList>
-      <motion.div className="title" variants={titleAnim} initial="hidden" animate="show">
-        <h2>Trending</h2>
-        <SortMain val={trendPeriod} callback={setTrendPeriodHandler} />
-      </motion.div>
-      <Carousel movies={trending} title="trending" />
-      <div className="title">
-        <h2>Popular for kids</h2>
-      </div>
-      <Carousel movies={kids} title="kids" />
-      <div className="title">
-        <h2>R-rated popular movies</h2>
-      </div>
-      <Carousel movies={adults} title="adults" />
+    <div>
+      <article>
+        <motion.div
+          variants={titleAnim}
+          initial="hidden"
+          animate="show"
+        >
+          <PageHeader
+            title="Trending"
+            additionalComponent={(
+              <SortMain
+                val={trendPeriod}
+                callback={setTrendPeriodHandler}
+              />
+)}
+          />
+        </motion.div>
+        <Carousel movies={trending} title="trending" />
+      </article>
+      <article>
+        <PageHeader title="Popular for kids" />
+        <Carousel movies={kids} title="kids" />
+      </article>
+      <article>
+        <PageHeader title="R-rated popular movies" />
+        <Carousel movies={adults} title="adults" />
+      </article>
       <ScrollTop />
-    </MovieList>
+    </div>
   );
 };
-
-const MovieList = styled(motion.div)`
-    position: relative;
-    .title {
-        padding: 1.5rem 0rem;
-        display: flex;
-        justify-content: flex-start;
-
-        h2 {
-            margin-right: 1rem;
-        }
-    }
-`;
 
 export default Home;

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-import { Movies, MovieHeader } from '../styles';
 import Movie from '../components/Movie/Movie';
 import { loadMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import { titleAnim } from '../animation';
 import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
 import SortComponent from '../components/Sort/Sort';
+import SortMain from '../components/Sort/SortMain';
+import PageHeader from '../components/PageHeader/PageHeader';
+import '../components/Container/container.scss';
 
 const MoviesPage = () => {
   const history = useHistory();
@@ -55,20 +57,25 @@ const MoviesPage = () => {
 
   return (
     <div>
-      <MovieHeader>
-        <motion.h2 variants={titleAnim} initial="hidden" animate="show">{titleHandler()}</motion.h2>
-        {pathName === 'trending' && (
-        <select value={trendPeriod} onChange={setTrendPeriodHandler}>
-          <option value="day">Trending this day</option>
-          <option value="week">Trending this week</option>
-        </select>
-        )}
-        {pathName !== 'trending'
-                    && <SortComponent sortType={sortType} setSortType={setSortType} />}
-      </MovieHeader>
+      <motion.div variants={titleAnim} initial="hidden" animate="show">
+        <PageHeader
+          title={titleHandler()}
+          additionalComponent={pathName === 'trending' ? (
+            <SortMain
+              val={trendPeriod}
+              callback={setTrendPeriodHandler}
+            />
+          ) : (
+            <SortComponent
+              sortType={sortType}
+              setSortType={setSortType}
+            />
+          )}
+        />
+      </motion.div>
       <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
       {trending.length && (
-      <Movies>
+      <div className="container_movies">
         {arrHandler().map((movie) => (
           <Movie
             title={movie.title ? movie.title : movie.name}
@@ -78,7 +85,7 @@ const MoviesPage = () => {
             id={movie.id}
           />
         ))}
-      </Movies>
+      </div>
       )}
       <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
       <ScrollTop />

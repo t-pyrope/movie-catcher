@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import fetchSearch from '../actions/searchAction';
-import {
-  Movies, MovieHeader, ButtonLikeLink, Loading,
-} from '../styles';
-import ScrollTop from '../components/ScrollTop';
-import Movie from '../components/Movie/Movie';
-import Actor from '../components/Actor/Actor';
-import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
+import fetchSearch from '../../actions/searchAction';
+import Loading from '../../components/ui/Loading/Loading';
+import ButtonLikeLink from '../../components/ui/buttons/ButtonLikeLink';
+import ScrollTop from '../../components/ScrollTop';
+import Movie from '../../components/Movie/Movie';
+import Actor from '../../components/Actor/Actor';
+import PrevNextBtnGroup from '../../components/PrevNextBtnGroup/PrevNextBtnGroup';
+import './searchPage.scss';
+import '../../components/Container/container.scss';
 
 const SearchPage = () => {
   const history = useHistory();
@@ -32,23 +32,39 @@ const SearchPage = () => {
     setToggle(!toggle);
   };
   return (
-    <div>
-      <ButtonLikeLink onClick={() => history.goBack()}>Back</ButtonLikeLink>
-      <SearchMovieHeader>
-        <h2>
+    <main role="main" className="searchPage">
+      <ButtonLikeLink callback={() => history.goBack()} text="Back" />
+      <header className="searchPage__header">
+        <h2 className="searchPage__title">
           Results for
           {' '}
           {getSearchNameHandler()}
         </h2>
-        <motion.p onClick={toggleSearchHandler} initial={{ backgroundColor: '#353535' }} animate={{ backgroundColor: toggle ? '#353535' : '#252525' }} transition={{ duration: 0.4 }}>in movies</motion.p>
-        <motion.p onClick={toggleSearchHandler} initial={{ backgroundColor: '#353535' }} animate={{ backgroundColor: toggle ? '#252525' : '#353535' }} transition={{ duration: 0.4 }}>in people</motion.p>
-      </SearchMovieHeader>
+        <motion.p
+          className="searchPage__option"
+          onClick={toggleSearchHandler}
+          initial={{ backgroundColor: '#353535' }}
+          animate={{ backgroundColor: toggle ? '#353535' : '#292929' }}
+          transition={{ duration: 0.4 }}
+        >
+          in movies
+        </motion.p>
+        <motion.p
+          className="searchPage__option"
+          onClick={toggleSearchHandler}
+          initial={{ backgroundColor: '#353535' }}
+          animate={{ backgroundColor: toggle ? '#292929' : '#353535' }}
+          transition={{ duration: 0.4 }}
+        >
+          in people
+        </motion.p>
+      </header>
       <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
 
       {!toggle && (
         <div>
           {searchedMovie.length ? (
-            <Movies>
+            <div className="container_movies">
               {searchedMovie.map((movie) => (
                 <Movie
                   title={movie.title ? movie.title : movie.name}
@@ -58,14 +74,14 @@ const SearchPage = () => {
                   id={movie.id}
                 />
               ))}
-            </Movies>
+            </div>
           ) : <Loading />}
         </div>
       )}
       {toggle && (
         <div>
           {searchedPerson.length ? (
-            <Movies>
+            <div className="container_movies">
               {searchedPerson.map((person) => (
                 <Actor
                   actorName={person.name}
@@ -74,26 +90,14 @@ const SearchPage = () => {
                   id={person.id}
                 />
               ))}
-            </Movies>
+            </div>
           ) : <Loading />}
         </div>
       )}
       <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
       <ScrollTop />
-    </div>
+    </main>
   );
 };
-
-const SearchMovieHeader = styled(MovieHeader)`
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    p {
-        padding: 0.5rem 2rem;
-        margin-left: 1rem;
-        border-radius: 0.5rem;
-        cursor: pointer;
-    }
-`;
 
 export default SearchPage;

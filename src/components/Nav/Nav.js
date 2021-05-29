@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import loadGenres from '../actions/genresAction';
-import search from '../utils';
-import { liveSearchURL } from '../api';
+import loadGenres from '../../actions/genresAction';
+import search from '../../utils';
+import { liveSearchURL } from '../../api';
+import './nav.scss';
 
 const Nav = () => {
   const [textInput, setTextInput] = useState('');
@@ -22,7 +23,7 @@ const Nav = () => {
   }, [dispatch, location]);
 
   useEffect(() => {
-    liveSearch.current.classList.add('hidden');
+    liveSearch.current.classList.add('mainNav__liveSearch_hidden');
     setLiveSearchMovies([]);
     setTextInput('');
   }, [location]);
@@ -31,12 +32,12 @@ const Nav = () => {
 
   const searched = async (value) => {
     if (value !== '') {
-      liveSearch.current.classList.remove('hidden');
+      liveSearch.current.classList.remove('mainNav__liveSearch_hidden');
       const res = await search(liveSearchURL(value));
       const movies = await res.results.slice(0, 6);
       setLiveSearchMovies(movies);
     } else {
-      liveSearch.current.classList.add('hidden');
+      liveSearch.current.classList.add('mainNav__liveSearch_hidden');
     }
     return null;
   };
@@ -50,7 +51,7 @@ const Nav = () => {
     e.preventDefault();
     history.push(`/search/${textInput}`);
     setTextInput('');
-    liveSearch.current.classList.add('hidden');
+    liveSearch.current.classList.add('mainNav__liveSearch_hidden');
   };
 
   const openGenreListHandler = (e) => {
@@ -111,14 +112,14 @@ const Nav = () => {
 
   return (
     <>
-      <NavStyled>
+      <nav className="mainNav">
         <h1>
           <Link to="/" id="logo">Movie catcher</Link>
         </h1>
-        <ul>
-          <li className="genres">
+        <ul className="mainNav__linksBlock">
+          <li className="mainNav__link mainNav__link_relative">
             <button
-              className="nav-btn"
+              className="mainNav__button mainNav__button_navItem"
               type="button"
               onClick={openGenreListHandler}
               onKeyDown={openGenreListHandler}
@@ -129,153 +130,41 @@ const Nav = () => {
             <GenreList className="genre-list" onMouseLeave={closeGenreListHandler}>
               {genres.map((genre) => (
                 <p key={genre.id}>
-                  <button className="nav-btn" type="button" id={genre.id} onClick={genreSelectHandler}>{genre.name}</button>
+                  <button className="mainNav__button mainNav__button_navItem" type="button" id={genre.id} onClick={genreSelectHandler}>{genre.name}</button>
                 </p>
               ))}
             </GenreList>
             )}
           </li>
-          <li>
-            <button type="button" onClick={openPeopleHandler} className="nav-btn">People</button>
+          <li className="mainNav__link">
+            <button type="button" onClick={openPeopleHandler} className="mainNav__button mainNav__button_navItem">People</button>
           </li>
-          <li className="popular">
-            <button type="button" onClick={openPopularInHandler} className="nav-btn">
+          <li className="mainNav__link mainNav__link_relative">
+            <button type="button" onClick={openPopularInHandler} className="mainNav__button mainNav__button_navItem">
               Popular in...
             </button>
             <GenreList className="popular-list" onMouseLeave={closePopularInHandler}>
               {years.map((year) => (
-                <p key={year}><button type="button" onClick={yearSelectHandler} id={year} className="nav-btn">{year}</button></p>
+                <p key={year}><button type="button" onClick={yearSelectHandler} id={year} className="mainNav__button mainNav__button_navItem">{year}</button></p>
               ))}
             </GenreList>
           </li>
-          <li className="form">
+          <li className="mainNav__form mainNav__link">
             <form onSubmit={searchMovieHandler}>
-              <input type="text" value={textInput} onChange={inputHandler} />
-              <button type="submit" aria-label="start search"><FontAwesomeIcon icon={faSearch} /></button>
+              <input type="text" value={textInput} onChange={inputHandler} className="mainNav__input" />
+              <button type="submit" aria-label="start search" className="mainNav__button mainNav__button_search"><FontAwesomeIcon icon={faSearch} /></button>
             </form>
-            <div className="live-search hidden" ref={liveSearch}>
+            <div className="mainNav__liveSearch mainNav__liveSearch_hidden" ref={liveSearch}>
               {liveSearchMovies.length && liveSearchMovies.map((movie) => (
-                <a href={`/movies/${movie.id}`} key={movie.id}>{movie.title}</a>
+                <a className="mainNav__searchedItem" href={`/movies/${movie.id}`} key={movie.id}>{movie.title}</a>
               ))}
             </div>
           </li>
         </ul>
-      </NavStyled>
+      </nav>
     </>
   );
 };
-
-const NavStyled = styled.nav`
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    min-height: 25vh;
-
-    input[type="text"]{
-        line-height: 1.3;
-        padding: 0.2rem 1rem 0.2rem 0.4rem;
-        border: 1px solid #c2c2c2;
-        border-radius: 0.2rem;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-    }
-    
-    button {
-        line-height: 1.3;
-        padding: 0.3rem 0.5rem;
-        border: none;
-        color: grey;
-        position: absolute;
-        top: 20%;
-        right: 7%;
-        background: transparent;
-
-    }
-
-    ul {
-        display: flex;
-        list-style: none;
-        justify-content: flex-start;
-        width: 100%;
-        padding: 0rem 10%;
-        flex-wrap: wrap;
-        @media (max-width: 768px){
-            justify-content: space-between;
-        }
-
-        @media (max-width: 480px){
-            justify-content: space-evenly;
-        }
-    }
-
-    li {
-        margin-right: 1rem;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        &:hover {
-            background-color: #252525;
-        }
-
-        &:last-child:hover {
-            background-color: #353535;
-        }
-    }
-    .form {
-        margin-left: auto;
-        position: relative;
-        overflow: visible;
-        min-width: 10rem;
-
-        @media (max-width: 768px){
-            margin: auto;
-        }
-
-        @media (max-width: 480px){
-            margin: 0;
-        }
-
-        .live-search {
-          position: absolute;
-          top: 80%;
-          left: 8%;
-          min-width: 90%;
-          width: auto;
-          height: 11rem;
-          background-color: white;
-          z-index: 5;
-          display: flex;
-          flex-direction: column;
-          overflow-x: hidden;
-
-          a {
-            padding: 0.3rem;
-            color: #353535;
-            white-space: nowrap;
-            &:hover {
-              background-color: #cfcfcf;
-            }
-          }
-        }
-        .hidden {
-          display: none;
-        }
-    }
-
-    .genres, .popular {
-        position: relative;
-    }
-
-    .nav-btn {
-      color: white;
-      position: relative;
-      font-size: 1rem;
-      padding-top: 0;
-      width: 100%;
-      height: 100%;
-    }
-`;
 
 const GenreList = styled.div`
     position: absolute;

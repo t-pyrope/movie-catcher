@@ -40,12 +40,20 @@ div[role="button"]{
     }
 }
 
-input {
+ul {
+    list-style: none;
+}
+
+input[type="text"]{
+    line-height: 1.3rem;
+    padding: 0.2rem 1rem 0.2rem 0.4rem;
+    border: 1px solid #c2c2c2;
+    border-radius: 0.2rem;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+
     &:focus {
         outline: none;
     }
-}
-
-ul {
-    list-style: none;
 }

@@ -47,7 +47,7 @@ const ActorDetail = () => {
           <div className="info__desc">
             <div className="info__basic">
               <h1>{person.name}</h1>
-              <p className="info__country">
+              <p className="info__countries">
                 From
                 {' '}
                 {person.place_of_birth}
@@ -58,7 +58,7 @@ const ActorDetail = () => {
               <Toggle title="Filmography" el={getPersonMoviesHandler()} />
             </ul>
           </div>
-          <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="info__poster" alt={person.name} />
+          <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="info__poster info__poster_actor" alt={person.name} />
         </div>
         <ScrollTop />
       </main>
