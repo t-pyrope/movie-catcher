@@ -54,8 +54,8 @@ const MovieDetail = () => {
                     ))}
 
                   </p>
-                  <p>
-                    <img src={star} alt="rating" className="info__rating" />
+                  <p className="info__rating">
+                    <img src={star} alt="rating" />
                     {' '}
                     {detail.vote_average}
                   </p>

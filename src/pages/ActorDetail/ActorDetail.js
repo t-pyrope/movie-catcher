@@ -48,12 +48,10 @@ const ActorDetail = () => {
             <div className="info__basic">
               <h1>{person.name}</h1>
               <p className="info__countries">
-                From
-                {' '}
-                {person.place_of_birth}
+                {person.place_of_birth ? `From ${person.place_of_birth}` : 'No information about place of birth'}
               </p>
             </div>
-            <Toggle title="Biography" el={person.biography} />
+            <Toggle title="Biography" el={person.biography ? person.biography : 'No information'} />
             <ul>
               <Toggle title="Filmography" el={getPersonMoviesHandler()} />
             </ul>
