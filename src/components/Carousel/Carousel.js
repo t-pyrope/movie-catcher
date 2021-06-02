@@ -34,7 +34,7 @@ const Carousel = ({ movies, title }) => {
   };
 
   return (
-    <div
+    <motion.div
       className="carousel"
       variants={pageAnimation}
       initial="hidden"
@@ -75,7 +75,7 @@ const Carousel = ({ movies, title }) => {
           </div>
         </div>
       </CarouselProvider>
-    </div>
+    </motion.div>
   );
 };
 
