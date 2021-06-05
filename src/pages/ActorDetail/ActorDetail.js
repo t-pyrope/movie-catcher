@@ -53,7 +53,7 @@ const ActorDetail = () => {
             </div>
             <Toggle title="Biography" el={person.biography ? person.biography : 'No information'} />
             <ul>
-              <Toggle title="Filmography" el={getPersonMoviesHandler()} />
+              <Toggle title="Filmography" el={personMovies.length > 0 ? getPersonMoviesHandler() : <li className="accordion__item_li">No information</li>} />
             </ul>
           </div>
           <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="info__poster info__poster_actor" alt={person.name} />

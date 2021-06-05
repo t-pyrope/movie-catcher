@@ -8,6 +8,10 @@
     @media (max-width: 1024px){
         margin: 0.5rem 2rem;
     }
+
+    @media (max-width: 480px){
+        margin: 0.5rem 1rem;
+    }
 }
 
 .container_buttonGroup {
@@ -28,7 +32,7 @@
 }
 
 .container_moviePage {
-    width: 70%;
+    width: 80%;
     margin: 2rem auto;
     @media (max-width: 1024px){
         width: 90%;

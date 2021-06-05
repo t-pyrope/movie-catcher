@@ -50,6 +50,8 @@
 
         @media (max-width: 480px){
             justify-content: space-evenly;
+            padding: 0;
+            width: calc(100% + 6.2rem);
         }
     }
 
@@ -139,8 +141,8 @@
         position: absolute;
         top: 80%;
         left: 8%;
-        min-width: 90%;
-        width: auto;
+        width: 100%;
+        padding: 0.1rem;
         height: 11rem;
         background-color: white;
         z-index: 5;
@@ -151,11 +153,19 @@
         &_hidden {
             display: none;
         }
+
+        @media (max-width: 621px) {
+            left: 4.5%;
+            width: 72.5%;
+        }
     }
+
     &__searchedItem {
         padding: 0.3rem;
         color: #353535;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         &:hover {
             background-color: #cfcfcf;
         }
