@@ -1,0 +1,31 @@
+@import 'nav';
+@import 'dropdown';
+@import 'searchForm';
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 7rem 2rem;
+    background-color: rgba(0,0,0,0.05);
+    width: 100%;
+
+
+    @media (max-width:1050px){
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        &__body {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        padding: 1rem 2rem;
+    }
+
+    @media (max-width: 480px) {
+        align-items: flex-start;
+        padding: 1rem;
+    }
+}

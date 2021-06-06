@@ -1,0 +1,50 @@
+.mainNav {
+    display: flex;
+    list-style: none;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    @media (max-width: 1050px){
+        justify-content: space-between;
+        padding-top: 1.7rem;
+        margin-left: -1rem;
+    }
+
+    @media (max-width: 480px){
+        justify-content: flex-start;
+        padding: 0;
+        margin-left: -1rem;
+    }
+
+    &__button {
+        line-height: 1.3;
+        border: none;
+        background: transparent;
+        color: white;
+        position: relative;
+        font-size: 1rem;
+        padding-top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__link {
+        margin-right: 1rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background-color 400ms ease-in-out;
+        &:hover {
+            background-color: #252525;
+        }
+
+        &_relative {
+            position: relative;
+        }
+    }
+
+    &__link:nth-child(3) {
+        @media (max-width: 623px){
+            margin-right: -8px;
+        }
+    }
+}

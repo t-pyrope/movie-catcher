@@ -2,7 +2,7 @@ import React from 'react';
 import './assets/scss/main.scss';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import Nav from './components/Nav/Nav';
+import Header from './components/Header/Header';
 import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail/MovieDetail';
 import ActorDetail from './pages/ActorDetail/ActorDetail';
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <div className="container_noScroll">
-        <Nav />
+        <Header />
         <div className="container_main">
           <AnimatePresence exitBeforeEnter>
             <Switch location={location} key={location.pathname}>

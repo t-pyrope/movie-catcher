@@ -6,9 +6,9 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import loadGenres from '../../actions/genresAction';
 import search from '../../utils';
 import { liveSearchURL } from '../../api';
-import './nav.scss';
+import './header.scss';
 
-const Nav = () => {
+const Header = () => {
   const [textInput, setTextInput] = useState('');
   const [liveSearchMovies, setLiveSearchMovies] = useState([]);
   const liveSearch = useRef(null);
@@ -22,7 +22,7 @@ const Nav = () => {
   }, [dispatch, location]);
 
   useEffect(() => {
-    liveSearch.current.classList.add('mainNav__liveSearch_hidden');
+    liveSearch.current.classList.add('searchForm__liveSearch_hidden');
     setLiveSearchMovies([]);
     setTextInput('');
   }, [location]);
@@ -31,12 +31,12 @@ const Nav = () => {
 
   const searched = async (value) => {
     if (value !== '') {
-      liveSearch.current.classList.remove('mainNav__liveSearch_hidden');
+      liveSearch.current.classList.remove('searchForm__liveSearch_hidden');
       const res = await search(liveSearchURL(value));
       const movies = await res.results.slice(0, 6);
       setLiveSearchMovies(movies);
     } else {
-      liveSearch.current.classList.add('mainNav__liveSearch_hidden');
+      liveSearch.current.classList.add('searchForm__liveSearch_hidden');
     }
     return null;
   };
@@ -50,7 +50,7 @@ const Nav = () => {
     e.preventDefault();
     history.push(`/search/${textInput}`);
     setTextInput('');
-    liveSearch.current.classList.add('mainNav__liveSearch_hidden');
+    liveSearch.current.classList.add('searchForm__liveSearch_hidden');
   };
 
   const openGenreListHandler = (e) => {
@@ -110,12 +110,12 @@ const Nav = () => {
   };
 
   return (
-    <>
-      <nav className="mainNav">
-        <h1>
-          <Link to="/" id="logo">Movie catcher</Link>
-        </h1>
-        <ul className="mainNav__linksBlock">
+    <header className="header">
+      <h1 className="header__logo">
+        <Link to="/" id="logo">Movie catcher</Link>
+      </h1>
+      <nav className="header__body">
+        <ul className="mainNav">
           <li className="mainNav__link mainNav__link_relative">
             <button
               className="mainNav__button mainNav__button_navItem"
@@ -126,43 +126,45 @@ const Nav = () => {
               Genres
             </button>
             {genres.length && (
-            <div className="genre-list mainNav__dropdown" onMouseLeave={closeGenreListHandler}>
-              {genres.map((genre) => (
-                <p key={genre.id}>
-                  <button className="mainNav__button mainNav__button_navItem" type="button" id={genre.id} onClick={genreSelectHandler}>{genre.name}</button>
-                </p>
-              ))}
-            </div>
+              <div className="genre-list dropdown" onMouseLeave={closeGenreListHandler}>
+                {genres.map((genre) => (
+                  <p key={genre.id}>
+                    <button className="mainNav__button mainNav__button_navItem" type="button" id={genre.id} onClick={genreSelectHandler}>{genre.name}</button>
+                  </p>
+                ))}
+              </div>
             )}
           </li>
           <li className="mainNav__link">
-            <button type="button" onClick={openPeopleHandler} className="mainNav__button mainNav__button_navItem">People</button>
+            <button type="button" onClick={openPeopleHandler} className="mainNav__button">People</button>
           </li>
           <li className="mainNav__link mainNav__link_relative">
-            <button type="button" onClick={openPopularInHandler} className="mainNav__button mainNav__button_navItem">
+            <button type="button" onClick={openPopularInHandler} className="mainNav__button">
               Popular in...
             </button>
-            <div className="popular-list mainNav__dropdown" onMouseLeave={closePopularInHandler}>
+            <div className="popular-list dropdown" onMouseLeave={closePopularInHandler}>
               {years.map((year) => (
-                <p key={year}><button type="button" onClick={yearSelectHandler} id={year} className="mainNav__button mainNav__button_navItem">{year}</button></p>
+                <p key={year}><button type="button" onClick={yearSelectHandler} id={year} className="mainNav__button">{year}</button></p>
               ))}
             </div>
           </li>
-          <li className="mainNav__form mainNav__link">
+          <li className="searchForm">
             <form onSubmit={searchMovieHandler}>
-              <input type="text" value={textInput} onChange={inputHandler} className="mainNav__input" />
-              <button type="submit" aria-label="start search" className="mainNav__button mainNav__button_search"><FontAwesomeIcon icon={faSearch} /></button>
+              <input type="text" value={textInput} onChange={inputHandler} className="searchForm__input" />
+              <button type="submit" aria-label="start search" className="searchForm__button">
+                <FontAwesomeIcon icon={faSearch} />
+              </button>
             </form>
-            <div className="mainNav__liveSearch mainNav__liveSearch_hidden" ref={liveSearch}>
+            <div className="searchForm__liveSearch searchForm__liveSearch_hidden" ref={liveSearch}>
               {liveSearchMovies.length && liveSearchMovies.map((movie) => (
-                <a className="mainNav__searchedItem" href={`/movies/${movie.id}`} key={movie.id}>{movie.title}</a>
+                <a className="searchForm__searchedItem" href={`/movies/${movie.id}`} key={movie.id}>{movie.title}</a>
               ))}
             </div>
           </li>
         </ul>
       </nav>
-    </>
+    </header>
   );
 };
 
-export default Nav;
+export default Header;
