@@ -5,14 +5,17 @@ import noPhoto from '../../img/no-photo.png';
 import '../Card/card.scss';
 
 const Actor = ({ actorName, posterPath, id }) => {
-  const addDefaultSrcHandler = (e) => {
-    e.target.src = noPhoto;
+  const srcHandler = () => {
+    if (!posterPath) {
+      return noPhoto;
+    }
+    return `https://image.tmdb.org/t/p/w500${posterPath}`;
   };
 
   return (
     <Link to={`/people/${id}`}>
       <article className="card">
-        <img className="card__image" src={`https://image.tmdb.org/t/p/w500${posterPath}`} onError={(e) => { addDefaultSrcHandler(e); }} alt={actorName ?? 'actor'} />
+        <img className="card__image" src={srcHandler()} alt={actorName} />
         <div className="card__desc">
           <h4>{actorName}</h4>
         </div>

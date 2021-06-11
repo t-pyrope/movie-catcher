@@ -13,7 +13,7 @@ const PageHeader = ({ title, additionalComponent }) => {
 
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  additionalComponent: PropTypes.func,
+  additionalComponent: PropTypes.element,
 };
 
 PageHeader.defaultProps = {
