@@ -62,7 +62,7 @@ const MovieDetail = () => {
                 </div>
                 <div>
                   <h2>Description</h2>
-                  <p>{detail.overview}</p>
+                  <p className="info__overview">{detail.overview}</p>
                 </div>
               </div>
               <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="info__poster" alt={detail.title} />

@@ -56,6 +56,11 @@
         margin-right: 1rem;
     }
 
+    &__overview {
+        line-height: 1.3em;
+        text-indent: 0.7rem;
+    }
+
     @media (max-width: 1024px){
         display: block;
 
