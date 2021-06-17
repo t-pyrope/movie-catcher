@@ -15,7 +15,6 @@ const SearchComponent = () => {
 
   console.log('hello');
   console.log('hello');
-  console.log('hello');
 
   useEffect(() => {
     liveSearch.current.classList.add('searchForm__liveSearch_hidden');
