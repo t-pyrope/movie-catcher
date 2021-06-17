@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import Movie from '../components/Movie/Movie';
@@ -14,7 +14,7 @@ import '../components/Container/container.scss';
 
 const MoviesPage = () => {
   const history = useHistory();
-  const pathName = history.location.pathname.split('/')[1];
+  const pathName = history.location.pathname.split('/')[2];
   const [trendPeriod, setTrendPeriod] = useState('day');
   const [sortType, setSortType] = useState('popularity.desc');
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const MoviesPage = () => {
     if (pathName === 'adults') {
       return 'R-rated Popular Movies';
     }
-    return null;
+    return <Redirect to="/404" />;
   };
 
   const arrHandler = () => {

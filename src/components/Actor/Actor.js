@@ -17,7 +17,7 @@ const Actor = ({ actorName, posterPath, id }) => {
       <article className="card">
         <img className="card__image" src={srcHandler()} alt={actorName} />
         <div className="card__desc">
-          <h4>{actorName}</h4>
+          <h4 className="card__title">{actorName}</h4>
         </div>
       </article>
     </Link>

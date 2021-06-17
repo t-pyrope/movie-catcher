@@ -8,14 +8,15 @@ import star from '../../img/star.png';
 const Movie = ({
   title, posterPath, rating, id,
 }) => {
-  const addDefaultSrcHandler = (e) => {
-    e.target.src = noPoster;
+  const imgSrcHandler = () => {
+    if (posterPath === null) return noPoster;
+    return `https://image.tmdb.org/t/p/w500${posterPath}`;
   };
 
   return (
     <Link to={`/movies/${id}`}>
       <article className="card">
-        <img src={`https://image.tmdb.org/t/p/w500${posterPath}`} onError={(e) => { addDefaultSrcHandler(e); }} alt="poster" className="card__image" />
+        <img src={imgSrcHandler()} alt="poster" className="card__image" />
         <div className="card__desc card__desc_movie">
           <h4 className="card__title">{title}</h4>
           <div className="card__rating">
@@ -35,6 +36,6 @@ Movie.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
-Movie.defaultProps = { posterPath: noPoster };
+Movie.defaultProps = { posterPath: null };
 
 export default Movie;

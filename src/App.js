@@ -12,6 +12,7 @@ import MoviesPage from './pages/MoviesPage';
 import GenresPage from './pages/GenresPage';
 import PeoplePage from './pages/PeoplePage';
 import YearPage from './pages/YearPage';
+import Page404 from './pages/Page404/Page404';
 import './components/Container/container.scss';
 
 function App() {
@@ -44,8 +45,11 @@ function App() {
               <Route path="/people/:id">
                 <ActorDetail />
               </Route>
-              <Route path="/:id">
+              <Route path="/highlights/:id">
                 <MoviesPage />
+              </Route>
+              <Route>
+                <Page404 />
               </Route>
             </Switch>
           </AnimatePresence>

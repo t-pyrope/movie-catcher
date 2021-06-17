@@ -99,9 +99,6 @@ const Header = () => {
               </div>
             )}
           </li>
-          <li className="mainNav__link">
-            <button type="button" onClick={openPeopleHandler} className="mainNav__button">People</button>
-          </li>
           <li className="mainNav__link mainNav__link_relative">
             <button
               type="button"
@@ -115,6 +112,9 @@ const Header = () => {
                 <p key={year}><button type="button" onClick={yearSelectHandler} id={year} className="mainNav__button">{year}</button></p>
               ))}
             </div>
+          </li>
+          <li className="mainNav__link">
+            <button type="button" onClick={openPeopleHandler} className="mainNav__button">People</button>
           </li>
           <li className="searchForm">
             <SearchComponent />

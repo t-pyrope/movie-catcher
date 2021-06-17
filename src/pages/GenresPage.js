@@ -23,6 +23,7 @@ const GenresPage = () => {
   }, [dispatch, pathName, page, sortType]);
   const { genreMovies, genrePages } = useSelector((state) => state.movies);
   const { genres } = useSelector((state) => state.genres);
+
   const titleHandler = () => {
     const title = genres.filter((genre) => genre.id === Number(pathName))[0].name;
     return `Genre: ${title}`;

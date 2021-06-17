@@ -68,7 +68,7 @@ const Carousel = ({ movies, title }) => {
           </Slider>
           <div className="carousel__controls">
             <ButtonBack className="button-back carousel__button"><FontAwesomeIcon icon={faAngleLeft} size="2x" /></ButtonBack>
-            <Link to={`/${title}`} className="carousel__button carousel__button_submit">
+            <Link to={`/highlights/${title}`} className="carousel__button carousel__button_submit">
               View All
             </Link>
             <ButtonNext className="button-next carousel__button"><FontAwesomeIcon icon={faAngleRight} size="2x" /></ButtonNext>
