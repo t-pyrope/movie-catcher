@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useHistory, useLocation } from 'react-router-dom';
-import search from '../../utils';
+import search from '../../helpers/utils';
+import navigateArrowKeys from '../../helpers/navigateArrowKeys';
 import { liveSearchURL } from '../../api';
 
 const SearchComponent = () => {
@@ -52,7 +53,7 @@ const SearchComponent = () => {
       </form>
       <div className="searchForm__liveSearch searchForm__liveSearch_hidden" ref={liveSearch}>
         {liveSearchMovies.length && liveSearchMovies.map((movie) => (
-          <a className="searchForm__searchedItem" href={`/movies/${movie.id}`} key={movie.id}>{movie.title}</a>
+          <a className="searchForm__searchedItem" href={`/movies/${movie.id}`} key={movie.id} onKeyDown={(e) => navigateArrowKeys(e, e.currentTarget)}>{movie.title}</a>
         ))}
       </div>
     </div>
