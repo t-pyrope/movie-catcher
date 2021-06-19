@@ -1,5 +1,7 @@
 const initState = {
-  detail: {}, isLoading: true,
+  detail: {},
+  isLoading: true,
+  isMovieFailed: false,
 };
 
 const detailReducer = (state = initState, action) => {
@@ -11,6 +13,13 @@ const detailReducer = (state = initState, action) => {
         ...state,
         detail: action.payload.detail,
         isLoading: false,
+        isMovieFailed: false,
+      };
+    case 'LOAD_MOVIE_FAILED':
+      return {
+        ...state,
+        isLoading: false,
+        isMovieFailed: true,
       };
     default:
       return { ...state };

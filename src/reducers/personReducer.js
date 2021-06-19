@@ -1,4 +1,9 @@
-const initialState = { person: [], personMovies: [], isLoading: true };
+const initialState = {
+  person: [],
+  personMovies: [],
+  isLoading: true,
+  isFailedPerson: false,
+};
 
 const personReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -7,6 +12,13 @@ const personReducer = (state = initialState, action) => {
         ...state,
         person: action.payload.person,
         personMovies: action.payload.personMovies,
+        isLoading: false,
+        isFailedPerson: false,
+      };
+    case 'LOAD_PERSON_FAILED':
+      return {
+        ...state,
+        isFailedPerson: true,
         isLoading: false,
       };
     case 'LOADING_PERSON':

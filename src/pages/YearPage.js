@@ -21,7 +21,7 @@ const YearPage = () => {
 
   const { yearMovies } = useSelector((state) => state.year);
   const titleHandler = () => {
-    return `Popular in: ${pathName}`;
+    return +pathName ? `Popular in: ${pathName}` : 'Popular in 2021';
   };
 
   return (

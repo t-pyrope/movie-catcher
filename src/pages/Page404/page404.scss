@@ -1,0 +1,12 @@
+.page404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    overflow-y: hidden;
+
+    &__img {
+        height: 40vh;
+    }
+}

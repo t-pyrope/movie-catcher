@@ -4,12 +4,17 @@ import { movieDetailURL } from '../api';
 const loadDetail = (movieId) => async (dispatch) => {
   dispatch({ type: 'LOADING_DETAIL' });
 
-  const detailData = await axios.get(movieDetailURL(movieId));
-  dispatch({
-    type: 'FETCH_DETAIL',
-    payload: {
-      detail: detailData.data,
-    },
+  await axios.get(movieDetailURL(movieId)).then((res) => {
+    dispatch({
+      type: 'FETCH_DETAIL',
+      payload: {
+        detail: res.data,
+      },
+    });
+  }).catch(() => {
+    dispatch({
+      type: 'LOAD_MOVIE_FAILED',
+    });
   });
 };
 

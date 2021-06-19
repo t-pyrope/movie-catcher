@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import loadGenres from '../../actions/genresAction';
+import { loadGenreMovies } from '../../actions/moviesAction';
 import './header.scss';
 import SearchComponent from './SearchComponent';
 
@@ -38,6 +39,7 @@ const Header = () => {
   const genreSelectHandler = (e) => {
     e.stopPropagation();
     const genreId = e.target.id;
+    dispatch(loadGenreMovies(genreId, '1', 'popularity.desc'));
     history.push(`/genres/${genreId}`);
     const div = e.target.parentElement.parentElement;
     div.style.opacity = 0;

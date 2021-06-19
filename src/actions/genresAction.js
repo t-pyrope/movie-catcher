@@ -3,10 +3,14 @@ import { genresListURL } from '../api';
 
 const loadGenres = () => async (dispatch) => {
   dispatch({ type: 'LOADING_DETAIL' });
-  const genresData = await axios.get(genresListURL());
-  dispatch({
-    type: 'LOAD_GENRES',
-    payload: genresData.data,
+  axios.get(genresListURL()).then((res) => {
+    dispatch({
+      type: 'LOAD_GENRES',
+      payload: res.data,
+    });
+  }).catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error(err.message);
   });
 };
 

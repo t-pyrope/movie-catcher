@@ -5,6 +5,8 @@ const initState = {
   adults: [],
   isLoading: true,
   genrePages: 0,
+  id: null,
+  isFailed: false,
 };
 
 const moviesReducer = (state = initState, action) => {
@@ -22,11 +24,19 @@ const moviesReducer = (state = initState, action) => {
         genreMovies: action.payload.genreMovies,
         genrePages: action.payload.genrePages,
         isLoading: false,
+        isFailed: false,
+        id: action.payload.id,
       };
     case 'LOADING_DETAIL':
       return {
         ...state,
         isLoading: true,
+      };
+    case 'LOAD_FAILED':
+      return {
+        ...state,
+        isFailed: true,
+        isLoading: false,
       };
     default:
       return { ...state };

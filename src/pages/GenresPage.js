@@ -17,12 +17,15 @@ const GenresPage = () => {
   const [sortType, setSortType] = useState('popularity.desc');
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
-  useEffect(() => {
-    dispatch(loadGenreMovies(pathName, page, sortType));
-    dispatch(loadGenres);
-  }, [dispatch, pathName, page, sortType]);
-  const { genreMovies, genrePages } = useSelector((state) => state.movies);
+  const {
+    genreMovies, genrePages, isLoading, id,
+  } = useSelector((state) => state.movies);
   const { genres } = useSelector((state) => state.genres);
+
+  useEffect(() => {
+    if (id !== pathName) dispatch(loadGenreMovies(pathName, page, sortType));
+    dispatch(loadGenres);
+  }, [dispatch, pathName, page, sortType, id]);
 
   const titleHandler = () => {
     const title = genres.filter((genre) => genre.id === Number(pathName))[0].name;
@@ -31,7 +34,7 @@ const GenresPage = () => {
 
   return (
     <>
-      {genreMovies.length ? (
+      {!isLoading ? (
         <main>
           <PageHeader
             title={titleHandler()}

@@ -17,15 +17,26 @@ export const loadMovies = (mediaType, timeWindow, sortType, page) => async (disp
   });
 };
 
-export const loadGenreMovies = (genreTd, page, sortType) => async (dispatch) => {
+export const loadGenreMovies = (genreId, page, sortType) => async (dispatch) => {
   dispatch({ type: 'LOADING_DETAIL' });
 
-  const genreMoviesData = await axios.get(genreMoviesURL(genreTd, page, sortType));
-  dispatch({
-    type: 'LOAD_GENRE_MOVIES',
-    payload: {
-      genreMovies: genreMoviesData.data.results,
-      genrePages: genreMoviesData.data.total_pages,
-    },
+  axios.get(genreMoviesURL(genreId, page, sortType)).then((res) => {
+    if (res.data.results.length) {
+      dispatch({
+        type: 'LOAD_GENRE_MOVIES',
+        payload: {
+          genreMovies: res.data.results,
+          genrePages: res.data.total_pages,
+          id: genreId,
+        },
+      });
+    } else {
+      dispatch({
+        type: 'LOAD_FAILED',
+      });
+    }
+  }).catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error(err.message);
   });
 };
