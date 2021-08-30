@@ -16,7 +16,7 @@ const Movie = ({
   return (
     <Link to={`/movies/${id}`}>
       <article className="card">
-        <img src={imgSrcHandler()} alt="poster" className="card__image" />
+        <img src={imgSrcHandler()} alt={title} className="card__image" />
         <div className="card__desc card__desc_movie">
           <h4 className="card__title">{title}</h4>
           <div className="card__rating">

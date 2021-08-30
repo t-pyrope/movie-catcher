@@ -6,7 +6,14 @@ const Footer = () => {
     <footer className="mainFooter">
       API from
       {' '}
-      <abbr title="The Movie Database">TMDB</abbr>
+      <a
+        title="The Movie Database"
+        href="https://www.themoviedb.org/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        TMDB
+      </a>
     </footer>
   );
 };

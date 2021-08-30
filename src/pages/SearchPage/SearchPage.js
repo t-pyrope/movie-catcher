@@ -18,10 +18,13 @@ const SearchPage = () => {
 
   const [page, setPage] = useState(1);
   const [toggle, setToggle] = useState(false);
+
   useEffect(() => {
     dispatch(fetchSearch(history.location.pathname.split('/')[2], page));
   }, [dispatch, history, page]);
+
   const { searchedMovie, searchedPerson } = useSelector((state) => state.searched);
+
   const getSearchNameHandler = () => {
     const searchName = history.location.pathname.split('/')[2];
     return searchName;
@@ -31,6 +34,7 @@ const SearchPage = () => {
     setPage(1);
     setToggle(!toggle);
   };
+
   return (
     <main role="main" className="searchPage">
       <ButtonLikeLink callback={() => history.goBack()} text="Back" />

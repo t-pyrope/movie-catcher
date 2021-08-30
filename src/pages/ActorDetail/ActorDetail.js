@@ -22,11 +22,7 @@ const ActorDetail = () => {
   const { person, personMovies, isLoading } = useSelector((state) => state.person);
 
   const getPosterHandler = () => {
-    return `https://image.tmdb.org/t/p/w780${person.profile_path}`;
-  };
-
-  const addDefaultSrcHandler = (e) => {
-    e.target.src = noPhoto;
+    return person.profile_path ? `https://image.tmdb.org/t/p/w780${person.profile_path}` : noPhoto;
   };
 
   const getPersonMoviesHandler = () => {
@@ -51,12 +47,12 @@ const ActorDetail = () => {
                 {person.place_of_birth ? `From ${person.place_of_birth}` : 'No information about place of birth'}
               </p>
             </div>
-            <Toggle title="Biography" el={person.biography ? person.biography : 'No information'} />
+            <Toggle title="Biography" el={person.biography ?? 'No information'} />
             <ul>
               <Toggle title="Filmography" el={personMovies.length > 0 ? getPersonMoviesHandler() : <li className="accordion__item_li">No information</li>} />
             </ul>
           </div>
-          <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="info__poster info__poster_actor" alt={person.name} />
+          <img src={getPosterHandler()} className="info__poster info__poster_actor" alt={person.name} />
         </div>
         <ScrollTop />
       </main>

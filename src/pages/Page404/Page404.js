@@ -6,7 +6,7 @@ const Page404 = () => {
   return (
     <div className="page404">
       <h2>There is nothing here</h2>
-      <img src={notFound} alt="not found" className="page404__img" />
+      <img src={notFound} alt="page not found" className="page404__img" />
     </div>
   );
 };

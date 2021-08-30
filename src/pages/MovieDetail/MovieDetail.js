@@ -23,11 +23,9 @@ const MovieDetail = () => {
   const { detail, isLoading } = useSelector((state) => state.detail);
 
   const getPosterHandler = () => {
-    return `https://image.tmdb.org/t/p/w780${detail.poster_path}`;
-  };
-
-  const addDefaultSrcHandler = (e) => {
-    e.target.src = noPoster;
+    return detail.poster_path
+      ? `https://image.tmdb.org/t/p/w780${detail.poster_path}`
+      : noPoster;
   };
 
   return (
@@ -65,7 +63,7 @@ const MovieDetail = () => {
                   <p className="info__overview">{detail.overview}</p>
                 </div>
               </div>
-              <img src={getPosterHandler()} onError={(e) => addDefaultSrcHandler(e)} className="info__poster" alt={detail.title} />
+              <img src={getPosterHandler()} className="info__poster" alt={detail.title} />
             </div>
             <ScrollTop />
           </main>
