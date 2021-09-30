@@ -7,9 +7,9 @@ import Movie from '../components/Movie/Movie';
 import { loadGenreMovies } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import loadGenres from '../actions/genresAction';
-import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
 import SortComponent from '../components/Sort/Sort';
 import PageHeader from '../components/PageHeader/PageHeader';
+import Pagination from '../components/Pagination/Pagination';
 
 const GenresPage = () => {
   const history = useHistory();
@@ -18,14 +18,17 @@ const GenresPage = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const {
-    genreMovies, genrePages, isLoading, id,
+    genreMovies, totalPages, isLoading,
   } = useSelector((state) => state.movies);
   const { genres } = useSelector((state) => state.genres);
 
   useEffect(() => {
-    if (id !== pathName) dispatch(loadGenreMovies(pathName, page, sortType));
     dispatch(loadGenres);
-  }, [dispatch, pathName, page, sortType, id]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadGenreMovies(pathName, page, sortType));
+  }, [dispatch, pathName, page, sortType]);
 
   const titleHandler = () => {
     const title = genres.filter((genre) => genre.id === Number(pathName))[0].name;
@@ -45,7 +48,11 @@ const GenresPage = () => {
               />
             )}
           />
-          <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
+          <Pagination
+            totalPages={totalPages}
+            currentPage={page}
+            setCurrentPage={setPage}
+          />
           <div className="container_movies">
             {genreMovies.map((movie) => (
               <Movie
@@ -57,7 +64,11 @@ const GenresPage = () => {
               />
             ))}
           </div>
-          <PrevNextBtnGroup maxPages={genrePages} setPage={setPage} page={page} />
+          <Pagination
+            totalPages={totalPages}
+            currentPage={page}
+            setCurrentPage={setPage}
+          />
           <ScrollTop />
         </main>
       ) : <Loading />}

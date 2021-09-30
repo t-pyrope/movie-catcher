@@ -42,4 +42,16 @@
             color: #a79d9d;
         }
     }
+
+    &__pagination {
+        padding: 0.5rem 1rem;
+        background-color: transparent;
+        color: white;
+        border: 2px solid #a79d9d;
+        border-radius: 2rem;
+
+        &_active {
+            background-color: #a79d9d;
+        }
+    }
 }

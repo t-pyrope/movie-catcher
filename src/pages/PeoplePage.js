@@ -6,7 +6,7 @@ import '../components/Container/container.scss';
 import Loading from '../components/ui/Loading/Loading';
 import PageHeader from '../components/PageHeader/PageHeader';
 import ScrollTop from '../components/ScrollTop';
-import PrevNextBtnGroup from '../components/PrevNextBtnGroup/PrevNextBtnGroup';
+import Pagination from '../components/Pagination/Pagination';
 
 const PeoplePage = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,11 @@ const PeoplePage = () => {
   return (
     <section aria-label="famous actors" className="movies">
       <PageHeader title="People" />
-      <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
+      <Pagination
+        totalPages={peoplePages}
+        currentPage={page}
+        setCurrentPage={setPage}
+      />
       <div className="container_movies">
         {people.length
           ? people.map((famous) => (
@@ -33,7 +37,11 @@ const PeoplePage = () => {
           ))
           : <Loading />}
       </div>
-      <PrevNextBtnGroup maxPages={peoplePages} setPage={setPage} page={page} />
+      <Pagination
+        totalPages={peoplePages}
+        currentPage={page}
+        setCurrentPage={setPage}
+      />
       <ScrollTop />
     </section>
   );
