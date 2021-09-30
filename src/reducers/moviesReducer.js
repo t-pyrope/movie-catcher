@@ -4,7 +4,7 @@ const initState = {
   genreMovies: [],
   adults: [],
   isLoading: true,
-  genrePages: 0,
+  totalPages: 0,
   id: null,
   isFailed: false,
 };
@@ -22,7 +22,7 @@ const moviesReducer = (state = initState, action) => {
       return {
         ...state,
         genreMovies: action.payload.genreMovies,
-        genrePages: action.payload.genrePages,
+        totalPages: action.payload.totalPages,
         isLoading: false,
         isFailed: false,
         id: action.payload.id,

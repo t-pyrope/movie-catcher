@@ -26,7 +26,7 @@ export const loadGenreMovies = (genreId, page, sortType) => async (dispatch) => 
         type: 'LOAD_GENRE_MOVIES',
         payload: {
           genreMovies: res.data.results,
-          genrePages: res.data.total_pages,
+          totalPages: res.data.total_pages,
           id: genreId,
         },
       });
