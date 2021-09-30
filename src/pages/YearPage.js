@@ -8,18 +8,20 @@ import ScrollTop from '../components/ScrollTop';
 import SortComponent from '../components/Sort/Sort';
 import '../components/Container/container.scss';
 import Loading from '../components/ui/Loading/Loading';
+import Pagination from '../components/Pagination/Pagination';
 
 const YearPage = () => {
   const history = useHistory();
   const pathName = history.location.pathname.split('/')[2];
   const [sortType, setSortType] = useState('popularity.desc');
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchYearMovies(pathName, '1', sortType));
-  }, [dispatch, pathName, sortType]);
+    dispatch(fetchYearMovies(pathName, page, sortType));
+  }, [dispatch, pathName, sortType, page]);
 
-  const { yearMovies } = useSelector((state) => state.year);
+  const { yearMovies, totalPages } = useSelector((state) => state.year);
   const titleHandler = () => {
     return +pathName ? `Popular in: ${pathName}` : 'Popular in 2021';
   };
@@ -37,6 +39,13 @@ const YearPage = () => {
               />
               )}
           />
+          {totalPages ? (
+            <Pagination
+              totalPages={totalPages}
+              currentPage={page}
+              setCurrentPage={setPage}
+            />
+          ) : ''}
           <div className="container_movies">
             {yearMovies.map((movie) => (
               <Movie
