@@ -7,6 +7,7 @@ const fetchYearMovies = (year, page, sortType) => async (dispatch) => {
     type: 'FETCH_YEAR',
     payload: {
       yearMovies: yearData.data.results,
+      totalPages: yearData.data.total_pages,
     },
   });
 };

@@ -3,6 +3,38 @@ import {
   trendingURL, kidMovieURL, genreMoviesURL, adultMovieURL,
 } from '../api';
 
+export const loadTrendingMovies = (mediaType, timeWindow, sortType, page) => async (dispatch) => {
+  const trendingData = await axios.get(trendingURL(mediaType, timeWindow, sortType, page));
+  dispatch({
+    type: 'FETCH_TRENDING_MOVIES',
+    payload: {
+      trending: trendingData.data.results,
+      trendingTotal: trendingData.data.total_pages,
+    },
+  });
+};
+
+export const loadKidsMovies = (sortType, page) => async (dispatch) => {
+  const kidsData = await axios.get(kidMovieURL(sortType, page));
+  dispatch({
+    type: 'FETCH_KIDS_MOVIES',
+    payload: {
+      kidsTotal: kidsData.data.total_pages,
+      kids: kidsData.data.results,
+    },
+  });
+};
+
+export const loadAdultsMovies = (sortType, page) => async (dispatch) => {
+  const adultsData = await axios.get(adultMovieURL(sortType, page));
+  dispatch({
+    type: 'FETCH_ADULTS_MOVIES',
+    payload: {
+      adults: adultsData.data.results,
+    },
+  });
+};
+
 export const loadMovies = (mediaType, timeWindow, sortType, page) => async (dispatch) => {
   const trendingData = await axios.get(trendingURL(mediaType, timeWindow, sortType, page));
   const kidData = await axios.get(kidMovieURL(sortType, page));
