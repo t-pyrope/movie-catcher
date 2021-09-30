@@ -46,12 +46,16 @@
     &__pagination {
         padding: 0.5rem 1rem;
         background-color: transparent;
-        color: white;
-        border: 2px solid #a79d9d;
+        color: #d1cece;
+        border: 0.12rem solid #a79d9d;
         border-radius: 2rem;
+        font-weight: bolder;
+        transition: all 300ms ease;
 
-        &_active {
+        &_active, &:hover {
             background-color: #a79d9d;
+            border-color: #a79d9d;
+            color: #353535;
         }
     }
 }
