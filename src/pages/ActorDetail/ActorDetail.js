@@ -65,7 +65,7 @@ const Toggle = ({ title, el }) => {
   return (
     <details className="accordion">
       <summary className="accordion__header"><h2>{title}</h2></summary>
-      <p className="accordion__item">{el}</p>
+      <p className="accordion__item accordion__item_text">{el}</p>
     </details>
   );
 };

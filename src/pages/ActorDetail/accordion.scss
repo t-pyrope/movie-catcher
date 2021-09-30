@@ -44,6 +44,10 @@
                 color: #afafaf;
             }
         }
+        &_text {
+            text-indent: 1rem;
+            font-size: 0.95rem;
+        }
     }
 
     @media (max-width: 1024px) {
