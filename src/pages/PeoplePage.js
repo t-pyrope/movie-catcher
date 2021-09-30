@@ -20,11 +20,13 @@ const PeoplePage = () => {
   return (
     <section aria-label="famous actors" className="movies">
       <PageHeader title="People" />
-      <Pagination
-        totalPages={peoplePages}
-        currentPage={page}
-        setCurrentPage={setPage}
-      />
+      {peoplePages ? (
+        <Pagination
+          totalPages={peoplePages}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      ) : ''}
       <div className="container_movies">
         {people.length
           ? people.map((famous) => (
@@ -37,11 +39,13 @@ const PeoplePage = () => {
           ))
           : <Loading />}
       </div>
-      <Pagination
-        totalPages={peoplePages}
-        currentPage={page}
-        setCurrentPage={setPage}
-      />
+      {peoplePages ? (
+        <Pagination
+          totalPages={peoplePages}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      ) : ''}
       <ScrollTop />
     </section>
   );
