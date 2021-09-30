@@ -3,6 +3,14 @@
     border: 1px solid #495057;
     margin-bottom: 0.5rem;
     padding: 1rem 1rem 0.5rem;
+    transition: all 1s ease;
+    height: auto;
+    max-height: 4rem; // height of h2 element + paddings + margins
+
+    &[open] {
+        max-height: 99rem;
+        overflow: hidden;
+    }
 
     &__header {
         list-style: none;
