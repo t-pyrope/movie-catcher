@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouteMatch, useHistory } from 'react-router-dom';
+import useQuery from '../helpers/useQuery';
 import loadPeople from '../actions/peopleAction';
 import Actor from '../components/Actor/Actor';
-import '../components/Container/container.scss';
 import Loading from '../components/ui/Loading/Loading';
 import PageHeader from '../components/PageHeader/PageHeader';
 import ScrollTop from '../components/ScrollTop';
 import Pagination from '../components/Pagination/Pagination';
 
+import '../components/Container/container.scss';
+
 const PeoplePage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { url } = useRouteMatch();
   const [page, setPage] = useState(1);
+  const query = useQuery();
+
+  useEffect(() => {
+    const queryPage = +query.get('page');
+    if (queryPage) {
+      setPage(queryPage);
+    }
+  }, [query]);
 
   useEffect(() => {
     dispatch(loadPeople(page));
-  }, [dispatch, page]);
+    history.push(`${url}?page=${page}`);
+  }, [page, history, url, dispatch]);
+
   const { people, peoplePages } = useSelector((state) => state.people);
 
   return (
