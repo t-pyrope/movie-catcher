@@ -53,6 +53,8 @@ const MovieDetail = () => {
 
                   </p>
                   <p className="info__rating">
+                    Rating:
+                    {' '}
                     <img src={star} alt="rating" />
                     {' '}
                     {detail.vote_average}

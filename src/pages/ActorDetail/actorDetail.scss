@@ -10,6 +10,9 @@
 
     &__basic {
         margin-bottom: 1.5rem;
+        h1 {
+            margin-bottom: 0.1rem;
+        }
     }
 
     &__rating {
@@ -57,7 +60,7 @@
     &__countries {
         color: #636262;
         font-size: 0.9rem;
-        margin: 0.5rem 0 0.7rem;
+        margin: 0 0 1rem;
     }
 
     &__country {
@@ -66,7 +69,6 @@
 
     &__overview {
         line-height: 1.3em;
-        text-indent: 0.7rem;
     }
 
     @media (max-width: 1024px){
