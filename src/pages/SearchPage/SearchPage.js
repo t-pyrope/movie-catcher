@@ -21,9 +21,12 @@ const SearchPage = () => {
 
   useEffect(() => {
     dispatch(fetchSearch(history.location.pathname.split('/')[2], page));
-  }, [dispatch, history, page]);
+  }, [dispatch, history.location.pathname, page]);
 
-  const { searchedMovie, searchedPerson } = useSelector((state) => state.searched);
+  const {
+    searchedMovie, searchedPerson,
+    movieError, personError,
+  } = useSelector((state) => state.searched);
 
   const getSearchNameHandler = () => {
     const searchName = history.location.pathname.split('/')[2];
@@ -63,7 +66,10 @@ const SearchPage = () => {
           in people
         </motion.p>
       </header>
-      <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
+      {
+        (!movieError || !personError)
+          && <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
+      }
 
       {!toggle && (
         <div>
@@ -79,7 +85,7 @@ const SearchPage = () => {
                 />
               ))}
             </div>
-          ) : <Loading />}
+          ) : movieError || <Loading />}
         </div>
       )}
       {toggle && (
@@ -95,10 +101,13 @@ const SearchPage = () => {
                 />
               ))}
             </div>
-          ) : <Loading />}
+          ) : personError || <Loading />}
         </div>
       )}
-      <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
+      {
+        (!movieError || !personError)
+          && <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
+      }
       <ScrollTop />
     </main>
   );
