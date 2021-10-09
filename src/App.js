@@ -32,7 +32,7 @@ function App() {
         <Header />
         <div className="container_main">
           <AnimatePresence exitBeforeEnter>
-            <Switch location={location} key={location.pathname}>
+            <Switch location={location} key={location.pathname.split('/')[1]}>
               <Route path="/" exact>
                 <Home />
               </Route>
@@ -53,10 +53,10 @@ function App() {
               <Route path="/year/:id">
                 <YearPage />
               </Route>
-              <Route path="/people" exact>
+              <Route path="/people">
                 <PeoplePage />
               </Route>
-              <Route path="/people/:id">
+              <Route path="/person/:id">
                 {isFailedPerson ? <Page404 /> : <ActorDetail />}
               </Route>
               <Route path="/highlights/:id">

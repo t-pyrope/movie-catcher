@@ -13,7 +13,7 @@ const Actor = ({ actorName, posterPath, id }) => {
   };
 
   return (
-    <Link to={`/people/${id}`}>
+    <Link to={`/person/${id}`}>
       <article className="card">
         <img className="card__image" src={srcHandler()} alt={actorName} />
         <div className="card__desc">
