@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+import useQuery from '../../helpers/useQuery';
 import fetchSearch from '../../actions/searchAction';
 import Loading from '../../components/ui/Loading/Loading';
 import ButtonLikeLink from '../../components/ui/buttons/ButtonLikeLink';
@@ -15,24 +16,23 @@ import '../../components/Container/container.scss';
 const SearchPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const query = useQuery();
 
   const [page, setPage] = useState(1);
   const [toggle, setToggle] = useState(false);
 
-  useEffect(() => {
-    dispatch(fetchSearch(history.location.pathname.split('/')[2], page));
-  }, [dispatch, history.location.pathname, page]);
-
   const {
     searchedMovie, searchedPerson,
-    movieError, personError,
+    movieError, personError, searched,
     movieTotalPages, personTotalPages,
   } = useSelector((state) => state.searched);
 
-  const getSearchNameHandler = () => {
-    const searchName = history.location.pathname.split('/')[2];
-    return searchName;
-  };
+  const searchedName = query.get('search');
+
+  useEffect(() => {
+    history.push(`/search?search=${searchedName}&page=${page}`);
+    dispatch(fetchSearch(searchedName, page));
+  }, [page, searchedName, history, dispatch]);
 
   const toggleSearchHandler = () => {
     setPage(1);
@@ -44,9 +44,9 @@ const SearchPage = () => {
       <ButtonLikeLink callback={() => history.goBack()} text="Back" />
       <header className="searchPage__header">
         <h2 className="searchPage__title">
-          Results for
+          Results for:
           {' '}
-          {getSearchNameHandler()}
+          {searched}
         </h2>
         <motion.p
           className="searchPage__option"

@@ -8,11 +8,15 @@ const fetchSearch = (searchName, page) => async (dispatch) => {
   if (!searchMovieData.data.results.length) {
     dispatch({
       type: 'NO_MOVIE_FOUND',
+      payload: {
+        searched: searchName,
+      },
     });
   } else {
     dispatch({
       type: 'FETCH_SEARCH_MOVIE',
       payload: {
+        searched: searchName,
         searchedMovie: searchMovieData.data.results,
         movieTotalPages: searchMovieData.data.total_pages,
       },

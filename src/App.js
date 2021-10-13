@@ -44,7 +44,7 @@ function App() {
                   {isMovieFailed ? <Page404 /> : <MovieDetail />}
                 </ErrorBoundary>
               </Route>
-              <Route path="/search/:id">
+              <Route path="/search">
                 <SearchPage />
               </Route>
               <Route path="/genres/:id">
