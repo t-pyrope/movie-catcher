@@ -8,7 +8,7 @@ import ButtonLikeLink from '../../components/ui/buttons/ButtonLikeLink';
 import ScrollTop from '../../components/ScrollTop';
 import Movie from '../../components/Movie/Movie';
 import Actor from '../../components/Actor/Actor';
-import PrevNextBtnGroup from '../../components/PrevNextBtnGroup/PrevNextBtnGroup';
+import Pagination from '../../components/Pagination/Pagination';
 import './searchPage.scss';
 import '../../components/Container/container.scss';
 
@@ -26,6 +26,7 @@ const SearchPage = () => {
   const {
     searchedMovie, searchedPerson,
     movieError, personError,
+    movieTotalPages, personTotalPages,
   } = useSelector((state) => state.searched);
 
   const getSearchNameHandler = () => {
@@ -66,48 +67,64 @@ const SearchPage = () => {
           in people
         </motion.p>
       </header>
-      {
-        (!movieError || !personError)
-          && <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
-      }
 
       {!toggle && (
         <div>
           {searchedMovie.length ? (
-            <div className="container_movies">
-              {searchedMovie.map((movie) => (
-                <Movie
-                  title={movie.title ? movie.title : movie.name}
-                  posterPath={movie.poster_path}
-                  rating={movie.vote_average}
-                  key={movie.id}
-                  id={movie.id}
-                />
-              ))}
-            </div>
+            <>
+              <Pagination
+                totalPages={movieTotalPages}
+                currentPage={page}
+                setCurrentPage={setPage}
+              />
+              <div className="container_movies">
+                {searchedMovie.map((movie) => (
+                  <Movie
+                    title={movie.title ? movie.title : movie.name}
+                    posterPath={movie.poster_path}
+                    rating={movie.vote_average}
+                    key={movie.id}
+                    id={movie.id}
+                  />
+                ))}
+              </div>
+              <Pagination
+                totalPages={movieTotalPages}
+                currentPage={page}
+                setCurrentPage={setPage}
+              />
+            </>
           ) : movieError || <Loading />}
         </div>
       )}
       {toggle && (
         <div>
           {searchedPerson.length ? (
-            <div className="container_movies">
-              {searchedPerson.map((person) => (
-                <Actor
-                  actorName={person.name}
-                  posterPath={person.profile_path}
-                  key={person.id}
-                  id={person.id}
-                />
-              ))}
-            </div>
+            <>
+              <Pagination
+                totalPages={personTotalPages}
+                currentPage={page}
+                setCurrentPage={setPage}
+              />
+              <div className="container_movies">
+                {searchedPerson.map((person) => (
+                  <Actor
+                    actorName={person.name}
+                    posterPath={person.profile_path}
+                    key={person.id}
+                    id={person.id}
+                  />
+                ))}
+              </div>
+              <Pagination
+                totalPages={personTotalPages}
+                currentPage={page}
+                setCurrentPage={setPage}
+              />
+            </>
           ) : personError || <Loading />}
         </div>
       )}
-      {
-        (!movieError || !personError)
-          && <PrevNextBtnGroup maxPages={5} setPage={setPage} page={page} />
-      }
       <ScrollTop />
     </main>
   );

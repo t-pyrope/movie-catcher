@@ -14,6 +14,7 @@ const fetchSearch = (searchName, page) => async (dispatch) => {
       type: 'FETCH_SEARCH_MOVIE',
       payload: {
         searchedMovie: searchMovieData.data.results,
+        movieTotalPages: searchMovieData.data.total_pages,
       },
     });
   }
@@ -27,6 +28,7 @@ const fetchSearch = (searchName, page) => async (dispatch) => {
       type: 'FETCH_SEARCH_PERSON',
       payload: {
         searchedPerson: searchPersonData.data.results,
+        personTotalPages: searchPersonData.data.total_pages,
       },
     });
   }
