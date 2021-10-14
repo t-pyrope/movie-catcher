@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import loadDetail from '../../actions/detailAction';
@@ -11,16 +11,24 @@ import '../../components/Container/container.scss';
 import '../ActorDetail/actorDetail.scss';
 
 const MovieDetail = () => {
+  const [countries, setCountries] = useState([]);
   const history = useHistory();
   const arr = history.location.pathname.split('/');
   const id = arr[arr.length - 1];
 
   const dispatch = useDispatch();
+  const { detail, isLoading } = useSelector((state) => state.detail);
+
   useEffect(() => {
     dispatch(loadDetail(id));
   }, [dispatch, id]);
 
-  const { detail, isLoading } = useSelector((state) => state.detail);
+  useEffect(() => {
+    if (detail.production_countries) {
+      const c = detail.production_countries.map((country) => country.name);
+      setCountries(c);
+    }
+  }, [detail]);
 
   const getPosterHandler = () => {
     return detail.poster_path
@@ -39,10 +47,9 @@ const MovieDetail = () => {
                 <div className="info__basic">
                   <h1>{detail.title}</h1>
                   <p className="info__countries">
-                    {detail.production_countries.map((country) => (
-                      <span className="info__country" key={country.name}>{country.name}</span>
-                    ))}
-
+                    <span className="info__country">
+                      {countries.length && countries.join(', ')}
+                    </span>
                   </p>
                   <p className="info__genres">
                     {detail.genres.map((genre) => (
