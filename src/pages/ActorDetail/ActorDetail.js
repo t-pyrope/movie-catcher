@@ -22,7 +22,9 @@ const ActorDetail = () => {
   const { person, personMovies, isLoading } = useSelector((state) => state.person);
 
   const getPosterHandler = () => {
-    return person.profile_path ? `https://image.tmdb.org/t/p/w780${person.profile_path}` : noPhoto;
+    return person.profile_path
+      ? `https://image.tmdb.org/t/p/w780${person.profile_path}`
+      : noPhoto;
   };
 
   const getPersonMoviesHandler = () => {
@@ -44,15 +46,26 @@ const ActorDetail = () => {
             <div className="info__basic">
               <h1>{person.name}</h1>
               <p className="info__countries">
-                {person.place_of_birth ? `From ${person.place_of_birth}` : 'No information about place of birth'}
+                {person.place_of_birth
+                  ? `From ${person.place_of_birth}`
+                  : 'No information about place of birth'}
               </p>
             </div>
             <Toggle title="Biography" el={person.biography ?? 'No information'} />
             <ul>
-              <Toggle title="Filmography" el={personMovies.length > 0 ? getPersonMoviesHandler() : <li className="accordion__item_li">No information</li>} />
+              <Toggle
+                title="Filmography"
+                el={personMovies.length > 0
+                  ? getPersonMoviesHandler()
+                  : <li className="accordion__item_li">No information</li>}
+              />
             </ul>
           </div>
-          <img src={getPosterHandler()} className="info__poster info__poster_actor" alt={person.name} />
+          <img
+            src={getPosterHandler()}
+            className="info__poster info__poster_actor"
+            alt={person.name}
+          />
         </div>
         <ScrollTop />
       </main>
@@ -62,10 +75,18 @@ const ActorDetail = () => {
 };
 
 const Toggle = ({ title, el }) => {
+  const isOpen = ((title === 'Biography') && (el.length < 400))
+    || ((title === 'Filmography') && (el.length < 6));
   return (
-    <details className="accordion">
-      <summary className="accordion__header"><h2>{title}</h2></summary>
-      <p className="accordion__item accordion__item_text">{el}</p>
+    <details className="accordion" open={isOpen}>
+      <summary className="accordion__header">
+        <h2>
+          {title}
+        </h2>
+      </summary>
+      <p className="accordion__item accordion__item_text">
+        {el.length ? el : 'No information'}
+      </p>
     </details>
   );
 };
