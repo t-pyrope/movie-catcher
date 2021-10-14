@@ -17,13 +17,14 @@ const PeoplePage = () => {
   const { url } = useRouteMatch();
   const [page, setPage] = useState(1);
   const query = useQuery();
+  const queryPage = +query.get('page');
 
   useEffect(() => {
-    const queryPage = +query.get('page');
     if (queryPage) {
       setPage(queryPage);
     }
-  }, [query]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     dispatch(loadPeople(page));
