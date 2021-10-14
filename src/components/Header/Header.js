@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import loadGenres from '../../actions/genresAction';
-import { loadGenreMovies } from '../../actions/moviesAction';
 import './header.scss';
 import SearchComponent from './SearchComponent';
 
@@ -43,8 +42,7 @@ const Header = () => {
     const selectId = e.target.id;
     const selectName = e.target.name;
     if (selectName === 'genre') {
-      dispatch(loadGenreMovies(selectId, '1', 'popularity.desc'));
-      history.push(`/genres/${selectId}`);
+      history.push(`/genres?genre=${selectId.toLowerCase()}&page=1`);
     }
     if (selectName === 'year') history.push(`/year/${selectId}`);
 
@@ -81,7 +79,7 @@ const Header = () => {
                       name="genre"
                       className="mainNav__button mainNav__button_navItem"
                       type="button"
-                      id={genre.id}
+                      id={genre.name}
                       onClick={selectHandler}
                     >
                       {genre.name}

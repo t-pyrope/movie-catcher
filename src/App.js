@@ -47,7 +47,7 @@ function App() {
               <Route path="/search">
                 <SearchPage />
               </Route>
-              <Route path="/genres/:id">
+              <Route path="/genres">
                 {isFailed ? <Page404 /> : <GenresPage />}
               </Route>
               <Route path="/year/:id">

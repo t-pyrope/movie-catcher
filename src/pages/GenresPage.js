@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import useQuery from '../helpers/useQuery';
 import { loadGenreMovies } from '../actions/moviesAction';
-import loadGenres from '../actions/genresAction';
 
 import Movie from '../components/Movie/Movie';
 import ScrollTop from '../components/ScrollTop';
@@ -18,27 +17,35 @@ import SkeletonPageHeader from '../components/skeletons/SkeletonPageHeader';
 import '../components/Container/container.scss';
 
 const GenresPage = () => {
-  const history = useHistory();
-  const pathName = history.location.pathname.split('/')[2];
   const [sortType, setSortType] = useState('popularity.desc');
-  const dispatch = useDispatch();
   const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const {
     genreMovies, totalPages, isLoading,
   } = useSelector((state) => state.movies);
   const { genres } = useSelector((state) => state.genres);
+  const query = useQuery();
+  const pathName = query.get('genre');
 
   useEffect(() => {
-    dispatch(loadGenres);
-  }, [dispatch]);
+    setPage(1);
+  }, [pathName]);
 
   useEffect(() => {
-    dispatch(loadGenreMovies(pathName, page, sortType));
-  }, [dispatch, pathName, page, sortType]);
+    if (genres.length) {
+      const { id } = genres.filter((genre) => genre.name.toLowerCase() === pathName)[0];
+      dispatch(loadGenreMovies(id, page, sortType));
+    }
+  }, [dispatch, pathName, page, sortType, genres]);
+
+  useEffect(() => {
+    history.push(`/genres?genre=${pathName}&page=${page}`);
+  }, [page, history, pathName]);
 
   const titleHandler = () => {
-    const title = genres.filter((genre) => genre.id === Number(pathName))[0].name;
-    return `Genre: ${title}`;
+    if (!pathName) return '';
+    return `Genre: ${pathName[0].toUpperCase()}${pathName.slice(1)}`;
   };
 
   return (
