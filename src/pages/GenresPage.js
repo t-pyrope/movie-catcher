@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,21 +28,21 @@ const GenresPage = () => {
   const { genres } = useSelector((state) => state.genres);
   const query = useQuery();
   const pathName = query.get('genre');
+  const pageName = +query.get('page');
 
   useEffect(() => {
-    setPage(1);
+    if (pageName !== page) {
+      setPage(pageName);
+    }
   }, [pathName]);
 
   useEffect(() => {
     if (genres.length) {
       const { id } = genres.filter((genre) => genre.name.toLowerCase() === pathName)[0];
       dispatch(loadGenreMovies(id, page, sortType));
+      history.push(`/genres?genre=${pathName}&page=${page}`);
     }
-  }, [dispatch, pathName, page, sortType, genres]);
-
-  useEffect(() => {
-    history.push(`/genres?genre=${pathName}&page=${page}`);
-  }, [page, history, pathName]);
+  }, [page, sortType, genres.length, pathName]);
 
   const titleHandler = () => {
     if (!pathName) return '';

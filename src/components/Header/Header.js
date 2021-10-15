@@ -41,7 +41,10 @@ const Header = () => {
     e.stopPropagation();
     const selectId = e.target.id;
     const selectName = e.target.name;
-    if (selectName === 'genre') {
+    const currentUrl = window.location.pathname + window.location.search;
+    if (selectName === 'genre'
+      && currentUrl !== `/genres?genre=${selectId.toLowerCase()}&page=1`
+    ) {
       history.push(`/genres?genre=${selectId.toLowerCase()}&page=1`);
     }
     if (selectName === 'year') history.push(`/year/${selectId}`);
