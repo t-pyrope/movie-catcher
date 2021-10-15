@@ -67,7 +67,7 @@ const Header = () => {
         <ul className="mainNav">
           <li className="mainNav__link mainNav__link_relative">
             <button
-              className="mainNav__button mainNav__button_navItem"
+              className="mainNav__button"
               type="button"
               onClick={openListHandler}
               onKeyDown={openListHandler}
@@ -108,7 +108,7 @@ const Header = () => {
                     name="year"
                     onClick={selectHandler}
                     id={year}
-                    className="mainNav__button"
+                    className="mainNav__button mainNav__button_navItem"
                   >
                     {year}
                   </button>
