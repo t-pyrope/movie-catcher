@@ -1,9 +1,26 @@
 import axios from 'axios';
 import { searchMovieURL, searchPersonURL } from '../api';
 
-const fetchSearch = (searchName, page) => async (dispatch) => {
-  const searchMovieData = await axios.get(searchMovieURL(searchName, page));
+export const fetchPeopleSearch = (searchName, page) => async (dispatch) => {
   const searchPersonData = await axios.get(searchPersonURL(searchName, page));
+
+  if (!searchPersonData.data.results.length) {
+    dispatch({
+      type: 'NO_PERSON_FOUND',
+    });
+  } else {
+    dispatch({
+      type: 'FETCH_SEARCH_PERSON',
+      payload: {
+        searchedPerson: searchPersonData.data.results,
+        personTotalPages: searchPersonData.data.total_pages,
+      },
+    });
+  }
+};
+
+export const fetchMoviesSearch = (searchName, page) => async (dispatch) => {
+  const searchMovieData = await axios.get(searchMovieURL(searchName, page));
 
   if (!searchMovieData.data.results.length) {
     dispatch({
@@ -22,20 +39,4 @@ const fetchSearch = (searchName, page) => async (dispatch) => {
       },
     });
   }
-
-  if (!searchPersonData.data.results.length) {
-    dispatch({
-      type: 'NO_PERSON_FOUND',
-    });
-  } else {
-    dispatch({
-      type: 'FETCH_SEARCH_PERSON',
-      payload: {
-        searchedPerson: searchPersonData.data.results,
-        personTotalPages: searchPersonData.data.total_pages,
-      },
-    });
-  }
 };
-
-export default fetchSearch;

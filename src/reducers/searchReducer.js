@@ -17,6 +17,8 @@ const searchReducer = (state = initState, action) => {
         movieError: '',
         movieTotalPages: action.payload.movieTotalPages,
         searched: action.payload.searched,
+        searchedPerson: [],
+        personTotalPages: 0,
       };
     case 'FETCH_SEARCH_PERSON':
       return {
@@ -24,6 +26,8 @@ const searchReducer = (state = initState, action) => {
         searchedPerson: action.payload.searchedPerson,
         personError: '',
         personTotalPages: action.payload.personTotalPages,
+        searchedMovie: [],
+        movieTotalPages: 0,
       };
     case 'NO_MOVIE_FOUND':
       return {

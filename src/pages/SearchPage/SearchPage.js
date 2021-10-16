@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import useQuery from '../../helpers/useQuery';
-import fetchSearch from '../../actions/searchAction';
+import {
+  fetchPeopleSearch, fetchMoviesSearch,
+} from '../../actions/searchAction';
 import Loading from '../../components/ui/Loading/Loading';
 import ButtonLikeLink from '../../components/ui/buttons/ButtonLikeLink';
 import ScrollTop from '../../components/ScrollTop';
@@ -27,12 +29,25 @@ const SearchPage = () => {
     movieTotalPages, personTotalPages,
   } = useSelector((state) => state.searched);
 
+  const pageQuery = query.get('page');
+  const searchInQuery = query.get('in');
   const searchedName = query.get('search');
 
   useEffect(() => {
-    history.push(`/search?search=${searchedName}&page=${page}`);
-    dispatch(fetchSearch(searchedName, page));
-  }, [page, searchedName, history, dispatch]);
+    if (pageQuery) setPage(+pageQuery);
+    if (searchInQuery) {
+      if (searchInQuery === 'people' && toggle === false) setToggle(true);
+      if (searchInQuery === 'movies' && toggle === true) setToggle(false);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchedName]);
+
+  useEffect(() => {
+    const searchIn = toggle ? 'people' : 'movies';
+    history.push(`/search?search=${searchedName}&in=${searchIn}&page=${page}`);
+    if (searchIn === 'people')dispatch(fetchPeopleSearch(searchedName, page));
+    if (searchIn === 'movies')dispatch(fetchMoviesSearch(searchedName, page));
+  }, [page, searchedName, history, dispatch, toggle]);
 
   const toggleSearchHandler = () => {
     setPage(1);
@@ -73,6 +88,7 @@ const SearchPage = () => {
           {searchedMovie.length ? (
             <>
               <Pagination
+                key={`${movieTotalPages}-1`}
                 totalPages={movieTotalPages}
                 currentPage={page}
                 setCurrentPage={setPage}
@@ -91,6 +107,7 @@ const SearchPage = () => {
                 ))}
               </div>
               <Pagination
+                key={`${movieTotalPages}-2`}
                 totalPages={movieTotalPages}
                 currentPage={page}
                 setCurrentPage={setPage}
@@ -104,6 +121,7 @@ const SearchPage = () => {
           {searchedPerson.length ? (
             <>
               <Pagination
+                key={`${personTotalPages}-3`}
                 totalPages={personTotalPages}
                 currentPage={page}
                 setCurrentPage={setPage}
@@ -119,6 +137,7 @@ const SearchPage = () => {
                 ))}
               </div>
               <Pagination
+                key={`${personTotalPages}-4`}
                 totalPages={personTotalPages}
                 currentPage={page}
                 setCurrentPage={setPage}

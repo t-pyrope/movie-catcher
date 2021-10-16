@@ -38,7 +38,7 @@ const SearchComponent = () => {
 
   const searchMovieHandler = (e) => {
     e.preventDefault();
-    history.push(`/search?search=${textInput}`);
+    history.push(`/search?search=${textInput}&in=movies&page=1`);
     setTextInput('');
     liveSearch.current.classList.add('searchForm__liveSearch_hidden');
   };
