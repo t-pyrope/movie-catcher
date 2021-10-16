@@ -48,7 +48,7 @@ const MovieDetail = () => {
                   <h1>{detail.title}</h1>
                   <p className="info__countries">
                     <span className="info__country">
-                      {countries.length && countries.join(', ')}
+                      {countries.length ? countries.join(', ') : 'No information about country'}
                     </span>
                   </p>
                   <p className="info__genres">
@@ -64,7 +64,17 @@ const MovieDetail = () => {
                     {' '}
                     <img src={star} alt="rating" />
                     {' '}
-                    {detail.vote_average}
+                    {detail.vote_count === 0 ? 'not rated yet' : detail.vote_average}
+                    {' ('}
+                    <a
+                      href={`https://www.themoviedb.org/movie/${detail.id}`}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="link"
+                    >
+                      rate on TMDB
+                    </a>
+                    )
                   </p>
                 </div>
                 <div>

@@ -77,7 +77,9 @@ const GenresPage = () => {
             <Movie
               title={movie.title ? movie.title : movie.name}
               posterPath={movie.poster_path}
-              rating={movie.vote_average}
+              rating={movie.vote_count === 0
+                ? 'no rating'
+                : movie.vote_average}
               key={movie.id}
               id={movie.id}
             />

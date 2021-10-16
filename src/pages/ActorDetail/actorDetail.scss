@@ -71,6 +71,12 @@
         line-height: 1.3em;
     }
 
+    .link {
+        text-decoration-line: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 2px;
+    }
+
     @media (max-width: 1024px){
         display: block;
 

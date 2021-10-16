@@ -31,7 +31,10 @@ const Movie = ({
 
 Movie.propTypes = {
   title: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
   posterPath: PropTypes.string,
   id: PropTypes.number.isRequired,
 };
