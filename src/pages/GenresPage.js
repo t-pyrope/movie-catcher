@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useQuery from '../helpers/useQuery';
@@ -18,35 +18,42 @@ import SkeletonPageHeader from '../components/skeletons/SkeletonPageHeader';
 import '../components/Container/container.scss';
 
 const GenresPage = () => {
-  const [sortType, setSortType] = useState('popularity.desc');
-  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const history = useHistory();
   const {
-    genreMovies, totalPages, isLoading,
+    genreMovies, totalPages, isLoading, sortType,
   } = useSelector((state) => state.movies);
   const { genres } = useSelector((state) => state.genres);
+
   const query = useQuery();
   const pathName = query.get('genre');
-  const pageName = +query.get('page');
-
-  useEffect(() => {
-    if (pageName !== page) {
-      setPage(pageName);
-    }
-  }, [pathName]);
+  const page = +query.get('page');
+  const sortName = query.get('sort');
 
   useEffect(() => {
     if (genres.length) {
       const { id } = genres.filter((genre) => genre.name.toLowerCase() === pathName)[0];
-      dispatch(loadGenreMovies(id, page, sortType));
-      history.push(`/genres?genre=${pathName}&page=${page}`);
+      if (sortName === sortType) {
+        dispatch(loadGenreMovies(id, page, sortType));
+        history.push(`/genres?genre=${pathName}&sort=${sortType}&page=${page}`);
+      } else {
+        dispatch(loadGenreMovies(id, page, sortName));
+        history.push(`/genres?genre=${pathName}&sort=${sortName}&page=${page}`);
+      }
     }
-  }, [page, sortType, genres.length, pathName]);
+  }, [page, sortName, genres.length, pathName]);
 
   const titleHandler = () => {
     if (!pathName) return '';
     return `Genre: ${pathName[0].toUpperCase()}${pathName.slice(1)}`;
+  };
+
+  const setSorting = (type) => {
+    history.push(`/genres?genre=${pathName}&sort=${type}&page=1`);
+  };
+
+  const setPage = (p) => {
+    history.push(`/genres?genre=${pathName}&sort=${sortType}&page=${p}`);
   };
 
   return (
@@ -57,7 +64,7 @@ const GenresPage = () => {
           additionalComponent={(
             <SortComponent
               sortType={sortType}
-              setSortType={setSortType}
+              setSortType={setSorting}
             />
           )}
         />

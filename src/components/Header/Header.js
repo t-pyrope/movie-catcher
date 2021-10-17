@@ -43,9 +43,9 @@ const Header = () => {
     const selectName = e.target.name;
     const currentUrl = window.location.pathname + window.location.search;
     if (selectName === 'genre'
-      && currentUrl !== `/genres?genre=${selectId.toLowerCase()}&page=1`
+      && currentUrl !== `/genres?genre=${selectId.toLowerCase()}&sort=popularity.desc&page=1`
     ) {
-      history.push(`/genres?genre=${selectId.toLowerCase()}&page=1`);
+      history.push(`/genres?genre=${selectId.toLowerCase()}&sort=popularity.desc&page=1`);
     }
     if (selectName === 'year') history.push(`/year/${selectId}`);
 

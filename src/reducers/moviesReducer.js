@@ -10,6 +10,7 @@ const initState = {
   totalPages: 0,
   id: null,
   isFailed: false,
+  sortType: 'popularity.desc',
 };
 
 const moviesReducer = (state = initState, action) => {
@@ -47,6 +48,7 @@ const moviesReducer = (state = initState, action) => {
         isLoading: false,
         isFailed: false,
         id: action.payload.id,
+        sortType: action.payload.sortType,
       };
     case 'LOADING_DETAIL':
       return {

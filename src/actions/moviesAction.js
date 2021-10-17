@@ -60,6 +60,7 @@ export const loadGenreMovies = (genreId, page, sortType) => async (dispatch) => 
           genreMovies: res.data.results,
           totalPages: res.data.total_pages,
           id: genreId,
+          sortType,
         },
       });
     } else {
