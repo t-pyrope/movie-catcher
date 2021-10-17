@@ -8,15 +8,16 @@ import star from '../../img/star.png';
 const Movie = ({
   title, posterPath, rating, id,
 }) => {
-  const imgSrcHandler = () => {
-    if (posterPath === null) return noPoster;
-    return `https://image.tmdb.org/t/p/w500${posterPath}`;
-  };
-
   return (
     <Link to={`/movies/${id}`}>
       <article className="card">
-        <img src={imgSrcHandler()} alt={title} className="card__image" />
+        <img
+          src={posterPath
+            ? `https://image.tmdb.org/t/p/w500${posterPath}`
+            : noPoster}
+          alt={title}
+          className="card__image"
+        />
         <div className="card__desc card__desc_movie">
           <h4 className="card__title">{title}</h4>
           <div className="card__rating">

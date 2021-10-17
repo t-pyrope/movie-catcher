@@ -5,17 +5,16 @@ import noPhoto from '../../img/no-photo.png';
 import '../Card/card.scss';
 
 const Actor = ({ actorName, posterPath, id }) => {
-  const srcHandler = () => {
-    if (!posterPath) {
-      return noPhoto;
-    }
-    return `https://image.tmdb.org/t/p/w500${posterPath}`;
-  };
-
   return (
     <Link to={`/person/${id}`}>
       <article className="card">
-        <img className="card__image" src={srcHandler()} alt={actorName} />
+        <img
+          className="card__image"
+          src={posterPath
+            ? `https://image.tmdb.org/t/p/w500${posterPath}`
+            : noPhoto}
+          alt={actorName}
+        />
         <div className="card__desc">
           <h4 className="card__title">{actorName}</h4>
         </div>
