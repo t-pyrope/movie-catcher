@@ -48,13 +48,20 @@ const MovieDetail = () => {
                   <h1>{detail.title}</h1>
                   <p className="info__countries">
                     <span className="info__country">
-                      {countries.length ? countries.join(', ') : 'No information about country'}
+                      {countries.length
+                        ? countries.join(', ')
+                        : 'No information about country'}
                     </span>
                   </p>
                   <p className="info__genres">
                     {detail.genres.map((genre) => (
-                      <Link to={`/genres/${genre.id}`} key={genre.id}>
-                        <span className="info__genre">{genre.name}</span>
+                      <Link
+                        to={`/genres?genre=${genre.name.toLowerCase()}&sort=popularity.desc&page=1`}
+                        key={genre.id}
+                      >
+                        <span className="info__genre">
+                          {genre.name}
+                        </span>
                       </Link>
                     ))}
 
