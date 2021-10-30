@@ -43,11 +43,6 @@ const GenresPage = () => {
     }
   }, [page, sortName, genres.length, pathName]);
 
-  const titleHandler = () => {
-    if (!pathName) return '';
-    return `Genre: ${pathName[0].toUpperCase()}${pathName.slice(1)}`;
-  };
-
   const setSorting = (type) => {
     history.push(`/genres?genre=${pathName}&sort=${type}&page=1`);
   };
@@ -60,7 +55,9 @@ const GenresPage = () => {
     <main>
       {genres.length ? (
         <PageHeader
-          title={titleHandler()}
+          title={pathName
+            ? `Genre: ${pathName[0].toUpperCase()}${pathName.slice(1)}`
+            : ''}
           additionalComponent={(
             <SortComponent
               sortType={sortType}

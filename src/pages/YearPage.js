@@ -22,16 +22,15 @@ const YearPage = () => {
   }, [dispatch, pathName, sortType, page]);
 
   const { yearMovies, totalPages } = useSelector((state) => state.year);
-  const titleHandler = () => {
-    return +pathName ? `Popular in: ${pathName}` : 'Popular in 2021';
-  };
 
   return (
     <>
       {yearMovies.length ? (
         <main role="main">
           <PageHeader
-            title={titleHandler()}
+            title={+pathName
+              ? `Popular in: ${pathName}`
+              : 'Popular in 2021'}
             additionalComponent={(
               <SortComponent
                 sortType={sortType}
