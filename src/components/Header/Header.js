@@ -1,44 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import loadGenres from '../../actions/genresAction';
 import './header.scss';
 import SearchComponent from './SearchComponent';
+import NavDropdown from './NavDropdown';
+import years from './years';
 
 const Header = () => {
+  const [activeTab, setActiveTab] = useState(0);
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020];
 
   useEffect(() => {
     dispatch(loadGenres());
   }, [dispatch, location]);
 
+  useEffect(() => {
+    if (activeTab !== 0) setActiveTab(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
   const { genres } = useSelector((state) => state.genres);
 
-  const openListHandler = (e) => {
-    const parent = e.target.parentElement;
-    parent.children[1].style.opacity = 1;
-    parent.children[1].style.pointerEvents = 'all';
-    return null;
+  const toggleDropdown = (tab) => {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
+    } else if (activeTab !== 0) setActiveTab(0);
   };
 
-  const closeListHandler = (e) => {
-    const { classList } = e.target;
-    if (classList.contains('list')) {
-      const { style } = e.target;
-      style.opacity = 0;
-      style.pointerEvents = 'none';
-    } else if (classList.contains('list-item')) {
-      const { style } = e.target.parentElement;
-      style.opacity = 0;
-      style.pointerEvents = 'none';
-    }
+  const openPeopleHandler = () => {
+    history.push('/people');
   };
 
-  const selectHandler = (e) => {
-    e.stopPropagation();
+  const onDropItemClick = (e) => {
     const selectId = e.target.id;
     const selectName = e.target.name;
     const currentUrl = window.location.pathname + window.location.search;
@@ -52,13 +48,7 @@ const Header = () => {
     ) {
       history.push(`year?year=${selectId}&sort=popularity.desc&page=1`);
     }
-    const div = e.target.parentElement.parentElement;
-    div.style.opacity = 0;
-    div.style.pointerEvents = 'none';
-  };
-
-  const openPeopleHandler = () => {
-    history.push('/people');
+    setActiveTab(0);
   };
 
   return (
@@ -72,55 +62,42 @@ const Header = () => {
             <button
               className="mainNav__button"
               type="button"
-              onClick={openListHandler}
-              onKeyDown={openListHandler}
+              onClick={() => toggleDropdown(1)}
             >
               Genres
             </button>
-            {genres.length && (
-              <div className="list dropdown" onMouseLeave={closeListHandler}>
-                {genres.map((genre) => (
-                  <p key={genre.id} className="list-item">
-                    <button
-                      name="genre"
-                      className="mainNav__button mainNav__button_navItem"
-                      type="button"
-                      id={genre.name}
-                      onClick={selectHandler}
-                    >
-                      {genre.name}
-                    </button>
-                  </p>
-                ))}
-              </div>
-            )}
+            {genres.length
+              && activeTab === 1
+              && (
+              <NavDropdown
+                list={genres}
+                setActiveTab={onDropItemClick}
+              />
+              )}
           </li>
           <li className="mainNav__link mainNav__link_relative">
             <button
               type="button"
-              onClick={openListHandler}
+              onClick={() => toggleDropdown(2)}
               className="mainNav__button"
             >
               Popular in...
             </button>
-            <div className="list dropdown" onMouseLeave={closeListHandler}>
-              {years.map((year) => (
-                <p key={year} className="list-item">
-                  <button
-                    type="button"
-                    name="year"
-                    onClick={selectHandler}
-                    id={year}
-                    className="mainNav__button mainNav__button_navItem"
-                  >
-                    {year}
-                  </button>
-                </p>
-              ))}
-            </div>
+            {activeTab === 2 && (
+              <NavDropdown
+                list={years}
+                setActiveTab={onDropItemClick}
+              />
+            )}
           </li>
           <li className="mainNav__link">
-            <button type="button" onClick={openPeopleHandler} className="mainNav__button">People</button>
+            <button
+              type="button"
+              onClick={openPeopleHandler}
+              className="mainNav__button"
+            >
+              People
+            </button>
           </li>
           <li className="searchForm">
             <SearchComponent />
