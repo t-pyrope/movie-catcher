@@ -1,8 +1,15 @@
 .carousel {
     margin-bottom: 3rem;
+    overflow-x: hidden;
+    padding-top: 0.3rem;
+    margin-top: -0.3rem;
     &__wrapper {
         display: flex;
         flex-direction: column;
+    }
+
+    .card {
+        margin-right: 1rem;
     }
 
     &__inner {
