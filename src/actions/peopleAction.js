@@ -2,6 +2,7 @@ import axios from 'axios';
 import { peopleURL } from '../api';
 
 const loadPeople = (page) => async (dispatch) => {
+  dispatch({ type: 'LOADING_PEOPLE' });
   axios.get(peopleURL(page)).then((res) => {
     dispatch({
       type: 'LOAD_PEOPLE',
@@ -13,6 +14,7 @@ const loadPeople = (page) => async (dispatch) => {
   }).catch((err) => {
     // eslint-disable-next-line no-console
     console.error(err.message);
+    dispatch({ type: 'PEOPLE_FAILED' });
   });
 };
 

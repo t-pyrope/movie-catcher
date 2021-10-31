@@ -4,12 +4,13 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import useQuery from '../helpers/useQuery';
 import loadPeople from '../actions/peopleAction';
 import Actor from '../components/Actor/Actor';
-import Loading from '../components/ui/Loading/Loading';
 import PageHeader from '../components/PageHeader/PageHeader';
 import ScrollTop from '../components/ScrollTop';
 import Pagination from '../components/Pagination/Pagination';
 
 import '../components/Container/container.scss';
+import SkeletonPagination from '../components/skeletons/SkeletonPagination';
+import SkeletonMoviesContainer from '../components/skeletons/SkeletonMoviesContainer';
 
 const PeoplePage = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const PeoplePage = () => {
     history.push(`${url}?page=${page}`);
   }, [page, history, url, dispatch]);
 
-  const { people, peoplePages } = useSelector((state) => state.people);
+  const { people, peoplePages, isLoading } = useSelector((state) => state.people);
 
   return (
     <section aria-label="famous actors" className="movies">
@@ -42,9 +43,9 @@ const PeoplePage = () => {
           currentPage={page}
           setCurrentPage={setPage}
         />
-      ) : ''}
+      ) : <SkeletonPagination />}
       <div className="container_movies">
-        {people.length
+        {!isLoading
           ? people.map((famous) => (
             <Actor
               actorName={famous.name}
@@ -53,7 +54,7 @@ const PeoplePage = () => {
               id={famous.id}
             />
           ))
-          : <Loading />}
+          : <SkeletonMoviesContainer />}
       </div>
       {peoplePages ? (
         <Pagination
@@ -61,7 +62,7 @@ const PeoplePage = () => {
           currentPage={page}
           setCurrentPage={setPage}
         />
-      ) : ''}
+      ) : <SkeletonPagination />}
       <ScrollTop />
     </section>
   );
