@@ -16,10 +16,15 @@
     }
 
     &__card {
-        height: 200px;
+        height: 250px;
         width: 100%;
+        max-width: 215px;
         border-radius: 10px;
         background-color: #323232;
+
+        @media (max-width: 500px){
+            height: 300px;
+        }
     }
 
     &__header {
