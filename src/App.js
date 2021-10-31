@@ -50,7 +50,7 @@ function App() {
               <Route path="/genres">
                 {isFailed ? <Page404 /> : <GenresPage />}
               </Route>
-              <Route path="/year/:id">
+              <Route path="/year">
                 <YearPage />
               </Route>
               <Route path="/people">

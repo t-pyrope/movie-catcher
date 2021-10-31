@@ -47,8 +47,11 @@ const Header = () => {
     ) {
       history.push(`/genres?genre=${selectId.toLowerCase()}&sort=popularity.desc&page=1`);
     }
-    if (selectName === 'year') history.push(`/year/${selectId}`);
-
+    if (selectName === 'year'
+      && currentUrl !== `year?year=${selectId}&sort=popularity.desc&page=1`
+    ) {
+      history.push(`year?year=${selectId}&sort=popularity.desc&page=1`);
+    }
     const div = e.target.parentElement.parentElement;
     div.style.opacity = 0;
     div.style.pointerEvents = 'none';

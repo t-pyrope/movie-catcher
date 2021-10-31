@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PageHeader from '../components/PageHeader/PageHeader';
@@ -9,27 +9,47 @@ import SortComponent from '../components/Sort/Sort';
 import '../components/Container/container.scss';
 import Loading from '../components/ui/Loading/Loading';
 import Pagination from '../components/Pagination/Pagination';
+import useQuery from '../helpers/useQuery';
 
 const YearPage = () => {
   const history = useHistory();
-  const pathName = history.location.pathname.split('/')[2];
-  const [sortType, setSortType] = useState('popularity.desc');
-  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
+  const query = useQuery();
+  const year = query.get('year');
+  const page = +query.get('page');
+  const sortType = query.get('sort');
+
   useEffect(() => {
-    dispatch(fetchYearMovies(pathName, page, sortType));
-  }, [dispatch, pathName, sortType, page]);
+    if (!year) {
+      history.push('year?year=2021&sort=popularity.desc&page=1');
+    } else if (!page) {
+      history.push(`year?year=${year}&sort=popularity.desc&page=1`);
+    } else if (!sortType) {
+      history.push(`year?year=${year}&sort=popularity.desc&page=1`);
+    }
+    if (year && page && sortType) {
+      dispatch(fetchYearMovies(year, page, sortType));
+    }
+  }, [dispatch, year, sortType, page, history]);
 
   const { yearMovies, totalPages } = useSelector((state) => state.year);
+
+  const setSortType = (type) => {
+    history.push(`year?year=${year}&sort=${type}&page=1`);
+  };
+
+  const setPage = (p) => {
+    history.push(`year?year=${year}&sort=${sortType}&page=${p}`);
+  };
 
   return (
     <>
       {yearMovies.length ? (
         <main role="main">
           <PageHeader
-            title={+pathName
-              ? `Popular in: ${pathName}`
+            title={+year
+              ? `Popular in: ${year}`
               : 'Popular in 2021'}
             additionalComponent={(
               <SortComponent
