@@ -71,7 +71,8 @@ const Header = () => {
               && (
               <NavDropdown
                 list={genres}
-                setActiveTab={onDropItemClick}
+                onClick={onDropItemClick}
+                name="genre"
               />
               )}
           </li>
@@ -86,7 +87,8 @@ const Header = () => {
             {activeTab === 2 && (
               <NavDropdown
                 list={years}
-                setActiveTab={onDropItemClick}
+                onClick={onDropItemClick}
+                name="year"
               />
             )}
           </li>

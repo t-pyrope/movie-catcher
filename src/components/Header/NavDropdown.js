@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 
-const NavDropdown = ({ list, onClick }) => {
+const NavDropdown = ({ list, onClick, name }) => {
   return (
     <div className="list dropdown">
       { list.map((item) => (
         <p key={item.id} className="list-item">
           <button
-            name="genre"
+            name={name}
             className="mainNav__button mainNav__button_navItem"
             type="button"
             id={item.name}
@@ -29,4 +29,5 @@ NavDropdown.propTypes = {
     name: PropTypes.string.isRequired,
   })).isRequired,
   onClick: PropTypes.func.isRequired,
+  name: string.isRequired,
 };
