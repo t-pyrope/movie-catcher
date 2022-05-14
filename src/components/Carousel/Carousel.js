@@ -80,7 +80,13 @@ const Carousel = ({ movies, title }) => {
 };
 
 Carousel.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string,
+    name: PropTypes.string,
+    poster_path: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+  })).isRequired,
   title: PropTypes.string.isRequired,
 };
 

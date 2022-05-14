@@ -1,5 +1,5 @@
 import React from 'react';
-import notFound from '../../assets/images/error-404.svg';
+import notFound from '../../assets/images/error-404.png';
 import './page404.scss';
 
 const Page404 = () => {
