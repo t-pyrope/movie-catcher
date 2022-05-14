@@ -4,7 +4,7 @@ A simple website of movies.
 
 Check how it looks like here: [movie-catcher.netlify.app](https://movie-catcher.netlify.app/)
 
-I'm using a free API-key from [TMDB](https://www.themoviedb.org/)
+I'm using a free API-key from [TMDB](https://www.themoviedb.org/), and image for 404 from [Muhammad Ali](https://www.flaticon.com/authors/muhammad-ali)
 
 ### Usage
 1. Get the project to your computer
