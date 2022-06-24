@@ -4,16 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import useQuery from '../../helpers/useQuery';
 import {
-  fetchPeopleSearch, fetchMoviesSearch,
+  fetchPeopleSearch,
+  fetchMoviesSearch,
 } from '../../actions/searchAction';
 import Loading from '../../components/ui/Loading/Loading';
-import ButtonLikeLink from '../../components/ui/buttons/ButtonLikeLink';
 import ScrollTop from '../../components/ScrollTop';
 import Movie from '../../components/Movie/Movie';
 import Actor from '../../components/Actor/Actor';
 import Pagination from '../../components/Pagination/Pagination';
-import './searchPage.scss';
 import '../../components/Container/container.scss';
+import BackButton from '../../components/ui/buttons/BackButton';
+
+import './searchPage.scss';
 
 const SearchPage = () => {
   const history = useHistory();
@@ -24,9 +26,13 @@ const SearchPage = () => {
   const [toggle, setToggle] = useState(false);
 
   const {
-    searchedMovie, searchedPerson,
-    movieError, personError, searched,
-    movieTotalPages, personTotalPages,
+    searchedMovie,
+    searchedPerson,
+    movieError,
+    personError,
+    searched,
+    movieTotalPages,
+    personTotalPages,
   } = useSelector((state) => state.searched);
 
   const pageQuery = query.get('page');
@@ -39,14 +45,17 @@ const SearchPage = () => {
       if (searchInQuery === 'people' && toggle === false) setToggle(true);
       if (searchInQuery === 'movies' && toggle === true) setToggle(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchedName]);
 
   useEffect(() => {
     const searchIn = toggle ? 'people' : 'movies';
     history.push(`/search?search=${searchedName}&in=${searchIn}&page=${page}`);
-    if (searchIn === 'people')dispatch(fetchPeopleSearch(searchedName, page));
-    if (searchIn === 'movies')dispatch(fetchMoviesSearch(searchedName, page));
+    if (searchIn === 'people') {
+      dispatch(fetchPeopleSearch(searchedName, page));
+    } else if (searchIn === 'movies') {
+      dispatch(fetchMoviesSearch(searchedName, page));
+    }
   }, [page, searchedName, history, dispatch, toggle]);
 
   const toggleSearchHandler = () => {
@@ -56,11 +65,10 @@ const SearchPage = () => {
 
   return (
     <main role="main" className="searchPage">
-      <ButtonLikeLink callback={() => history.goBack()} text="Back" />
+      <BackButton onClick={() => history.goBack()} />
       <header className="searchPage__header">
         <h2 className="searchPage__title">
-          Results for:
-          {' '}
+          Results for:&nbsp;
           {searched}
         </h2>
         <motion.p
@@ -98,9 +106,9 @@ const SearchPage = () => {
                   <Movie
                     title={movie.title ? movie.title : movie.name}
                     posterPath={movie.poster_path}
-                    rating={movie.vote_count === 0
-                      ? 'no rating'
-                      : movie.vote_average}
+                    rating={
+                      movie.vote_count === 0 ? 'no rating' : movie.vote_average
+                    }
                     key={movie.id}
                     id={movie.id}
                   />
@@ -113,7 +121,9 @@ const SearchPage = () => {
                 setCurrentPage={setPage}
               />
             </>
-          ) : movieError || <Loading />}
+          ) : (
+            movieError || <Loading />
+          )}
         </div>
       )}
       {toggle && (
@@ -143,7 +153,9 @@ const SearchPage = () => {
                 setCurrentPage={setPage}
               />
             </>
-          ) : personError || <Loading />}
+          ) : (
+            personError || <Loading />
+          )}
         </div>
       )}
       <ScrollTop />

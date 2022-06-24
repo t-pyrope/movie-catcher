@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import loadPersonDetail from '../../actions/personDetailAction';
 import noPhoto from '../../img/no-photo.png';
-import ButtonLikeLink from '../../components/ui/buttons/ButtonLikeLink';
 import ScrollTop from '../../components/ScrollTop';
 import '../../components/Container/container.scss';
+import BackButton from '../../components/ui/buttons/BackButton';
+
 import './actorDetail.scss';
 import './accordion.scss';
 
@@ -19,7 +21,9 @@ const ActorDetail = () => {
     dispatch(loadPersonDetail(personId));
   }, [dispatch, personId]);
 
-  const { person, personMovies, isLoading } = useSelector((state) => state.person);
+  const { person, personMovies, isLoading } = useSelector(
+    (state) => state.person,
+  );
 
   const getPosterHandler = () => {
     return person.profile_path
@@ -28,61 +32,65 @@ const ActorDetail = () => {
   };
 
   const getPersonMoviesHandler = () => {
-    return (personMovies.map((movie) => (
+    return personMovies.map((movie) => (
       <Link to={`/movies/${movie.id}`} key={movie.id}>
         <li className="accordion__item_li">{movie.title}</li>
       </Link>
-    )));
+    ));
   };
 
   return (
     <>
-      {!isLoading
-      && (
-      <main className="container_actorPage" role="main">
-        <ButtonLikeLink callback={() => history.goBack()} text="Back" />
-        <div className="info">
-          <div className="info__desc">
-            <div className="info__basic">
-              <h1>{person.name}</h1>
-              <p className="info__countries">
-                {person.place_of_birth
-                  ? `From ${person.place_of_birth}`
-                  : 'No information about place of birth'}
-              </p>
-            </div>
-            <Toggle title="Biography" el={person.biography ?? 'No information'} />
-            <ul>
+      {!isLoading && (
+        <main className="container_actorPage" role="main">
+          <BackButton onClick={() => history.goBack()} />
+          <div className="info">
+            <div className="info__desc">
+              <div className="info__basic">
+                <h1>{person.name}</h1>
+                <p className="info__countries">
+                  {person.place_of_birth
+                    ? `From ${person.place_of_birth}`
+                    : 'No information about place of birth'}
+                </p>
+              </div>
               <Toggle
-                title="Filmography"
-                el={personMovies.length > 0
-                  ? getPersonMoviesHandler()
-                  : <li className="accordion__item_li">No information</li>}
+                title="Biography"
+                el={person.biography ?? 'No information'}
               />
-            </ul>
+              <ul>
+                <Toggle
+                  title="Filmography"
+                  el={
+                    personMovies.length > 0 ? (
+                      getPersonMoviesHandler()
+                    ) : (
+                      <li className="accordion__item_li">No information</li>
+                    )
+                  }
+                />
+              </ul>
+            </div>
+            <img
+              src={getPosterHandler()}
+              className="info__poster info__poster_actor"
+              alt={person.name}
+            />
           </div>
-          <img
-            src={getPosterHandler()}
-            className="info__poster info__poster_actor"
-            alt={person.name}
-          />
-        </div>
-        <ScrollTop />
-      </main>
+          <ScrollTop />
+        </main>
       )}
     </>
   );
 };
 
 const Toggle = ({ title, el }) => {
-  const isOpen = ((title === 'Biography') && (el.length < 400))
-    || ((title === 'Filmography') && (el.length < 6));
+  const isOpen = (title === 'Biography' && el.length < 400) || el.length < 6;
+
   return (
     <details className="accordion" open={isOpen}>
       <summary className="accordion__header">
-        <h2>
-          {title}
-        </h2>
+        <h2>{title}</h2>
       </summary>
       <p className="accordion__item accordion__item_text">
         {el.length ? el : 'No information'}

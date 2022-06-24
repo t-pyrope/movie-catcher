@@ -48,31 +48,26 @@ const YearPage = () => {
       {yearMovies.length ? (
         <main role="main">
           <PageHeader
-            title={+year
-              ? `Popular in: ${year}`
-              : 'Popular in 2021'}
-            additionalComponent={(
-              <SortComponent
-                sortType={sortType}
-                setSortType={setSortType}
-              />
-              )}
+            title={+year ? `${year}` : '2021'}
+            additionalComponent={
+              <SortComponent sortType={sortType} setSortType={setSortType} />
+            }
           />
-          {totalPages ? (
+          {totalPages && (
             <Pagination
               totalPages={totalPages}
               currentPage={page}
               setCurrentPage={setPage}
             />
-          ) : ''}
+          )}
           <div className="container_movies">
             {yearMovies.map((movie) => (
               <Movie
                 title={movie.title ? movie.title : movie.name}
                 posterPath={movie.poster_path}
-                rating={movie.vote_count === 0
-                  ? 'not rated yet'
-                  : movie.vote_average}
+                rating={
+                  movie.vote_count === 0 ? 'not rated yet' : movie.vote_average
+                }
                 key={movie.id}
                 id={movie.id}
               />
@@ -80,7 +75,9 @@ const YearPage = () => {
           </div>
           <ScrollTop />
         </main>
-      ) : <Loading />}
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };

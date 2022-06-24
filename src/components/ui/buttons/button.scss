@@ -62,4 +62,12 @@
             pointer-events: none;
         }
     }
+
+    &_back {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        gap: 1ch;
+        font-size: 1.1rem;
+    }
 }

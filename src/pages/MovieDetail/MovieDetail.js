@@ -5,9 +5,10 @@ import loadDetail from '../../actions/detailAction';
 import star from '../../img/star.png';
 import noPoster from '../../img/no-poster.png';
 import Loading from '../../components/ui/Loading/Loading';
-import ButtonLikeLink from '../../components/ui/buttons/ButtonLikeLink';
 import ScrollTop from '../../components/ScrollTop';
 import '../../components/Container/container.scss';
+import BackButton from '../../components/ui/buttons/BackButton';
+
 import '../ActorDetail/actorDetail.scss';
 
 const MovieDetail = () => {
@@ -38,63 +39,65 @@ const MovieDetail = () => {
 
   return (
     <>
-      {!isLoading
-        ? (
-          <main className="container_moviePage">
-            <ButtonLikeLink callback={() => history.goBack()} text="Back" />
-            <div className="info">
-              <div className="info__desc">
-                <div className="info__basic">
-                  <h1>{detail.title}</h1>
-                  <p className="info__countries">
-                    <span className="info__country">
-                      {countries.length
-                        ? countries.join(', ')
-                        : 'No information about country'}
-                    </span>
-                  </p>
-                  <p className="info__genres">
-                    {detail.genres.map((genre) => (
-                      <Link
-                        to={`/genres?genre=${genre.name.toLowerCase()}&sort=popularity.desc&page=1`}
-                        key={genre.id}
-                      >
-                        <span className="info__genre">
-                          {genre.name}
-                        </span>
-                      </Link>
-                    ))}
-
-                  </p>
-                  <p className="info__rating">
-                    Rating:
-                    {' '}
-                    <img src={star} alt="rating" />
-                    {' '}
-                    {detail.vote_count === 0 ? 'not rated yet' : detail.vote_average}
-                    {' ('}
-                    <a
-                      href={`https://www.themoviedb.org/movie/${detail.id}`}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="link"
+      {!isLoading ? (
+        <main className="container_moviePage">
+          <BackButton onClick={() => history.goBack()} />
+          <div className="info">
+            <div className="info__desc">
+              <div className="info__basic">
+                <h1>{detail.title}</h1>
+                <p className="info__countries">
+                  <span className="info__country">
+                    {countries.length
+                      ? countries.join(', ')
+                      : 'No information about country'}
+                  </span>
+                </p>
+                <p className="info__genres">
+                  {detail.genres.map((genre) => (
+                    <Link
+                      to={`/genres?genre=${genre.name.toLowerCase()}&sort=popularity.desc&page=1`}
+                      key={genre.id}
                     >
-                      rate on TMDB
-                    </a>
-                    )
-                  </p>
-                </div>
-                <div>
-                  <h2>Description</h2>
-                  <p className="info__overview">{detail.overview}</p>
-                </div>
+                      <span className="info__genre">{genre.name}</span>
+                    </Link>
+                  ))}
+                </p>
+                <p className="info__rating">
+                  Rating:&nbsp;
+                  <img src={star} alt="rating" />
+                  &nbsp;
+                  {detail.vote_count === 0
+                    ? 'not rated yet'
+                    : detail.vote_average}
+                  {' ('}
+                  <a
+                    href={`https://www.themoviedb.org/movie/${detail.id}`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="link"
+                  >
+                    rate on TMDB
+                  </a>
+                  )
+                </p>
               </div>
-              <img src={getPosterHandler()} className="info__poster" alt={detail.title} />
+              <div>
+                <h2>Description</h2>
+                <p className="info__overview">{detail.overview}</p>
+              </div>
             </div>
-            <ScrollTop />
-          </main>
-        )
-        : <Loading />}
+            <img
+              src={getPosterHandler()}
+              className="info__poster"
+              alt={detail.title}
+            />
+          </div>
+          <ScrollTop />
+        </main>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };

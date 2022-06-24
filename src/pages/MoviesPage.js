@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import Movie from '../components/Movie/Movie';
 import {
-  loadAdultsMovies, loadKidsMovies, loadTrendingMovies,
+  loadAdultsMovies,
+  loadKidsMovies,
+  loadTrendingMovies,
 } from '../actions/moviesAction';
 import ScrollTop from '../components/ScrollTop';
 import { titleAnim } from '../animation';
@@ -38,8 +40,12 @@ const MoviesPage = () => {
   }, [dispatch, trendPeriod, sortType, page, pathName]);
 
   const {
-    trending, kids, adults,
-    trendingTotal, kidsTotal, adultsTotal,
+    trending,
+    kids,
+    adults,
+    trendingTotal,
+    kidsTotal,
+    adultsTotal,
   } = useSelector((state) => state.movies);
 
   useEffect(() => {
@@ -56,9 +62,18 @@ const MoviesPage = () => {
       setArr([...adults]);
       setTotal(adultsTotal);
     } else {
-      <Redirect to="/404" />;
+      history.push('/404');
     }
-  }, [adults, adultsTotal, kids, kidsTotal, trending, trendingTotal, pathName]);
+  }, [
+    adults,
+    adultsTotal,
+    kids,
+    kidsTotal,
+    trending,
+    trendingTotal,
+    pathName,
+    history,
+  ]);
 
   const setTrendPeriodHandler = (e) => {
     setTrendPeriod(e.target.value);
@@ -68,55 +83,53 @@ const MoviesPage = () => {
     <div>
       <motion.div variants={titleAnim} initial="hidden" animate="show">
         {title && (
-        <PageHeader
-          title={title}
-          additionalComponent={pathName === 'trending' ? (
-            <SortMain
-              val={trendPeriod}
-              callback={setTrendPeriodHandler}
-            />
-          ) : (
-            <SortComponent
-              sortType={sortType}
-              setSortType={setSortType}
-            />
-          )}
-        />
-        ) }
-      </motion.div>
-      {total
-        ? (
-          <Pagination
-            totalPages={total}
-            currentPage={page}
-            setCurrentPage={setPage}
+          <PageHeader
+            title={title}
+            additionalComponent={
+              pathName === 'trending' ? (
+                <SortMain val={trendPeriod} callback={setTrendPeriodHandler} />
+              ) : (
+                <SortComponent sortType={sortType} setSortType={setSortType} />
+              )
+            }
           />
-        )
-        : ''}
+        )}
+      </motion.div>
+      {total ? (
+        <Pagination
+          totalPages={total}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      ) : (
+        ''
+      )}
       {arr.length ? (
         <div className="container_movies">
           {arr.map((movie) => (
             <Movie
               title={movie.title ? movie.title : movie.name}
               posterPath={movie.poster_path}
-              rating={movie.vote_count === 0
-                ? 'not rated yet'
-                : movie.vote_average}
+              rating={
+                movie.vote_count === 0 ? 'not rated yet' : movie.vote_average
+              }
               key={movie.id}
               id={movie.id}
             />
           ))}
         </div>
-      ) : ''}
-      {total
-        ? (
-          <Pagination
-            totalPages={total}
-            currentPage={page}
-            setCurrentPage={setPage}
-          />
-        )
-        : ''}
+      ) : (
+        ''
+      )}
+      {total ? (
+        <Pagination
+          totalPages={total}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      ) : (
+        ''
+      )}
       <ScrollTop />
     </div>
   );
