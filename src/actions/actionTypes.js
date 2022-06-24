@@ -1,0 +1,3 @@
+export const LOADING_DETAIL = 'LOADING_DETAIL';
+export const FETCH_DETAIL = 'FETCH_DETAIL';
+export const LOAD_MOVIE_FAILED = 'LOAD_MOVIE_FAILED';
