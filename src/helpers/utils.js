@@ -7,8 +7,7 @@ const search = async (query) => {
   }
   source = axios.CancelToken.source();
   const res = await axios.get(query, { cancelToken: source.token });
-  const result = res.data;
-  return result;
+  return res.data;
 };
 
 export default search;

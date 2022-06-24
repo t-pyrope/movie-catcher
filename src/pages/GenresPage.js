@@ -20,9 +20,10 @@ import '../components/Container/container.scss';
 const GenresPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {
-    genreMovies, totalPages, isLoading, sortType,
-  } = useSelector((state) => state.movies);
+  const { genreMovies, totalPages, isLoading, sortType } = useSelector(
+    (state) => state.movies,
+  );
+
   const { genres } = useSelector((state) => state.genres);
 
   const query = useQuery();
@@ -32,7 +33,9 @@ const GenresPage = () => {
 
   useEffect(() => {
     if (genres.length) {
-      const { id } = genres.filter((genre) => genre.name.toLowerCase() === pathName)[0];
+      const { id } = genres.filter(
+        (genre) => genre.name.toLowerCase() === pathName,
+      )[0];
       if (sortName === sortType) {
         dispatch(loadGenreMovies(id, page, sortType));
         history.push(`/genres?genre=${pathName}&sort=${sortType}&page=${page}`);
@@ -55,50 +58,49 @@ const GenresPage = () => {
     <main>
       {genres.length ? (
         <PageHeader
-          title={pathName
-            ? `Genre: ${pathName[0].toUpperCase()}${pathName.slice(1)}`
-            : ''}
-          additionalComponent={(
-            <SortComponent
-              sortType={sortType}
-              setSortType={setSorting}
-            />
-          )}
+          title={
+            pathName ? `${pathName[0].toUpperCase()}${pathName.slice(1)}` : ''
+          }
+          additionalComponent={
+            <SortComponent sortType={sortType} setSortType={setSorting} />
+          }
         />
-      ) : <SkeletonPageHeader />}
-      { !isLoading
-        ? (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={page}
-            setCurrentPage={setPage}
-          />
-        )
-        : <SkeletonPagination />}
+      ) : (
+        <SkeletonPageHeader />
+      )}
+      {!isLoading ? (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      ) : (
+        <SkeletonPagination />
+      )}
       <div className="container_movies">
-        {!isLoading
-          ? genreMovies.map((movie) => (
+        {!isLoading ? (
+          genreMovies.map((movie) => (
             <Movie
               title={movie.title ? movie.title : movie.name}
               posterPath={movie.poster_path}
-              rating={movie.vote_count === 0
-                ? 'no rating'
-                : movie.vote_average}
+              rating={movie.vote_count === 0 ? 'no rating' : movie.vote_average}
               key={movie.id}
               id={movie.id}
             />
           ))
-          : <SkeletonMoviesContainer />}
+        ) : (
+          <SkeletonMoviesContainer />
+        )}
       </div>
-      { !isLoading
-        ? (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={page}
-            setCurrentPage={setPage}
-          />
-        )
-        : <SkeletonPagination />}
+      {!isLoading ? (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      ) : (
+        <SkeletonPagination />
+      )}
       <ScrollTop />
     </main>
   );
