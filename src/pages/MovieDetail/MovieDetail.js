@@ -25,7 +25,7 @@ const MovieDetail = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (detail.production_countries) {
+    if (detail) {
       const c = detail.production_countries.map((country) => country.name);
       setCountries(c);
     }
