@@ -39,7 +39,7 @@ const MovieDetail = () => {
 
   return (
     <>
-      {!isLoading ? (
+      {!isLoading && detail ? (
         <main className="container_moviePage">
           <BackButton onClick={() => history.goBack()} />
           <div className="info">

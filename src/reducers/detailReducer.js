@@ -5,7 +5,7 @@ import {
 } from '../actions/actionTypes';
 
 const initState = {
-  detail: {},
+  detail: null,
   isLoading: false,
   isMovieFailed: false,
 };
@@ -13,7 +13,12 @@ const initState = {
 const detailReducer = (state = initState, action) => {
   switch (action.type) {
     case LOADING_DETAIL:
-      return { ...state, isLoading: true, detail: {}, isMovieFailed: false };
+      return {
+        ...state,
+        isLoading: true,
+        detail: null,
+        isMovieFailed: false,
+      };
     case FETCH_DETAIL:
       return {
         ...state,
@@ -25,6 +30,7 @@ const detailReducer = (state = initState, action) => {
       return {
         ...state,
         isLoading: false,
+        detail: null,
         isMovieFailed: true,
       };
     default:
