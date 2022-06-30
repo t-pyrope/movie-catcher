@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
 } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,9 +21,11 @@ const Carousel = ({ movies, title }) => {
     const width = window.window.innerWidth;
     if (width > 1200) {
       return 5;
-    } if (width > 1000) {
+    }
+    if (width > 1000) {
       return 4;
-    } if (width > 900) {
+    }
+    if (width > 900) {
       return 3;
     }
     return 2;
@@ -43,12 +49,12 @@ const Carousel = ({ movies, title }) => {
     >
       <CarouselProvider
         naturalSlideWidth={100}
-        naturalSlideHeight={100}
         totalSlides={19}
         visibleSlides={setElementNumberHandler()}
         step={setElementStepHandler()}
         interval={5000}
         isPlaying
+        isIntrinsicHeight
       >
         <div className="carousel__wrapper">
           <Slider className="carousel__slider">
@@ -67,11 +73,18 @@ const Carousel = ({ movies, title }) => {
             </motion.div>
           </Slider>
           <div className="carousel__controls">
-            <ButtonBack className="button-back carousel__button"><FontAwesomeIcon icon={faAngleLeft} size="2x" /></ButtonBack>
-            <Link to={`/highlights/${title}`} className="carousel__button carousel__button_submit">
+            <ButtonBack className="button-back carousel__button">
+              <FontAwesomeIcon icon={faAngleLeft} size="2x" />
+            </ButtonBack>
+            <Link
+              to={`/highlights/${title}`}
+              className="carousel__button carousel__button_submit"
+            >
               View All
             </Link>
-            <ButtonNext className="button-next carousel__button"><FontAwesomeIcon icon={faAngleRight} size="2x" /></ButtonNext>
+            <ButtonNext className="button-next carousel__button">
+              <FontAwesomeIcon icon={faAngleRight} size="2x" />
+            </ButtonNext>
           </div>
         </div>
       </CarouselProvider>
@@ -80,13 +93,15 @@ const Carousel = ({ movies, title }) => {
 };
 
 Carousel.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string,
-    name: PropTypes.string,
-    poster_path: PropTypes.string.isRequired,
-    vote_average: PropTypes.number.isRequired,
-  })).isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string,
+      name: PropTypes.string,
+      poster_path: PropTypes.string.isRequired,
+      vote_average: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
   title: PropTypes.string.isRequired,
 };
 
